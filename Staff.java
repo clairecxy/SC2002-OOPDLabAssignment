@@ -183,4 +183,5 @@ public class Staff {
     // Method to print a performance report of a camp
     public void printPerformanceReport(Camp camp) {
         
-           
+    }
+}

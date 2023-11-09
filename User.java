@@ -1,12 +1,12 @@
 public class User {
     private String userID;
     private String faculty;
-    private String password;
+    //default password is passwordss
+    private String password = "password";
 
-    public User(String userID, String faculty, String password) {
+    public User(String userID, String faculty) {
         this.userID = userID;
         this.faculty = faculty;
-        this.password = password;
     }
 
     public String getUserID() {
