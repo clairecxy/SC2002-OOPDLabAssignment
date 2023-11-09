@@ -5,8 +5,8 @@ public class Student extends User {
     private List<Camp> enrolledCamps;
     private List<Camp> withdrawnCamps;
 
-    public Student(String userID, String faculty, String password) {
-        super(userID, faculty, password);
+    public Student(String userID, String faculty) {
+        super(userID, faculty);
         enrolledCamps = new ArrayList<>();
         withdrawnCamps = new ArrayList<>();
     }
