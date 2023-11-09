@@ -2,6 +2,7 @@ public class Enquiry {
     private Student student;
     private Camp camp;
     private String enquiryText;
+    private boolean isReplied = false;
     private String enquiryReply;
 
     public void setStudent(Student student) {
@@ -34,5 +35,9 @@ public class Enquiry {
 
     public String getEnquiryReply() {
         return enquiryReply;
+    }
+
+    public void replied(){
+        this.isReplied = true;
     }
 }
