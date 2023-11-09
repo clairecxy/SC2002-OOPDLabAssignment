@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class Camp{
     private String campName;
     private String startDate;
@@ -11,10 +14,10 @@ public class Camp{
     private String description;
     private Staff staffInCharge;
     private boolean visible = true;
-    private Student[] attendees;
-    private CampCommittee[] committeeMembers;
-    private Enquiry[] enquiry;
-    private Suggestion[] suggestion;
+    private List<Student> attendees;
+    private List<CampCommittee> committeeMembers;
+    private List<Enquiry> enquiry;
+    private List<Suggestion> suggestion;
 
     public Camp(String name, String start, String end, String endReg, String users, String locationStr, 
                 int slots, int commSlots, String desc, Staff staffIC){
@@ -31,24 +34,13 @@ public class Camp{
         setDescription(desc);
         this.staffInCharge = staffIC;       
 
-        this.attendees = new Student[this.totalSlots];      //intialised to a null array
-        for (int slot=0; slot<this.totalSlots; slot++){
-            attendees[slot] = null;
-        }
-        this.committeeMembers = new CampCommittee[this.committeeSlots];     //intialised to a null array
-        for (int slotComm=0; slotComm<this.committeeSlots; slotComm++){
-            committeeMembers[slotComm] = null;
-        }
+        this.attendees = new ArrayList<>();    
+        
+        this.committeeMembers = new ArrayList<>(); 
 
-        this.enquiry = new Enquiry[100];        //intialised to a null array of size 100
-        for (int enq=0; enq<100; enq++){
-            enquiry[enq] = null;
-        }
+        this.enquiry = new ArrayList<>();      
 
-        this.suggestion = new Suggestion[100];        //intialised to a null array of size 100
-        for (int sugg=0; sugg<100; sugg++){
-            suggestion[sugg] = null;
-        }
+        this.suggestion = new ArrayList<>();
     }
 
     public String getCampName(){
@@ -95,24 +87,28 @@ public class Camp{
         return this.visible;
     }
 
-    public Student[] getAttendees(){
+    public List<Student> getAttendees(){
         return this.attendees;
     }
 
-    public CampCommittee[] getCommitteeMembers(){
+    public List<CampCommittee> getCommitteeMembers(){
         return this.committeeMembers;
     } 
 
-    public Enquiry getNewEnquiry(){
-        int enquiries = 0;
-        while (this.enquiry[enquiries].enquiryReply != null){
-            enquiries++;
-        }
-        if(this.enquiry[enquiries].enquiryReply == null)
-        return this.enquiry[enquiries];
+    public List<Enquiry> getAllEnquiries(){
+        return this.enquiry;
     }
 
-    public Suggestion[] getSuggestion(){
+    // public Enquiry getNewEnquiry(){
+    //     int enquiries = 0;
+    //     while (this.enquiry[enquiries].getEnquiryReply() != null){
+    //         enquiries++;
+    //     }
+    //     if(this.enquiry[enquiries].getEnquiryReply() == null)
+    //     return this.enquiry[enquiries];
+    // }
+
+    public List<Suggestion> getSuggestion(){
         return this.suggestion;
     }
 
@@ -143,12 +139,7 @@ public class Camp{
     public void setTotalSlots(int slots){
         this.totalSlots = slots;
 
-        this.remainingSlots = 0;
-        for (int checkAvail=0; checkAvail<slots; checkAvail++){
-            if (this.attendees[checkAvail] == null){
-                this.remainingSlots++;
-            }
-        }
+        this.remainingSlots = this.totalSlots - this.attendees.size();
     }
 
     public void setCommitteeSlots(int commSlots){
@@ -170,63 +161,40 @@ public class Camp{
 
     
     public void addEnquiry(Enquiry query){
-        int queryCount = 0;
-        while(this.enquiry[queryCount] != null){
-            queryCount++;
-        }
-        if (this.enquiry[queryCount] == null){
-            this.enquiry[queryCount] = query;
-        }
+        this.enquiry.add(query);
     }
 
     public void addSuggestion(Suggestion suggest){
-        int suggestCount = 0;
-        while(this.suggestion[suggestCount] != null){
-            suggestCount++;
-        }
-        if (this.suggestion[suggestCount] == null){
-            this.suggestion[suggestCount] = suggest;
-        }
+        this.suggestion.add(suggest);
     }
     
-    public void addCommitteeMembers(CampCommittee[] campCommMember){
-        for (int commslot=0; commslot<this.committeeSlots; commslot++){
-            if(attendees[commslot] != null){
-                attendees[commslot] = campCommMember;
-                break;
-            }
-        }
+    public void addCommitteeMembers(CampCommittee campCommMember){
+        this.committeeMembers.add(campCommMember);
     }
 
     public void addAttendees(Student attendee){
-        if (remainingSlots() == 0){
+        if (remainingSlots == 0){
             System.out.println("There are no more slots for this camp.");
             break;
         }
-        for (int slot=0; slot<this.totalSlots; slot++){
-            if(attendees[slot] != null){
-                attendees[slot] = attendee;
-                System.out.println("Successfully joined camp.");
-                break;
-            }
+        else{
+            this.attendees.add(attendee);
         }
     }
 
     public void removeAttendees(Student attendee){
 
-        for (int comms = 0; comms<committeeSlots; comm++){      //reject quit if in committee
-            if (committeeMembers[comms].getUserID() == attendee.getUserID()){
-                System.out.println("Committee members cannot quit camp.");
-                break;
-            }
-        }
+        // if (committeeMembers.contains(attendee))
+        // for (int comms = 0; comms<committeeSlots; comm++){      //reject quit if in committee
+        //     if (committeeMembers[comms].getUserID() == attendee.getUserID()){
+        //         System.out.println("Committee members cannot quit camp.");
+        //         break;
+        //     }
+        // }
 
-        for (int slot=0; slot<this.totalSlots; slot++){     //successful quit
-            if(attendees[slot] == attendee){
-                attendees[slot] = null;
-                System.out.println("Student: " + attendee + " successfully quit from " + this.campName);
-                break;
-            }
+        if (this.attendees.contains(attendee)){
+            this.attendees.remove(attendee);
+            System.out.println("Student: " + attendee + " successfully quit from " + this.campName);
         }
     }
 }
