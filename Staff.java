@@ -172,7 +172,7 @@ public class Staff extends User {
             System.out.println("Committee Slots: " + camp.getCommitteeSlots());
             System.out.println("Description: " + camp.getDescription());
             System.out.println("Enquiries and Replies:");
-            for (Enquiry enquiry : camp.getAllEnquiry()) { 
+            for (Enquiry enquiry : camp.getAllEnquiries()) { 
                 String enquiryText = enquiry.getEnquiryText();
                 String enquiryReply = enquiry.getEnquiryReply(); // Assumes enquiry has been replied to
 
