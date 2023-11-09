@@ -29,11 +29,11 @@ public class CampApplicationSystem {
         return allCamps;
     }
 
-    public void setAllUser(User user) {
+    public void addUser(User user) {
         allUsers.add(user);
     }
 
-    public void setAllCamp(Camp camp) {
+    public void addCamp(Camp camp) {
         allCamps.add(camp);
     }
 }
