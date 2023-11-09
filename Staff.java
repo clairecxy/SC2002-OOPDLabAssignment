@@ -1,9 +1,12 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class Staff {
     private List<Camp> createdCampsList;
     private CampApplicationSystem campApplicationSystem;
+    private Scanner scanner;
 
     public Staff(CampApplicationSystem campSystem) {
         this.createdCampsList = new ArrayList<>();
@@ -87,45 +90,97 @@ public class Staff {
         return this.campApplicationSystem.getAllCamp();
     }
 
-    public Enquiry[] viewEnquiries(Camp camp) {
-        if (this.createdCampsList.contains(camp)) {
-            return camp.getEnquiries().toArray(new Enquiry[0]);
+    public List<Enquiry> viewEnquiries() {
+        List<Enquiry> allEnquiries = new ArrayList<>();
+        for (Camp camp : this.createdCampsList) {
+            allEnquiries.addAll(camp.getEnquiryText());
         }
-        return new Enquiry[0];
+        return allEnquiries;
     }
 
     public boolean replyEnquiry(Enquiry enquiry, String reply) {
-        // Here we assume the Enquiry class has a method to set a reply
-        if (enquiry != null) {
-            enquiry.setReply(reply);
-            return true;
+            // Check if the staff member is in charge of the camp associated with the enquiry
+            if (this.createdCampsList.contains(enquiry.getCamp())) {
+                enquiry.setEnquiryReply(reply);
+                return true; // reply was successfully added to the enquiry
+            }
+            return false; // The staff member is not in charge of the camp, or the camp was not found
         }
-        return false;
+
+    public void viewAndReplyToEnquiries() {
+        this.scanner = new Scanner(System.in);
+        List<Enquiry> enquiries = this.viewEnquiries();
+
+        // Display enquiries with an index
+        for (int i = 0; i < enquiries.size(); i++) {
+            Enquiry enquiry = enquiries.get(i);
+            System.out.println((i + 1) + "Enquiry about " + enquiry.getCampName() +
+                               "\n" + enquiry.getEnquiryText());
+        }
+
+        // Prompt staff to select enquiry
+        System.out.println("Enter the number of the enquiry you wish to reply to:");
+        int enquiryIndex = scanner.nextInt() - 1;
+        scanner.nextLine(); // Consume newline
+
+        // Check validity of enq index
+        if (enquiryIndex < 0 || enquiryIndex >= enquiries.size()) {
+            System.out.println("Invalid enquiry number.");
+            return;
+        }
+
+        // Prompt reply
+        System.out.println("Enter your reply:");
+        String reply = scanner.nextLine();
+
+        // send reply
+        boolean success = this.replyEnquiry(enquiries.get(enquiryIndex), reply);
+
+        if (success) {
+            System.out.println("Reply was successfully posted.");
+        } else {
+            System.out.println("Failed to post reply. The enquiry does not belong to a camp created by this staff member.");
+        }
     }
 
-    public Suggestion[] viewSuggestions(Camp camp) {
-        if (this.createdCampsList.contains(camp)) {
-            return camp.getSuggestionText().toArray(new Suggestion[0]);
+    public List<Suggestion> viewSuggestions() {
+        List<Suggestion> allSuggestions = new ArrayList<>();
+        for (Camp camp : this.createdCampsList) {
+            allSuggestions.addAll(camp.getSuggestionText());
         }
-        return new Suggestion[0];
+        return allEnquiries;
     }
 
-    public void approveSuggestion(Camp camp) {
-        // Here we assume there's a method in Camp to approve a suggestion
-        // and that suggestions are managed as a list or set within the Camp.
-        camp.approveNextSuggestion();
+    public boolean approveSuggestion(Suggestion suggestion) {
+        // Verify that the suggestion is for a camp that this staff member has created
+        if (this.createdCampsList.contains(suggestion.getCamp())) {
+            suggestion.setSuggestionAccepted(true);
+            return true; // Suggestion was successfully approved
+        }
+        return false; // Suggestion not found in the camps created by this staff, or staff not in charge
     }
 
     public void printGeneralReport(Camp camp, String filter) {
-        // Assuming there's a method in Camp to generate a report
-        // For simplicity, we'll just print the name of the camp and the filter
         if (this.createdCampsList.contains(camp)) {
             String report = camp.generateReport(filter);
             System.out.println(report);
         }
+    }  
+    
+    public void printGeneralReport(Camp camp, String filter) {
+        // Check if the camp is in the list of camps this staff member has created
+        if (this.createdCampsList.contains(camp)) {
+            System.out.println("General report for camp: " + camp.getCampName());
+            if ("attendees".equals(filter)) {
+                System.out.println("Number of attendees: " + camp.getAttendees().length);
+            }
+        
+        } else {
+            System.out.println("Cannot print report: Camp not found in your created camps list.");
+        }
     }
 
+    // Method to print a performance report of a camp
     public void printPerformanceReport(Camp camp) {
-        // Assuming there's a method
-
-        svbsrbb
+        
+           
