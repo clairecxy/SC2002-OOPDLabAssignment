@@ -3,14 +3,15 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
-public class Staff {
+public class Staff extends User {
     private List<Camp> createdCampsList;
-    private CampApplicationSystem campApplicationSystem;
+    //private CampApplicationSystem campApplicationSystem;
     private Scanner scanner;
 
-    public Staff(CampApplicationSystem campSystem) {
+    public Staff(String userID, String faculty, String password) {
+        super(userID, faculty, password);
         this.createdCampsList = new ArrayList<>();
-        this.campApplicationSystem = campSystem;
+        //this.campApplicationSystem = campSystem;
     }
 
     public boolean createCamp() {
