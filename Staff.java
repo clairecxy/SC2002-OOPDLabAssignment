@@ -1,12 +1,11 @@
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
-import java.util.stream.Collectors;
+//import java.util.Scanner;
 
 public class Staff extends User {
     private List<Camp> createdCampsList;
     //private CampApplicationSystem campApplicationSystem;
-    private Scanner scanner;
+    //private Scanner scanner;
 
     public Staff(String userID, String faculty) {
         super(userID, faculty);
@@ -217,8 +216,8 @@ public class Staff extends User {
                             System.out.println("No committee members to display.");
                         } else {
                             // Iterate over the list of attendees and print their details
-                            for (CampCommittee committeeMembers : committeeMembers) {
-                                System.out.println("Committee Members UserID: " + committeeMembers.getUserID());
+                            for (CampCommittee committeeMembersAttendees : committeeMembers) {
+                                System.out.println("Committee Members UserID: " + committeeMembersAttendees.getUserID());
                             }
                         }
                     }
@@ -239,9 +238,9 @@ public class Staff extends User {
                             System.out.println("No committee members to display.");
                         } else {
                             // Iterate over the list of attendees and print their details
-                            for (CampCommittee committeeMembers : committeeMembers) {
-                                System.out.println("Committee Members UserID: " + committeeMembers.getUserID());
-                                System.out.println("Committee Members Points: " + committeeMembers.());
+                            for (CampCommittee committeeMembersPoints : committeeMembers) {
+                                System.out.println("Committee Members UserID: " + committeeMembersPoints.getUserID());
+                                System.out.println("Committee Members Points: " + committeeMembersPoints.calculatePoints());
                             }
                         }
                     }

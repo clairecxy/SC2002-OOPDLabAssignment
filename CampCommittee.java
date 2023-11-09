@@ -33,7 +33,7 @@ public class CampCommittee extends Student {
         return camp;
     }
 
-    public boolean submitSuggestion(String suggestion) {
+    public void submitSuggestion(String suggestion) {
         Suggestion newSuggestion = new Suggestion();
         newSuggestion.setCampCommittee(this);
         newSuggestion.setCamp(camp); 
@@ -67,7 +67,7 @@ public class CampCommittee extends Student {
     }
     
     public void viewEnquiries() {
-        List<Enquiry> enquiries = camp.getNewEnquiry();
+        List<Enquiry> enquiries = camp.getAllEnquiries();
     
         if (enquiries != null && !enquiries.isEmpty()) {
             System.out.println("Enquiries for Camp: " + camp.getCampName() + "\n");

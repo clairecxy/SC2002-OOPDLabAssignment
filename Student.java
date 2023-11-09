@@ -53,13 +53,13 @@ public class Student extends User {
         }
     }
     
-    public boolean submitEnquiry(Camp camp, String enquiry) {
+    public void submitEnquiry(Camp camp, String enquiry) {
         //make new enquiry object and set attributes
         Enquiry newEnquiry = new Enquiry();
         newEnquiry.setStudent(this);
         newEnquiry.setCamp(camp); 
         newEnquiry.setEnquiryText(enquiry);
     
-        camp.setEnquiry(newEnquiry);
+        camp.addEnquiry(newEnquiry);
     }    
 }

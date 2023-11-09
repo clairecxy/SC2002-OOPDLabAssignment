@@ -175,7 +175,6 @@ public class Camp{
     public void addAttendees(Student attendee){
         if (remainingSlots == 0){
             System.out.println("There are no more slots for this camp.");
-            break;
         }
         else{
             this.attendees.add(attendee);
