@@ -3,7 +3,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
-public class Staff extends User {
+public class Staff {
     private List<Camp> createdCampsList;
     private CampApplicationSystem campApplicationSystem;
     private Scanner scanner;
