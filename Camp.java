@@ -91,6 +91,10 @@ public class Camp{
         return this.description;
     } 
 
+    public boolean getVisibility(){
+        return this.visible;
+    }
+
     public Student[] getAttendees(){
         return this.attendees;
     }
