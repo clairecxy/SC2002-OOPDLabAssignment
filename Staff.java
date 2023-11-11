@@ -13,12 +13,12 @@ public class Staff extends User {
         //this.campApplicationSystem = campSystem;
     }
 
-    public boolean createCamp(String name, String start, String end, String endReg, String users, String locationStr, 
+    public Camp createCamp(String name, String start, String end, String endReg, String users, String locationStr, 
     int slots, int commSlots, String desc, Staff staffIC) {
         Camp camp = new Camp(name, start, end, endReg, users, locationStr, slots, commSlots, desc, staffIC); // Create a new Camp object (assuming a default constructor exists)
         this.createdCampsList.add(camp); // Add the new Camp to the createdCampsList
         //this.campApplicationSystem.addCamp(camp); // Add to the CampApplicationSystem's list
-        return true; // Assuming the creation is always successful for this example
+        return camp;
     }
 
     public void setCampName(Camp camp, String campName) {
@@ -84,6 +84,10 @@ public class Staff extends User {
         if (this.createdCampsList.contains(camp)) {
             camp.setVisibility(visibility);
         }
+    }
+
+    public List<Camp> viewAllCreatedCamps(){
+        return this.createdCampsList;
     }
 
     // public List<Camp> viewAllCamps() {
