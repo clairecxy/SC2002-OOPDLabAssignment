@@ -3,6 +3,7 @@ public class Suggestion {
     private Camp camp;
     private String suggestionText;
     private boolean suggestionAccepted;
+    private boolean suggestionProcessed = false;
 
     public void setCampCommittee(CampCommittee campCommittee) {
         this.campCommittee = campCommittee;
@@ -34,5 +35,9 @@ public class Suggestion {
 
     public boolean getSuggestionAccepted() {
         return suggestionAccepted;
+    }
+
+    public void suggProcessed(){
+        this.suggestionProcessed = true;
     }
 }

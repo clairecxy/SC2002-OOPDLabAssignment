@@ -4,6 +4,7 @@ public class Enquiry {
     private String enquiryText;
     private boolean isReplied = false;
     private String enquiryReply;
+    
 
     public void setStudent(Student student) {
         this.student = student;

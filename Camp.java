@@ -83,6 +83,10 @@ public class Camp{
         return this.description;
     } 
 
+    public Staff getStaffIC(){
+        return this.staffInCharge;
+    }
+
     public boolean getVisibility(){
         return this.visible;
     }
