@@ -13,6 +13,8 @@ public class CampApplicationSystem {
         allUsers.addAll(studentList);
         allUsers.addAll(staffList);
 
+        
+
         Scanner sc = new Scanner(System.in);
         
         //first screen for login authentication
@@ -95,7 +97,7 @@ public class CampApplicationSystem {
                     +"List of Camps created:");
                     int campIndex = 1;
                     for (Camp campsCreated : createdCamps){
-                        System.out.println("(" + campIndex + ")" + campsCreated.getCampName());
+                        System.out.println("(" + campIndex + ") " + campsCreated.getCampName());
                         campIndex++;
                     }
                     System.out.println("("+ campIndex+1 + ") Exit. No edits to be made.");
@@ -209,9 +211,171 @@ public class CampApplicationSystem {
 
         }
         //if student login:
-  /*       else if(studentList.contains(authUser)){
+        else if(studentList.contains(authUser)){      //login page for staff
+            Student authStudent = (Student) authUser;     //downcast
+            System.out.println("Please selection an action:\r\n"
+                +"(1) Change Password\r\n"
+                +"(2) Camp Committee\r\n"
+                +"(3) View your registered camps\r\n"       //can quit camp from here
+                +"(4) View all available camps\r\n"         //can enquire about camps from here
+                +"(5) Quit");       
+            int studentChoice = sc.nextInt();
+            do {
+                switch (studentChoice) {    //these loop until Quit is selected
+                    case 1:
+                        System.out.println("Please enter new password:");
+                        String studentPW = sc.nextLine();
+                        authUser.setPassword(studentPW);
+                        break;
+
+                    case 2:
+                        if (authStudent instanceof CampCommittee){                        
+                            System.out.println("You are entering the camp committe interface..");
+                        }
+                        else{
+                            System.out.println("You are not a committee member of any camp!");
+                            break;
+                        }
+                        //camp comm interface
+                        CampCommittee authCampCommittee = (CampCommittee) authStudent;
+                        Camp commCamp = authCampCommittee.getCamp();
+                        
+                        System.out.println("Please select an action:"
+                            + "(1) View details of camp"
+                            + "(2) Submit suggestions for camp"
+                            + "(3) View and reply enquiries"
+                            + "(4) Edit suggestions"
+                            + "(5) Generate report of student list"
+                            + "(6) Quit");
+
+                        int campCommSelection = sc.nextInt();
+
+                        do{
+                            switch (campCommSelection) {
+                                case 1:     //view details of camp
+                                    authCampCommittee.viewCampDetails();
+                                    break;
+
+                                case 2:
+                                    System.out.println("Suggestion: ");
+                                    String suggestion = sc.nextLine();
+                                    authCampCommittee.submitSuggestion(suggestion);     //this adds to comm's sugg list and camp's sugg list
+                            
+                                case 3: //view and reply enquiries
+                                    List<Enquiry> enquiries = authCampCommittee.getCamp().getAllEnquiries();
+    
+                                    authCampCommittee.viewEnquiries();
+                                    if (!authCampCommittee.hasEnquiries()){
+                                        break;
+                                    }
+
+                                    System.out.println("Select enquiry to reply to, 0 to quit: ");
+                                    int commReplyChoice = sc.nextInt();
+
+                                    if (commReplyChoice == 0){
+                                        break;
+                                    }
+                                    else{
+                                        Enquiry replyingEnq = enquiries.get(commReplyChoice-1);
+                                        System.out.println("Enter your reply: ");
+                                        String enqReply = sc.nextLine();
+                                        authCampCommittee.replyEnquiry(replyingEnq, enqReply);
+                                    }
+                                    break;
+                                
+                                case 4: //edit suggestion
+                                    List<Suggestion> submittedSuggestions = authCampCommittee.getSuggestions();
+                                    System.out.println("Select suggestion to be edited, 0 to quit: ");
+                                    int suggCounter = 1;
+                                    for (Suggestion suggestions : submittedSuggestions) {
+                                        System.out.println("(" + suggCounter+ ") Suggestion: " + suggestions.getSuggestionText() + "\n");
+                                        suggCounter++;
+                                    }
+                                    
+                                    int suggEditChoice = sc.nextInt();
+
+                                    if (suggEditChoice == 0){
+                                        break;
+                                    }
+                                    else{
+                                        Suggestion suggChoice = submittedSuggestions.get(suggEditChoice-1);
+                                        if (!suggChoice.processStatus()){
+                                            System.out.println("Previous suggestion: " + suggChoice.getSuggestionText());
+                                            
+                                            System.out.println("Enter edited suggestion: ");
+                                            String editedSugg = sc.nextLine();
+                                            suggChoice.setSuggestionText(editedSugg);
+                                        }
+                                        else{
+                                            System.out.println("You cannot edit the suggestion after it has been processed!");
+                                            break;
+                                        }
+                                        
+                                    }
+                                    break;
+
+                                default:
+                                    break;
+                            }
+                        }while (campCommSelection<6);
+
+                    case 3:
+                        List<Camp> registeredCamps = authStudent.getEnrolledCamps();
+                        System.out.println("Registed Camps");
+                        int registedCampCounter = 1;
+                        for (Camp regCamps : registeredCamps){
+                            System.out.println("(" + registedCampCounter + ") " + regCamps.getCampName());
+                        }
+
+                        System.out.println("To quit a camp, enter camp number. To exit, enter 0.");
+                        int quitCampSelection = sc.nextInt();
+
+                        if (quitCampSelection == 0){        //doesn't want to quit anything
+                            break;
+                        }
+                        else if (quitCampSelection <= registeredCamps.size()){      //chosen a camp to quit
+                            Camp quittingCamp = registeredCamps.get(quitCampSelection-1);
+                            if (authStudent instanceof CampCommittee){
+                                CampCommittee authCampCommitteeQuit = (CampCommittee) authStudent;
+                                if (quittingCamp.getCommitteeMembers().contains(authCampCommitteeQuit)){
+                                    System.out.println("Camp Committee cannot quit camp!");         //if comm, cannot quit camp
+                                }                            
+                            }
+                            else{
+                                authStudent.setWithdrawnCamps(quittingCamp);       //removes from enrolled camp + adds to withdrawn camps
+                            }
+                        }
+
+                    case 4:     //view all avail camps
+                        List<Camp> availCamps = authStudent.getAvailableCamps(allCamps);
+                        System.out.println("Available Camps: remaining slots");
+                        int availCampCounter = 1;
+                        for (Camp availCamp : availCamps){
+                            System.out.println("(" + availCampCounter + ") " + availCamp.getCampName() + " : " + availCamp.getRemainingSlots());
+                        }
+                        System.out.println("(" + availCampCounter+1 + ") Quit");
+                        System.out.println("Select camp for enquiries:");       //start of enquiry section
+                        int enquireCamp = sc.nextInt();
+
+                        if (enquireCamp == availCampCounter+1){
+                            break;
+                        }
+                        else if (enquireCamp<availCampCounter+1){
+                            Camp campForEnquire = availCamps.get(enquireCamp-1);
+                            System.out.println(campForEnquire.getCampName() + " selected.\r\n"
+                                +"Please enter your enquiry:");
+                            String enquiry = sc.nextLine();
+                            authStudent.submitEnquiry(campForEnquire, enquiry);     //student submits enquiry
+                        }
+                        break;
+
+                    default:
+                        break;
+                }
+            } while(studentChoice<5);
             
-        }*/
+
+        }
         
         
 

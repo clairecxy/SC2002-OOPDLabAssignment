@@ -66,6 +66,16 @@ public class CampCommittee extends Student {
         System.out.println("Description: " + description);
     }
     
+    public boolean hasEnquiries(){
+        List<Enquiry> enquiriesCheck = camp.getAllEnquiries();
+        if (enquiriesCheck != null && !enquiriesCheck.isEmpty()) {
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
     public void viewEnquiries() {
         List<Enquiry> enquiries = camp.getAllEnquiries();
     
