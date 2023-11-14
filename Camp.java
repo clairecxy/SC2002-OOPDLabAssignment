@@ -143,7 +143,13 @@ public class Camp{
     public void setTotalSlots(int slots){
         this.totalSlots = slots;
 
-        this.remainingSlots = this.totalSlots - this.attendees.size();
+        if (this.attendees == null){
+            this.remainingSlots = totalSlots;
+        }
+        else{
+            this.remainingSlots = totalSlots - this.attendees.size();
+        }
+        
     }
 
     public void setCommitteeSlots(int commSlots){

@@ -6,14 +6,23 @@ public class CampApplicationSystem {
     public static void main(String[] args) {
 
         //initialise lists for camps, staff, students and all users
+        
+        //student lists
+        studentListCreator studentListCreator = new studentListCreator();
+        List<User> studentList = studentListCreator.createStudentList();
+
+        //staff lists
+        staffListCreator staffListCreator = new staffListCreator();
+        List<User> staffList = staffListCreator.createStaffList();
+        
         List<Camp> allCamps = new ArrayList<>();
-        List<User> staffList = new ArrayList<>();
-        List<User> studentList = new ArrayList<>();
         List<User> allUsers = new ArrayList<>();
         allUsers.addAll(studentList);
         allUsers.addAll(staffList);
 
-        
+        for (User students : staffList){
+            System.out.println(students.getUserID());
+        }
 
         Scanner sc = new Scanner(System.in);
         
@@ -50,169 +59,178 @@ public class CampApplicationSystem {
         //if staff login:
         if (staffList.contains(authUser)){      //login page for staff
             Staff authStaff = (Staff) authUser;     //downcast
-            System.out.println("Please selection an action:\r\n"
+            int staffChoice;
+
+            do{
+                System.out.println("Please selection an action:\r\n"
                 +"(1) Change Password\r\n"
                 +"(2) Create a camp\r\n"
                 +"(3) View your camps\r\n"      //from here: can edit, delete
-                +"(4) View all camps\r\n");
-            int staffChoice = sc.nextInt();
+                +"(4) View all camps\r\n"
+                +"(5) Quit");
 
-            switch (staffChoice) {
-                case 1:  
-                    System.out.println("Please enter new password:");
-                    String staffPW = sc.nextLine();
-                    authUser.setPassword(staffPW);
-                    break;
-
-                case 2:
-                    System.out.println("Please enter Camp name:");
-                    String campName = sc.nextLine();
-                    System.out.println("Please enter Camp start date in DD-Month name-YYYY format:");
-                    String startDate = sc.nextLine();
-                    System.out.println("Please enter Camp end date in DD-Month name-YYYY format:");
-                    String endDate = sc.nextLine();
-                    System.out.println("Please enter Camp registration end date in DD-Month name-YYYY format:");
-                    String regEndDate = sc.nextLine();
-                    System.out.println("Please enter user group this camp is open to: (own school or whole NTU)");
-                    String userGrp = sc.nextLine();
-                    System.out.println("Please enter Camp location:");
-                    String location = sc.nextLine();
-                    System.out.println("Please enter total slots of Camp:");
-                    int totalSlots = sc.nextInt();
-                    System.out.println("Please enter total slots for Camp Committee: (MAX 10)");
-                    int campCommSlots = sc.nextInt();
-                    if (campCommSlots>10){      //check that its max 10
-                        System.out.println("There cannot be more than 10 slots!");
-                        System.out.println("Please re-enter total slots for Camp Committee: (MAX 10)");
-                        campCommSlots = sc.nextInt();
-                    }
-                    System.out.println("Please enter Camp description");
-                    String description = sc.nextLine();
-                    allCamps.add(authStaff.createCamp(campName, startDate, endDate, regEndDate, userGrp, location, totalSlots, campCommSlots, description, authStaff));
-                    // ^ this creates the camp + adds it to the allCamps list & staff's createdCamps list.
-
-                case 3:
-                    List<Camp> createdCamps = authStaff.viewAllCreatedCamps();
-                    System.out.println("Select option to edit camp:"
-                    +"List of Camps created:");
-                    int campIndex = 1;
-                    for (Camp campsCreated : createdCamps){
-                        System.out.println("(" + campIndex + ") " + campsCreated.getCampName());
-                        campIndex++;
-                    }
-                    System.out.println("("+ campIndex+1 + ") Exit. No edits to be made.");
-
-                    int editCampIndex = sc.nextInt();
-                    if (editCampIndex == campIndex+1){
+                staffChoice = sc.nextInt();
+                switch (staffChoice) {
+                    case 1:  
+                        System.out.println("Please enter new password:");
+                        String staffPW = sc.nextLine();
+                        authUser.setPassword(staffPW);
                         break;
-                    }
-                    else{
-                        Camp editCamp = createdCamps.get(editCampIndex-1);      //get selected camp from list of camps staff created
-                        int editFieldOption;
-                        do{
-                            System.out.println("Please select field to be edited:"
-                            +"(1) Camp Name"
-                            +"(2) Start date"
-                            +"(3) End date"
-                            +"(4) Registration closing date" 
-                            +"(5) User group this camp is open to: own school or whole NTU"
-                            +"(6) Location"
-                            +"(7) Total Slots"
-                            +"(8) Camp Committee Slots (max 10)"
-                            +"(9) Description"
-                            +"(10) Delete camp"
-                            +"(11) Quit");
 
-                            editFieldOption = sc.nextInt();
-                            
-                            switch (editFieldOption) {
-                                case 1:
-                                    System.out.println("Please enter new Camp name:");
-                                    String newCampName = sc.nextLine();
-                                    editCamp.setCampName(newCampName);
-                                    break;
-
-                                case 2:
-                                    System.out.println("Please enter new start date in DD-month name-YYYY:");
-                                    String newStartDate = sc.nextLine();
-                                    editCamp.setStartDate(newStartDate);
-                                    break;
-
-                                case 3:
-                                    System.out.println("Please enter new end date in DD-month name-YYYY:");
-                                    String newEndDate = sc.nextLine();
-                                    editCamp.setEndDate(newEndDate);
-                                    break;
-
-                                case 4:
-                                    System.out.println("Please enter new registration end date in DD-month name-YYYY:");
-                                    String newRegEndDate = sc.nextLine();
-                                    editCamp.setRegistrationEndDate(newRegEndDate);
-                                    break;
-
-                                case 5:
-                                    System.out.println("Please enter new user group this camp is open to: (own school or whole NTU)");
-                                    String newUserGrp = sc.nextLine();
-                                    editCamp.setUserGroup(newUserGrp);
-                                    break;
-
-                                case 6:
-                                    System.out.println("Please enter new Camp location:");
-                                    String newLocation = sc.nextLine();
-                                    editCamp.setLocation(newLocation);
-                                    break;
-
-                                case 7:
-                                    System.out.println("Please enter new total slots of Camp:");
-                                    int newTotalSlots = sc.nextInt();
-                                    editCamp.setTotalSlots(newTotalSlots);
-                                    break;
-
-                                case 8:
-                                    System.out.println("Please enter total slots for Camp Committee:");
-                                    int newCampCommSlots = sc.nextInt();
-                                    if (newCampCommSlots>10){      //check that its max 10
-                                        System.out.println("There cannot be more than 10 slots!");
-                                        System.out.println("Please re-enter total slots for Camp Committee: (MAX 10)");
-                                        newCampCommSlots = sc.nextInt();
-                                    }
-                                    editCamp.setCommitteeSlots(newCampCommSlots);
-                                    break;
-
-                                case 9:
-                                    System.out.println("Please enter new Camp description");
-                                    String newDescription = sc.nextLine();
-                                    editCamp.setDescription(newDescription);
-                                    break;
-
-                                case 10:
-                                    authStaff.deleteCamp(editCamp);    //delete from staff's list
-                                    allCamps.remove(editCamp);         // delete from all camp list
-                                    break;
-
-                                default:
-                                    break;
-                            }
-                        } while (editFieldOption<11);
+                    case 2:
+                        sc.nextLine();      //buffer
+                        System.out.println("=====CREATE NEW CAMP=====");
+                        System.out.println("Please enter Camp name:");
+                        String campName = sc.nextLine();
+                        System.out.println("Please enter Camp start date in DD-Month name-YYYY format:");
+                        String startDate = sc.nextLine();
+                        System.out.println("Please enter Camp end date in DD-Month name-YYYY format:");
+                        String endDate = sc.nextLine();
+                        System.out.println("Please enter Camp registration end date in DD-Month name-YYYY format:");
+                        String regEndDate = sc.nextLine();
+                        System.out.println("Please enter user group this camp is open to: (own school or whole NTU)");
+                        String userGrp = sc.nextLine();
+                        System.out.println("Please enter Camp location:");
+                        String location = sc.nextLine();
+                        System.out.println("Please enter total slots of Camp:");
+                        int totalSlots = sc.nextInt();
+                        System.out.println("Please enter total slots for Camp Committee: (MAX 10)");
+                        int campCommSlots = sc.nextInt();
+                        if (campCommSlots>10){      //check that its max 10
+                            System.out.println("There cannot be more than 10 slots!");
+                            System.out.println("Please re-enter total slots for Camp Committee: (MAX 10)");
+                            campCommSlots = sc.nextInt();
+                        }
+                        System.out.println("Please enter Camp description");
+                        String description = sc.next();
+                        allCamps.add(authStaff.createCamp(campName, startDate, endDate, regEndDate, userGrp, location, totalSlots, campCommSlots, description, authStaff));
+                        // ^ this creates the camp + adds it to the allCamps list & staff's createdCamps list.
                         break;
-                    }
 
-                case 4:
-                    int allCampsIndex = 1;
-                    for (Camp camps : allCamps){
-                        System.out.println("(" + allCampsIndex + ")" + camps.getCampName());
-                        allCampsIndex++;
-                    }
-                    break;
+                    case 3:
+                        List<Camp> createdCamps = authStaff.viewAllCreatedCamps();
+                        System.out.println("Select option to edit camp:"
+                        +"List of Camps created:");
+                        int campIndex = 1;
+                        for (Camp campsCreated : createdCamps){
+                            System.out.println("(" + campIndex + ") " + campsCreated.getCampName());
+                            campIndex++;
+                        }
+                        System.out.println("("+ campIndex+1 + ") Exit. No edits to be made.");
 
-                default:
-                    break;
-            }
+                        int editCampIndex = sc.nextInt();
+                        if (editCampIndex == campIndex+1){
+                            break;
+                        }
+                        else{
+                            Camp editCamp = createdCamps.get(editCampIndex-1);      //get selected camp from list of camps staff created
+                            int editFieldOption;
+                            do{
+                                System.out.println("Please select field to be edited:"
+                                +"(1) Camp Name"
+                                +"(2) Start date"
+                                +"(3) End date"
+                                +"(4) Registration closing date" 
+                                +"(5) User group this camp is open to: own school or whole NTU"
+                                +"(6) Location"
+                                +"(7) Total Slots"
+                                +"(8) Camp Committee Slots (max 10)"
+                                +"(9) Description"
+                                +"(10) Delete camp"
+                                +"(11) Quit");
 
+                                editFieldOption = sc.nextInt();
+                                
+                                switch (editFieldOption) {
+                                    case 1:
+                                        System.out.println("Please enter new Camp name:");
+                                        String newCampName = sc.nextLine();
+                                        editCamp.setCampName(newCampName);
+                                        break;
+
+                                    case 2:
+                                        System.out.println("Please enter new start date in DD-month name-YYYY:");
+                                        String newStartDate = sc.nextLine();
+                                        editCamp.setStartDate(newStartDate);
+                                        break;
+
+                                    case 3:
+                                        System.out.println("Please enter new end date in DD-month name-YYYY:");
+                                        String newEndDate = sc.nextLine();
+                                        editCamp.setEndDate(newEndDate);
+                                        break;
+
+                                    case 4:
+                                        System.out.println("Please enter new registration end date in DD-month name-YYYY:");
+                                        String newRegEndDate = sc.nextLine();
+                                        editCamp.setRegistrationEndDate(newRegEndDate);
+                                        break;
+
+                                    case 5:
+                                        System.out.println("Please enter new user group this camp is open to: (own school or whole NTU)");
+                                        String newUserGrp = sc.nextLine();
+                                        editCamp.setUserGroup(newUserGrp);
+                                        break;
+
+                                    case 6:
+                                        System.out.println("Please enter new Camp location:");
+                                        String newLocation = sc.nextLine();
+                                        editCamp.setLocation(newLocation);
+                                        break;
+
+                                    case 7:
+                                        System.out.println("Please enter new total slots of Camp:");
+                                        int newTotalSlots = sc.nextInt();
+                                        editCamp.setTotalSlots(newTotalSlots);
+                                        break;
+
+                                    case 8:
+                                        System.out.println("Please enter total slots for Camp Committee:");
+                                        int newCampCommSlots = sc.nextInt();
+                                        if (newCampCommSlots>10){      //check that its max 10
+                                            System.out.println("There cannot be more than 10 slots!");
+                                            System.out.println("Please re-enter total slots for Camp Committee: (MAX 10)");
+                                            newCampCommSlots = sc.nextInt();
+                                        }
+                                        editCamp.setCommitteeSlots(newCampCommSlots);
+                                        break;
+
+                                    case 9:
+                                        System.out.println("Please enter new Camp description");
+                                        String newDescription = sc.nextLine();
+                                        editCamp.setDescription(newDescription);
+                                        break;
+
+                                    case 10:
+                                        authStaff.deleteCamp(editCamp);    //delete from staff's list
+                                        allCamps.remove(editCamp);         // delete from all camp list
+                                        break;
+
+                                    default:
+                                        break;
+                                }
+                            } while (editFieldOption<11);
+                            break;
+                        }
+
+                    case 4:
+                        int allCampsIndex = 1;
+                        for (Camp camps : allCamps){
+                            System.out.println("(" + allCampsIndex + ")" + camps.getCampName());
+                            allCampsIndex++;
+                        }
+                        break;
+
+                    default:
+                        break;
+                }
+
+            }while (staffChoice<5);
+            
         }
         //if student login:
         else if(studentList.contains(authUser)){      //login page for staff
-            Student authStudent = (Student) authUser;     //downcast
+            Student authStudent = (Student) authUser;   //downcast
             System.out.println("Please selection an action:\r\n"
                 +"(1) Change Password\r\n"
                 +"(2) Camp Committee\r\n"
@@ -262,7 +280,7 @@ public class CampApplicationSystem {
                                     authCampCommittee.submitSuggestion(suggestion);     //this adds to comm's sugg list and camp's sugg list
                             
                                 case 3: //view and reply enquiries
-                                    List<Enquiry> enquiries = authCampCommittee.getCamp().getAllEnquiries();
+                                    List<Enquiry> enquiries = commCamp.getAllEnquiries();
     
                                     authCampCommittee.viewEnquiries();
                                     if (!authCampCommittee.hasEnquiries()){
@@ -312,6 +330,10 @@ public class CampApplicationSystem {
                                         }
                                         
                                     }
+                                    break;
+
+                                case 5:     //Generate report of student list
+                                    //authCampCommittee.printGeneralReport(commCamp, filter);
                                     break;
 
                                 default:
@@ -377,6 +399,9 @@ public class CampApplicationSystem {
 
         }
         
+
+        sc.close();
+
         
 
     //     public List<User> getAllUser() {
