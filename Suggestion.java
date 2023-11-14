@@ -40,4 +40,8 @@ public class Suggestion {
     public void suggProcessed(){
         this.suggestionProcessed = true;
     }
+
+    public boolean processStatus(){
+        return this.suggestionProcessed;
+    }
 }
