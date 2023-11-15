@@ -9,7 +9,7 @@ public class staffListCreator {
     public List<User> createStaffList(){
         List<User> staffList = new ArrayList<>();
 
-        String staffListPath = "C:\\Users\\65830\\SC2002OOPDLabAssignment\\staffList.csv";
+        String staffListPath = "staffList.csv";
         Scanner staffFileScanner = null;
 
         try {
