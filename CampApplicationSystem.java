@@ -39,10 +39,9 @@ public class CampApplicationSystem {
 
             int loginChoice = sc.nextInt();
 
-            //having problem where userID is not inputting correctly, idk how to fix, claire pls SOS
-
             switch (loginChoice) {
                 case 2:
+                    System.out.println("Quitting application...");
                     quit = true;
                     break;
                 case 1:
