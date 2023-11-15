@@ -68,8 +68,11 @@ public class CampApplicationSystem {
                 +"(3) View your camps\r\n"      //from here: can edit, delete
                 +"(4) View all camps\r\n"
                 +"(5) Quit");
-
+                
                 staffChoice = sc.nextInt();
+                
+                sc.nextInt();      //buffer
+
                 switch (staffChoice) {
                     case 1:  
                         System.out.println("Please enter new password:");
@@ -78,7 +81,6 @@ public class CampApplicationSystem {
                         break;
 
                     case 2:
-                        sc.nextLine();      //buffer
                         System.out.println("=====CREATE NEW CAMP=====");
                         System.out.println("Please enter Camp name:");
                         String campName = sc.nextLine();
@@ -231,18 +233,22 @@ public class CampApplicationSystem {
         //if student login:
         else if(studentList.contains(authUser)){      //login page for staff
             Student authStudent = (Student) authUser;   //downcast
-            System.out.println("Please selection an action:\r\n"
-                +"(1) Change Password\r\n"
+            System.out.println(
+                "(1) Change Password\r\n"
                 +"(2) Camp Committee\r\n"
                 +"(3) View your registered camps\r\n"       //can quit camp from here
                 +"(4) View all available camps\r\n"         //can enquire about camps from here
                 +"(5) Quit");       
-            int studentChoice = sc.nextInt();
+            int studentChoice;
+            //sc.nextInt();
+            
             do {
+                System.out.println("Please selection an action:");
+                studentChoice = sc.nextInt();
                 switch (studentChoice) {    //these loop until Quit is selected
                     case 1:
                         System.out.println("Please enter new password:");
-                        String studentPW = sc.nextLine();
+                        String studentPW = sc.next();
                         authUser.setPassword(studentPW);
                         break;
 
@@ -399,7 +405,6 @@ public class CampApplicationSystem {
 
         }
         
-
         sc.close();
 
         

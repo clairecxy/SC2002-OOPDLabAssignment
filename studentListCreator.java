@@ -9,7 +9,7 @@ public class studentListCreator {
     public List<User> createStudentList(){
         List<User> studentList = new ArrayList<>();
 
-        String studentListPath = "C:\\Users\\65830\\SC2002OOPDLabAssignment\\studentList.csv";
+        String studentListPath = "studentList.csv";
         Scanner studentFileScanner = null;
 
         try {
