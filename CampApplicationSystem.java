@@ -25,6 +25,7 @@ public class CampApplicationSystem {
         }
 
         Scanner sc = new Scanner(System.in);
+        sc.useDelimiter("\r\n");
         
         //first screen for login authentication
         System.out.println("LOGIN");
@@ -71,29 +72,30 @@ public class CampApplicationSystem {
                 
                 staffChoice = sc.nextInt();
                 
-                sc.nextInt();      //buffer
+                //sc.nextInt();      //buffer
 
                 switch (staffChoice) {
                     case 1:  
                         System.out.println("Please enter new password:");
-                        String staffPW = sc.nextLine();
+                        String staffPW = sc.next();
                         authUser.setPassword(staffPW);
                         break;
 
                     case 2:
                         System.out.println("=====CREATE NEW CAMP=====");
                         System.out.println("Please enter Camp name:");
-                        String campName = sc.nextLine();
+                        //sc.next();
+                        String campName = sc.next();
                         System.out.println("Please enter Camp start date in DD-Month name-YYYY format:");
-                        String startDate = sc.nextLine();
+                        String startDate = sc.next();
                         System.out.println("Please enter Camp end date in DD-Month name-YYYY format:");
-                        String endDate = sc.nextLine();
+                        String endDate = sc.next();
                         System.out.println("Please enter Camp registration end date in DD-Month name-YYYY format:");
-                        String regEndDate = sc.nextLine();
+                        String regEndDate = sc.next();
                         System.out.println("Please enter user group this camp is open to: (own school or whole NTU)");
-                        String userGrp = sc.nextLine();
+                        String userGrp = sc.next();
                         System.out.println("Please enter Camp location:");
-                        String location = sc.nextLine();
+                        String location = sc.next();
                         System.out.println("Please enter total slots of Camp:");
                         int totalSlots = sc.nextInt();
                         System.out.println("Please enter total slots for Camp Committee: (MAX 10)");
@@ -111,34 +113,34 @@ public class CampApplicationSystem {
 
                     case 3:
                         List<Camp> createdCamps = authStaff.viewAllCreatedCamps();
-                        System.out.println("Select option to edit camp:"
+                        System.out.println("Select option to edit camp:\r\n"
                         +"List of Camps created:");
                         int campIndex = 1;
                         for (Camp campsCreated : createdCamps){
                             System.out.println("(" + campIndex + ") " + campsCreated.getCampName());
                             campIndex++;
                         }
-                        System.out.println("("+ campIndex+1 + ") Exit. No edits to be made.");
+                        System.out.println("("+ campIndex + ") Exit. No edits to be made.");
 
                         int editCampIndex = sc.nextInt();
-                        if (editCampIndex == campIndex+1){
+                        if (editCampIndex == campIndex){
                             break;
                         }
                         else{
                             Camp editCamp = createdCamps.get(editCampIndex-1);      //get selected camp from list of camps staff created
                             int editFieldOption;
                             do{
-                                System.out.println("Please select field to be edited:"
-                                +"(1) Camp Name"
-                                +"(2) Start date"
-                                +"(3) End date"
-                                +"(4) Registration closing date" 
-                                +"(5) User group this camp is open to: own school or whole NTU"
-                                +"(6) Location"
-                                +"(7) Total Slots"
-                                +"(8) Camp Committee Slots (max 10)"
-                                +"(9) Description"
-                                +"(10) Delete camp"
+                                System.out.println("Please select field to be edited:\r\n"
+                                +"(1) Camp Name\r\n"
+                                +"(2) Start date\r\n"
+                                +"(3) End date\r\n"
+                                +"(4) Registration closing date\r\n" 
+                                +"(5) User group this camp is open to: own school or whole NTU\r\n"
+                                +"(6) Location\r\n"
+                                +"(7) Total Slots\r\n"
+                                +"(8) Camp Committee Slots (max 10)\r\n"
+                                +"(9) Description\r\n"
+                                +"(10) Delete camp\r\n"
                                 +"(11) Quit");
 
                                 editFieldOption = sc.nextInt();
@@ -146,37 +148,37 @@ public class CampApplicationSystem {
                                 switch (editFieldOption) {
                                     case 1:
                                         System.out.println("Please enter new Camp name:");
-                                        String newCampName = sc.nextLine();
+                                        String newCampName = sc.next();
                                         editCamp.setCampName(newCampName);
                                         break;
 
                                     case 2:
                                         System.out.println("Please enter new start date in DD-month name-YYYY:");
-                                        String newStartDate = sc.nextLine();
+                                        String newStartDate = sc.next();
                                         editCamp.setStartDate(newStartDate);
                                         break;
 
                                     case 3:
                                         System.out.println("Please enter new end date in DD-month name-YYYY:");
-                                        String newEndDate = sc.nextLine();
+                                        String newEndDate = sc.next();
                                         editCamp.setEndDate(newEndDate);
                                         break;
 
                                     case 4:
                                         System.out.println("Please enter new registration end date in DD-month name-YYYY:");
-                                        String newRegEndDate = sc.nextLine();
+                                        String newRegEndDate = sc.next();
                                         editCamp.setRegistrationEndDate(newRegEndDate);
                                         break;
 
                                     case 5:
                                         System.out.println("Please enter new user group this camp is open to: (own school or whole NTU)");
-                                        String newUserGrp = sc.nextLine();
+                                        String newUserGrp = sc.next();
                                         editCamp.setUserGroup(newUserGrp);
                                         break;
 
                                     case 6:
                                         System.out.println("Please enter new Camp location:");
-                                        String newLocation = sc.nextLine();
+                                        String newLocation = sc.next();
                                         editCamp.setLocation(newLocation);
                                         break;
 
@@ -199,7 +201,7 @@ public class CampApplicationSystem {
 
                                     case 9:
                                         System.out.println("Please enter new Camp description");
-                                        String newDescription = sc.nextLine();
+                                        String newDescription = sc.next();
                                         editCamp.setDescription(newDescription);
                                         break;
 
@@ -217,6 +219,7 @@ public class CampApplicationSystem {
 
                     case 4:
                         int allCampsIndex = 1;
+                        System.out.println("All camps:");
                         for (Camp camps : allCamps){
                             System.out.println("(" + allCampsIndex + ")" + camps.getCampName());
                             allCampsIndex++;
@@ -282,7 +285,7 @@ public class CampApplicationSystem {
 
                                 case 2:
                                     System.out.println("Suggestion: ");
-                                    String suggestion = sc.nextLine();
+                                    String suggestion = sc.next();
                                     authCampCommittee.submitSuggestion(suggestion);     //this adds to comm's sugg list and camp's sugg list
                             
                                 case 3: //view and reply enquiries
@@ -302,7 +305,7 @@ public class CampApplicationSystem {
                                     else{
                                         Enquiry replyingEnq = enquiries.get(commReplyChoice-1);
                                         System.out.println("Enter your reply: ");
-                                        String enqReply = sc.nextLine();
+                                        String enqReply = sc.next();
                                         authCampCommittee.replyEnquiry(replyingEnq, enqReply);
                                     }
                                     break;
@@ -327,7 +330,7 @@ public class CampApplicationSystem {
                                             System.out.println("Previous suggestion: " + suggChoice.getSuggestionText());
                                             
                                             System.out.println("Enter edited suggestion: ");
-                                            String editedSugg = sc.nextLine();
+                                            String editedSugg = sc.next();
                                             suggChoice.setSuggestionText(editedSugg);
                                         }
                                         else{
@@ -349,7 +352,7 @@ public class CampApplicationSystem {
 
                     case 3:
                         List<Camp> registeredCamps = authStudent.getEnrolledCamps();
-                        System.out.println("Registed Camps");
+                        System.out.println("Registered Camps");
                         int registedCampCounter = 1;
                         for (Camp regCamps : registeredCamps){
                             System.out.println("(" + registedCampCounter + ") " + regCamps.getCampName());
@@ -392,7 +395,7 @@ public class CampApplicationSystem {
                             Camp campForEnquire = availCamps.get(enquireCamp-1);
                             System.out.println(campForEnquire.getCampName() + " selected.\r\n"
                                 +"Please enter your enquiry:");
-                            String enquiry = sc.nextLine();
+                            String enquiry = sc.next();
                             authStudent.submitEnquiry(campForEnquire, enquiry);     //student submits enquiry
                         }
                         break;
