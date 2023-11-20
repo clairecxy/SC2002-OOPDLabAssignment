@@ -244,7 +244,7 @@ public class Staff extends User {
                             // Iterate over the list of attendees and print their details
                             for (CampCommittee committeeMembersPoints : committeeMembers) {
                                 System.out.println("Committee Members UserID: " + committeeMembersPoints.getUserID());
-                                System.out.println("Committee Members Points: " + committeeMembersPoints.calculatePoints());
+                                System.out.println("Committee Members Points: " + committeeMembersPoints.getTotalPoints());
                             }
                         }
                     }

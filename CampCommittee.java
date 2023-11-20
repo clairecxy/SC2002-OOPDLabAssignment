@@ -13,17 +13,17 @@ public class CampCommittee extends Student {
         points = 0;
     }
 
-    public void setPoints(int points) {
-        this.points = points;
+    public void addPoints() {
+        this.points++;
     }
 
     public void setSuggestions(Suggestion suggestion) {
         suggestions.add(suggestion);
     }
 
-    public int getPoints() {
-        return points;
-    }
+    // public int getPoints() {         //use getTotalPoints instead
+    //     return points;
+    // }
 
     public List<Suggestion> getSuggestions() {
         return suggestions;
@@ -40,6 +40,7 @@ public class CampCommittee extends Student {
         newSuggestion.setSuggestionText(suggestion);
     
         camp.addSuggestion(newSuggestion);
+        addPoints();
     }
 
     public void viewCampDetails() {
@@ -95,6 +96,7 @@ public class CampCommittee extends Student {
         if (enquiry != null) {
             enquiry.setEnquiryReply(reply);
             System.out.println("Replied to the enquiry for Camp: " + camp.getCampName());
+            addPoints();
         } else {
             System.out.println("Enquiry not found or is null.");
         }
@@ -105,16 +107,16 @@ public class CampCommittee extends Student {
 
     }
 
-    public int calculatePoints() {
-        int totalPoints = points;
+    public int getTotalPoints() {
+        //int totalPoints = points;
 
         for (Suggestion suggestion : suggestions) {
             if (suggestion.getSuggestionAccepted()) {
-                totalPoints++;
+                addPoints();
             }
         }
 
-        return totalPoints;
+        return points;
 
     }
 }
