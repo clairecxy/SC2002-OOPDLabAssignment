@@ -35,25 +35,28 @@ public class CampCommitteeUI {
                     break;
             
                 case 3: //view and reply enquiries
-                    List<Enquiry> enquiries = commCamp.getAllEnquiries();
+                    // List<Enquiry> enquiries = commCamp.getAllEnquiries();
 
-                    authCampCommittee.viewEnquiries();
-                    if (!authCampCommittee.hasEnquiries()){
-                        break;
-                    }
+                    // authCampCommittee.viewEnquiries();
+                    // if (!authCampCommittee.hasEnquiries()){
+                    //     break;
+                    // }
 
-                    System.out.println("Select enquiry to reply to, 0 to quit: ");
-                    int commReplyChoice = sc.nextInt();
+                    // System.out.println("Select enquiry to reply to, 0 to quit: ");
+                    // int commReplyChoice = sc.nextInt();
 
-                    if (commReplyChoice == 0){
-                        break;
-                    }
-                    else{
-                        Enquiry replyingEnq = enquiries.get(commReplyChoice-1);
-                        System.out.println("Enter your reply: ");
-                        String enqReply = sc.next();
-                        authCampCommittee.replyEnquiry(replyingEnq, enqReply);
-                    }
+                    // if (commReplyChoice == 0){
+                    //     break;
+                    // }
+                    // else{
+                    //     Enquiry replyingEnq = enquiries.get(commReplyChoice-1);
+                    //     System.out.println("Enter your reply: ");
+                    //     String enqReply = sc.next();
+                    //     authCampCommittee.replyEnquiry(replyingEnq, enqReply);
+                    // }
+                    EnquiryViewingAndReplying enquiryViewingAndReplying = new EnquiryViewingAndReplying(commCamp);
+                    enquiryViewingAndReplying.enquiryUI(commCamp);                 
+
                     break;
                 
                 case 4: //edit suggestion

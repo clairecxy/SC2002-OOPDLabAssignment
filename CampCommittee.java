@@ -84,20 +84,20 @@ public class CampCommittee extends Student {
         }
     }
 
-    public void viewEnquiries() {
-        List<Enquiry> enquiries = camp.getAllEnquiries();
+    // public void viewEnquiries() {
+    //     List<Enquiry> enquiries = camp.getAllEnquiries();
     
-        if (enquiries != null && !enquiries.isEmpty()) {
-            System.out.println("Enquiries for Camp: " + camp.getCampName() + "\n");
-            int enquiryCounter = 1;
-            for (Enquiry enquiry : enquiries) {
-                System.out.println("(" + enquiryCounter+ ") Enquiry Text: " + enquiry.getEnquiryText() + "\n");
-                enquiryCounter++;
-            }
-        } else {
-            System.out.println("No new enquiries found for the camp.");
-        }
-    }
+    //     if (enquiries != null && !enquiries.isEmpty()) {
+    //         System.out.println("Enquiries for Camp: " + camp.getCampName() + "\n");
+    //         int enquiryCounter = 1;
+    //         for (Enquiry enquiry : enquiries) {
+    //             System.out.println("(" + enquiryCounter+ ") Enquiry Text: " + enquiry.getEnquiryText() + "\n");
+    //             enquiryCounter++;
+    //         }
+    //     } else {
+    //         System.out.println("No new enquiries found for the camp.");
+    //     }
+    // }
 
     public void replyEnquiry(Enquiry enquiry, String reply) {
         if (enquiry != null) {

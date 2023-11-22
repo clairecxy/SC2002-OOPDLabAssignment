@@ -231,9 +231,6 @@ public class CampApplicationSystem {
                                     
                                     Camp commCamp = authCampCommittee.getCamp();
 
-                                    
-//loop displaying campcomslots
-
 
                                     CampCommitteeUI campCommIntf = new CampCommitteeUI();
                                     campCommIntf.campCommUI(authCampCommittee, commCamp);
@@ -266,6 +263,7 @@ public class CampApplicationSystem {
                                                 System.out.println("Camp Committee cannot quit camp!");         //if comm, cannot quit camp
                                             }                            
                                         }
+                                        //commslots
                                         else{
                                             authStudent.setWithdrawnCamps(quittingCamp);       //removes from enrolled camp + adds to withdrawn camps
                                         }
