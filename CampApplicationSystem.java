@@ -217,9 +217,7 @@ public class CampApplicationSystem {
                                     break;
 
                                 case 2:
-                                    if(authStudent.isCampCommittee()){
-                                        
-                                    }
+                                    
                                     if (authStudent.isCampCommittee()){                        
                                         System.out.println("You are entering the camp committee interface..");
                                     }   
@@ -234,10 +232,13 @@ public class CampApplicationSystem {
                                     Camp commCamp = authCampCommittee.getCamp();
 
                                     
+//loop displaying campcomslots
 
 
                                     CampCommitteeUI campCommIntf = new CampCommitteeUI();
                                     campCommIntf.campCommUI(authCampCommittee, commCamp);
+
+                                    break;
 
 
                                     
@@ -327,6 +328,11 @@ public class CampApplicationSystem {
                                                         System.out.println("You have successfully registered as a " + role + " for " + campToSelect.getCampName() + ".");
                                                     } else {
                                                         System.out.println("Registration failed. You may have already registered or withdrawn from this camp.");
+                                                    }
+
+                                                    if (role == "committee"){
+                                                        CampCommittee downcastingCampCommittee = (CampCommittee) authStudent;  //downcast
+                                                        downcastingCampCommittee.setCamp(campToSelect);
                                                     }
                                                 } else {
                                                     System.out.println("Invalid camp selection. Please try again.");

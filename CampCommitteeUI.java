@@ -7,18 +7,22 @@ public class CampCommitteeUI {
         Scanner sc = new Scanner(System.in);        //don't close this!
         sc.useDelimiter("\r\n");
 
-        System.out.println("=====WELCOME CAMP COMMITTEE MEMBER====="); 
-        System.out.println("Please select an action:"
-            + "(1) View details of camp"
-            + "(2) Submit suggestions for camp"
-            + "(3) View and reply enquiries"
-            + "(4) Edit suggestions"
-            + "(5) Generate report of student list"
-            + "(6) Quit");
+        int campCommSelection;
 
-        int campCommSelection = sc.nextInt();
-
+        
         do{
+            System.out.println("=====WELCOME CAMP COMMITTEE MEMBER====="); 
+            System.out.println("Please select an action:\n"
+                + "(1) View details of camp\n"
+                + "(2) Submit suggestions for camp\n"
+                + "(3) View and reply enquiries\n"
+                + "(4) Edit suggestions\n"
+                + "(5) Generate report of student list\n"
+                + "(6) Quit");
+
+            campCommSelection = sc.nextInt();
+
+        
             switch (campCommSelection) {
                 case 1:     //view details of camp
                     authCampCommittee.viewCampDetails();
@@ -28,6 +32,7 @@ public class CampCommitteeUI {
                     System.out.println("Suggestion: ");
                     String suggestion = sc.next();
                     authCampCommittee.submitSuggestion(suggestion);     //this adds to comm's sugg list and camp's sugg list
+                    break;
             
                 case 3: //view and reply enquiries
                     List<Enquiry> enquiries = commCamp.getAllEnquiries();

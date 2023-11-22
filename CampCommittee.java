@@ -6,6 +6,7 @@ public class CampCommittee extends Student {
     private List<Suggestion> suggestions;
     private int points;
 
+
     public CampCommittee(String userID, String faculty, Camp camp) {
         super(userID, faculty);
         this.camp = camp;
@@ -17,9 +18,9 @@ public class CampCommittee extends Student {
         this.points++;
     }
 
-    public void setSuggestions(Suggestion suggestion) {
-        suggestions.add(suggestion);
-    }
+    // public void setSuggestions(Suggestion suggestion) {
+    //     suggestions.add(suggestion);
+    // }
 
     // public int getPoints() {         //use getTotalPoints instead
     //     return points;
@@ -33,12 +34,18 @@ public class CampCommittee extends Student {
         return camp;
     }
 
+    public void setCamp(Camp camp){
+        this.camp = camp;
+
+    }
+
     public void submitSuggestion(String suggestion) {
         Suggestion newSuggestion = new Suggestion();
         newSuggestion.setCampCommittee(this);
         newSuggestion.setCamp(camp); 
         newSuggestion.setSuggestionText(suggestion);
     
+        this.suggestions.add(newSuggestion);
         camp.addSuggestion(newSuggestion);
         addPoints();
     }
