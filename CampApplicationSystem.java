@@ -217,10 +217,10 @@ public class CampApplicationSystem {
                                     break;
 
                                 case 2:
-                                    if (authStudent instanceof CampCommittee){                        
-                                        System.out.println("You are entering the camp committe interface..");
-                                    }
-                                    else{
+                                    if (authStudent.isCampCommittee()){                        
+                                        System.out.println("You are entering the camp committee interface..");
+                                    }   
+                                    else {
                                         System.out.println("You are not a committee member of any camp!");
                                         break;
                                     }
@@ -260,46 +260,58 @@ public class CampApplicationSystem {
                                         }
                                     }
 
-                                case 4:     //view all avail camps
-                                    System.out.println("=====CAMP VIEWER====="); 
+                                    case 4:     // View all available camps
+                                    System.out.println("=====CAMP VIEWER=====");
                                     List<Camp> availCamps = authStudent.getAvailableCamps(allCamps);
                                     System.out.println("Available Camps: remaining slots");
                                     int availCampCounter = 1;
-                                    for (Camp availCamp : availCamps){
+                                    for (Camp availCamp : availCamps) {
                                         System.out.println("(" + availCampCounter + ") " + availCamp.getCampName() + " : " + availCamp.getRemainingSlots());
                                         availCampCounter++;
                                     }
-            
-                                    
                                     System.out.println("(" + availCampCounter + ") Quit");
-            
-                                    System.out.println("Please select an action:"
-                                        + "(1) Register for a camp"
-                                        + "(2) Submit enquiry for a camp" );
-                                    
-                                        int studentSelection;
-            
-                                        studentSelection = sc.nextInt();
-            
-                                    do{
+                                
+                                    boolean continueSelection = true;
+                                
+                                    while (continueSelection) {
+                                        System.out.println("Please select an action:"
+                                            + "(1) Register for a camp"
+                                            + "(2) Submit enquiry for a camp"
+                                            + "(3) Exit");
+                                
+                                        int studentSelection = sc.nextInt();
+                                        sc.nextLine();  // Consume the rest of the line including newline
+                                
                                         switch (studentSelection) {
-                                            case 1:     //register for a camp
+                                            case 1: // Register for a camp
                                                 System.out.println("Select camp to register:");
                                                 int campSelection = sc.nextInt();
-                                                if (campSelection == availCampCounter+1) {
-                                                    break;
-                                                }
-                                                else if (campSelection<availCampCounter+1){
-                                                    Camp campToSelect = availCamps.get(campSelection-1);
-                                                    
-                                                    System.out.println(campToSelect.getCampName() + " selected.\r\n");
-            
-                                                    authStudent.setEnrolledCamps(campToSelect, "attendee");
+                                                sc.nextLine();  // Consume the rest of the line including newline
+                                
+                                                if (campSelection == availCampCounter) {
+                                                    continueSelection = false;
+                                                } else if (campSelection > 0 && campSelection < availCampCounter) {
+                                                    Camp campToSelect = availCamps.get(campSelection - 1);
+                                                    System.out.println("Select role for registration:\r\n"
+                                                        + "(1) Attendee\r\n"
+                                                        + "(2) Camp Committee Member");
+                                                    int roleSelection = sc.nextInt();
+                                                    sc.nextLine(); // Consume newline
+                                                    String role = (roleSelection == 1) ? "attendee" : "committee";
+                                                    boolean registrationSuccess = authStudent.setEnrolledCamps(campToSelect, role);
+                                                    if (registrationSuccess) {
+                                                        System.out.println("You have successfully registered as a " + role + " for " + campToSelect.getCampName() + ".");
+                                                    } else {
+                                                        System.out.println("Registration failed. You may have already registered or withdrawn from this camp.");
+                                                    }
+                                                } else {
+                                                    System.out.println("Invalid camp selection. Please try again.");
                                                 }
                                                 break;
-              
-                                            case 2:
-                                                System.out.println("Select camp for enquiries:");       //start of enquiry section
+                                
+                                                               
+                                            case 2:     // Submit enquiry for a camp
+                                                System.out.println("Select camp for enquiries:");       
                                                 int enquireCamp = sc.nextInt();
             
                                                 if (enquireCamp == availCampCounter+1){
@@ -313,9 +325,78 @@ public class CampApplicationSystem {
                                                     authStudent.submitEnquiry(campForEnquire, enquiry);     //student submits enquiry
                                                 }
                                                 break;
-                                            }
+                                
+                                            case 3:     // Exit
+                                                continueSelection = false;
+                                                break;
+                                
+                                            default:
+                                                System.out.println("Invalid selection. Please try again.");
+                                                break;
+                                        }
+                                    }
+                                    break;
+                                    
+                                
+                                
+                                // case 4:     //view all avail camps
+                                //     System.out.println("=====CAMP VIEWER====="); 
+                                //     List<Camp> availCamps = authStudent.getAvailableCamps(allCamps);
+                                //     System.out.println("Available Camps: remaining slots");
+                                //     int availCampCounter = 1;
+                                //     for (Camp availCamp : availCamps){
+                                //         System.out.println("(" + availCampCounter + ") " + availCamp.getCampName() + " : " + availCamp.getRemainingSlots());
+                                //         availCampCounter++;
+                                //     }
+            
+                                    
+                                //     System.out.println("(" + availCampCounter + ") Quit");
+            
+                                //     System.out.println("Please select an action:"
+                                //         + "(1) Register for a camp"
+                                //         + "(2) Submit enquiry for a camp" );
+                                    
+                                //         int studentSelection;
+            
+                                //         studentSelection = sc.nextInt();
+            
+                                //     do{
+                                //         switch (studentSelection) {
+                                //             case 1:     //register for a camp
+                                //                 System.out.println("Select camp to register:");
+                                //                 int campSelection = sc.nextInt();
+                                //                 sc.nextLine();  // Consume the rest of the line including newline
+                                                
                                             
-                                        } while(studentSelection<2);
+                                //                 if (campSelection == availCampCounter + 1) {
+                                //                     break;
+                                //                 } else if (campSelection <= availCampCounter) { // Assuming campSelection > 0 is validated elsewhere
+                                //                     Camp campToSelect = availCamps.get(campSelection - 1);
+                                                    
+                                //                     System.out.println(campToSelect.getCampName() + " selected.\r\n");
+                                //                     authStudent.setEnrolledCamps(campToSelect, "attendee");
+                                //                 }
+                                //                 break;
+
+              
+                                //             case 2:
+                                //                 System.out.println("Select camp for enquiries:");       //start of enquiry section
+                                //                 int enquireCamp = sc.nextInt();
+            
+                                //                 if (enquireCamp == availCampCounter+1){
+                                //                     break;
+                                //                 }
+                                //                 else if (enquireCamp<availCampCounter+1){
+                                //                     Camp campForEnquire = availCamps.get(enquireCamp-1);
+                                //                     System.out.println(campForEnquire.getCampName() + " selected.\r\n"
+                                //                         +"Please enter your enquiry:");
+                                //                     String enquiry = sc.next();
+                                //                     authStudent.submitEnquiry(campForEnquire, enquiry);     //student submits enquiry
+                                //                 }
+                                //                 break;
+                                //             }
+                                            
+                                //         } while(studentSelection<3);
                                     
                                     // List<Camp> availCamps = authStudent.getAvailableCamps(allCamps);
                                     // System.out.println("Available Camps: remaining slots");
