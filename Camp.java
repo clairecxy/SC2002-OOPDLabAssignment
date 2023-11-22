@@ -11,6 +11,7 @@ public class Camp{
     private int totalSlots;
     private int remainingSlots;
     private int committeeSlots;
+    private int remainingCommitteeSlots;
     private String description;
     private Staff staffInCharge;
     private boolean visible = true;
@@ -31,6 +32,7 @@ public class Camp{
         setTotalSlots(slots);
         this.remainingSlots = slots;        // if total slots are changed this is also updated in setTotalSlots fn
         setCommitteeSlots(commSlots);
+        this.remainingCommitteeSlots = commSlots;
         setDescription(desc);
         this.staffInCharge = staffIC;       
 
@@ -179,8 +181,18 @@ public class Camp{
     }
     
     public void addCommitteeMembers(CampCommittee campCommMember){
-        this.committeeMembers.add(campCommMember);
+        
+        if (remainingCommitteeSlots == 0){
+            System.out.println("There are no more committee slots for this camp.");
+        }
+        else{
+            this.committeeMembers.add(campCommMember);
+            this.remainingCommitteeSlots--;
+        }
+
+
     }
+
 
     public void addAttendees(Student attendee){
         if (remainingSlots == 0){
@@ -188,8 +200,11 @@ public class Camp{
         }
         else{
             this.attendees.add(attendee);
+            this.remainingSlots--;
         }
     }
+
+
 
     public void removeAttendees(Student attendee){
 

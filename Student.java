@@ -17,7 +17,7 @@ public class Student extends User {
         
         //check each camp if the usergroup matches faculty and if visibility is toggled on
         for (Camp camp : allCamps) {
-            if (camp.getUserGroup().equals(this.getFaculty()) && camp.getVisibility()) {
+            if ((camp.getUserGroup().equals(this.getFaculty()) || camp.getUserGroup().equals("NTU")) && camp.getVisibility()) {
                 availableCamps.add(camp);
             }
         }
@@ -31,7 +31,7 @@ public class Student extends User {
     public List<Camp> getWithdrawnCamps() {
         return withdrawnCamps;
     }
-    
+
     public boolean isCampCommittee() {
         return this.isCampCommittee;
     }

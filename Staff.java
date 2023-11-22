@@ -180,7 +180,8 @@ public class Staff extends User {
                 String enquiryReply = enquiry.getEnquiryReply(); // Assumes enquiry has been replied to
 
                 System.out.println("Enquiry: " + enquiryText);
-                System.out.println("Reply: " + (enquiryReply.isEmpty() ? "No reply yet" : enquiryReply));
+                
+                System.out.println("Reply: " + (enquiryReply == null ? "No reply yet" : enquiryReply));
                 System.out.println(); // Print a blank line for better readability
             }
         }

@@ -28,8 +28,9 @@ public class studentListCreator {
                 String faculty = studentFileScanner.next();               
                 String[] splitEmail = email.split("@", 2);
                 String userId = splitEmail[0];
+                Camp camp = null;
+                User user = new CampCommittee(userId, faculty, camp);
 
-                User user = new Student(userId, faculty);
                 studentList.add(user);
             }
             
