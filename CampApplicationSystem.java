@@ -475,6 +475,7 @@ public class CampApplicationSystem {
                                     int availCampCounter = 1;
                                     for (Camp availCamp : availCamps) {
                                         System.out.println("(" + availCampCounter + ") " + availCamp.getCampName() + " - Attendee Slots: " + availCamp.getRemainingSlots() + " | Camp Committee Slots: " + availCamp.getRemainingCommitteeSlots());
+                                        System.out.println("    => Registration end date: " + availCamp.getRegistrationEndDate() + " | Start date: " + availCamp.getStartDate() + " | End date: " + availCamp.getEndDate());
                                         availCampCounter++;
                                     }
                                     System.out.println("(" + availCampCounter + ") Quit");
@@ -504,6 +505,7 @@ public class CampApplicationSystem {
                                                 
                                                 for (Camp availCamp : availCamps) {
                                                     System.out.println("(" + availCampCounter1 + ") " + availCamp.getCampName() + " - Attendee Slots: " + availCamp.getRemainingSlots() + " | Camp Committee Slots: " + availCamp.getRemainingCommitteeSlots());
+                                                    System.out.println("    => Registration end date: " + availCamp.getRegistrationEndDate() + " | Start date: " + availCamp.getStartDate() + " | End date: " + availCamp.getEndDate());
                                                     availCampCounter1++;
                                                 }
 
@@ -561,6 +563,7 @@ public class CampApplicationSystem {
                                                 
                                                 for (Camp availCamp : availCamps) {
                                                     System.out.println("(" + availCampCounter2 + ") " + availCamp.getCampName() + " - Attendee Slots: " + availCamp.getRemainingSlots() + " | Camp Committee Slots: " + availCamp.getRemainingCommitteeSlots());
+                                                    System.out.println("    => Registration end date: " + availCamp.getRegistrationEndDate() + " | Start date: " + availCamp.getStartDate() + " | End date: " + availCamp.getEndDate());
                                                     availCampCounter2++;
                                                 }
 
