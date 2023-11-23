@@ -238,10 +238,7 @@ public class CampApplicationSystem {
                                     CampCommitteeUI campCommIntf = new CampCommitteeUI();
                                     campCommIntf.campCommUI(authCampCommittee, commCamp);
 
-                                    break;
-
-
-                                    
+                                    break; 
                                     
                                 case 3:
                                     System.out.println("=====CAMP MANAGER====="); 
@@ -289,8 +286,9 @@ public class CampApplicationSystem {
                                         System.out.println("Please select an action:\n"
                                             + "(1) Register for a camp\n"
                                             + "(2) Submit enquiry for a camp\n"
-                                            + "(3) View enquiries and replies\n"
-                                            + "(4) Exit\n");
+                                            + "(3) Edit your enquiry\n"
+                                            + "(4) View enquiries and replies\n"
+                                            + "(5) Exit\n");
                                 
                                         int studentSelection = sc.nextInt();
                                         sc.nextLine();  // Consume the rest of the line including newline
@@ -367,11 +365,44 @@ public class CampApplicationSystem {
                                                     System.out.println(campForEnquire.getCampName() + " selected.\r\n"
                                                         +"Please enter your enquiry:");
                                                     String enquiry = sc.next();
-                                                    authStudent.submitEnquiry(campForEnquire, enquiry);     //student submits enquiry
+                                                    authStudent.submitEnquiry(campForEnquire, enquiry); 
+                                                        //student submits enquiry
                                                 }
                                                 break;
 
-                                            case 3: 
+                                            case 3:
+                                                System.out.println("=====EDIT ENQUIRIES====="); 
+                                                List<Enquiry> submittedEnquiry = authStudent.getEnquiries();
+                                                System.out.println("Select enquiry to be edited, 0 to quit: ");
+                                                int enqCounter = 1;
+                                                for (Enquiry enquiries : submittedEnquiry) {
+                                                    System.out.println("(" + enqCounter+ ") Enquiry: " + enquiries.getEnquiryText() + "\n");
+                                                    enqCounter++;
+                                                }
+                                                
+                                                int enqEditChoice = sc.nextInt();
+                            
+                                                if (enqEditChoice == 0){
+                                                    break;
+                                                }
+                                                else{
+                                                    Enquiry enqChoice = submittedEnquiry.get(enqEditChoice-1);
+                                                    if (!enqChoice.replyStatus()){
+                                                        System.out.println("Previous enquiry: " + enqChoice.getEnquiryText());
+                                                        
+                                                        System.out.println("Enter edited enquiry: ");
+                                                        String editedEnq = sc.next();
+                                                        enqChoice.setEnquiryText(editedEnq);
+                                                    }
+                                                    else{
+                                                        System.out.println("You cannot edit the enquiry after it has been processed!");
+                                                        break;
+                                                    }
+                                                    
+                                                }
+                                                break;
+
+                                            case 4: 
                                                 System.out.println("Select camp to view enquiries:");   
                                                 int availCampCounter3 = 1;                                                
                                                 System.out.println("=====CAMP VIEWER=====");
@@ -403,9 +434,9 @@ public class CampApplicationSystem {
                                                         System.out.println("Reply: " + (enquiryReply == null ? "No reply yet" : enquiryReply));
                                                         System.out.println(); // Print a blank line for better readability
                                                     }
-                                                }
+                                                }    
                                 
-                                            case 4:     // Exit
+                                            case 5:     // Exit
                                                 continueSelection = false;
                                                 break;
                                 

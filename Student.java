@@ -4,12 +4,14 @@ import java.util.List;
 public class Student extends User {
     private List<Camp> enrolledCamps;
     private List<Camp> withdrawnCamps;
+    private List<Enquiry> enquiries;
     private boolean isCampCommittee;
 
     public Student(String userID, String faculty) {
         super(userID, faculty);
         enrolledCamps = new ArrayList<>();
         withdrawnCamps = new ArrayList<>();
+        enquiries = new ArrayList<>();
     }
 
     public List<Camp> getAvailableCamps(List<Camp> allCamps) {
@@ -30,6 +32,10 @@ public class Student extends User {
 
     public List<Camp> getWithdrawnCamps() {
         return withdrawnCamps;
+    }
+
+    public List<Enquiry> getEnquiries(){
+        return enquiries;
     }
 
     public boolean isCampCommittee() {
@@ -71,7 +77,7 @@ public class Student extends User {
         newEnquiry.setStudent(this);
         newEnquiry.setCamp(camp); 
         newEnquiry.setEnquiryText(enquiry);
-    
         camp.addEnquiry(newEnquiry);
+        this.enquiries.add(newEnquiry);
     }    
 }

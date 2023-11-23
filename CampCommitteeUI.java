@@ -15,8 +15,8 @@ public class CampCommitteeUI {
             System.out.println("Please select an action:\n"
                 + "(1) View details of camp\n"
                 + "(2) Submit suggestions for camp\n"
-                + "(3) View and reply enquiries\n"
-                + "(4) Edit suggestions\n"
+                + "(3) Edit suggestions\n"
+                + "(4) View and reply enquiries\n"
                 + "(5) Generate report of student list\n"
                 + "(6) View your points \n"
                 + "(7) Quit");
@@ -35,35 +35,9 @@ public class CampCommitteeUI {
                     authCampCommittee.submitSuggestion(suggestion);     //this adds to comm's sugg list and camp's sugg list
                     break;
             
-                case 3: //view and reply enquiries
-                    // List<Enquiry> enquiries = commCamp.getAllEnquiries();
-
-                    // authCampCommittee.viewEnquiries();
-                    // if (!authCampCommittee.hasEnquiries()){
-                    //     break;
-                    // }
-
-                    // System.out.println("Select enquiry to reply to, 0 to quit: ");
-                    // int commReplyChoice = sc.nextInt();
-
-                    // if (commReplyChoice == 0){
-                    //     break;
-                    // }
-                    // else{
-                    //     Enquiry replyingEnq = enquiries.get(commReplyChoice-1);
-                    //     System.out.println("Enter your reply: ");
-                    //     String enqReply = sc.next();
-                    //     authCampCommittee.replyEnquiry(replyingEnq, enqReply);
-                    // }
-                    EnquiryViewingAndReplying enquiryViewingAndReplying = new EnquiryViewingAndReplying(commCamp);
-                    if (enquiryViewingAndReplying.enquiryUI(commCamp) == 1) {
-                        authCampCommittee.addPoints();
-                    }
-                                     
-
-                    break;
                 
-                case 4: //edit suggestion
+                
+                case 3: //edit suggestion
                     System.out.println("=====EDIT SUGGESTIONS====="); 
                     List<Suggestion> submittedSuggestions = authCampCommittee.getSuggestions();
                     System.out.println("Select suggestion to be edited, 0 to quit: ");
@@ -93,6 +67,15 @@ public class CampCommitteeUI {
                         }
                         
                     }
+                    break;
+
+                case 4: //view and reply enquiries
+                                   
+                    EnquiryViewingAndReplying enquiryViewingAndReplying = new EnquiryViewingAndReplying(commCamp);
+                    if (enquiryViewingAndReplying.enquiryUI(commCamp) == 1) {
+                        authCampCommittee.addPoints();
+                    }
+                                    
                     break;
 
                 case 5:     //Generate report of student list

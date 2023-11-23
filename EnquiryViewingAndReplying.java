@@ -60,7 +60,7 @@ public class EnquiryViewingAndReplying
         if (enquiry != null) {
             enquiry.setEnquiryReply(reply);
             System.out.println("Replied to the enquiry for Camp: " + camp.getCampName());
-            
+            enquiry.replied();
         } else {
             System.out.println("Enquiry not found or is null.");
         }

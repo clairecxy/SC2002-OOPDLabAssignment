@@ -40,5 +40,9 @@ public class Enquiry {
 
     public void replied(){
         this.isReplied = true;
+    }  
+
+    public boolean replyStatus(){
+        return this.isReplied;
     }
 }
