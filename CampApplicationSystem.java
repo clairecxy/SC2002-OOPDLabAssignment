@@ -284,7 +284,7 @@ public class CampApplicationSystem {
                                             +"(3) View pending suggestions\r\n"
                                             +"(4) View proccessed suggestions\r\n"
                                             +"(5) Print Camp Report(s)\r\n"
-                                            +"(5) Quit");
+                                            +"(6) Quit");
                                         staffCampOption = sc.nextInt();
                                         
                                         switch (staffCampOption) {
@@ -362,7 +362,7 @@ public class CampApplicationSystem {
                                             default:
                                                 break;
                                         }
-                                    }while (staffCampOption<3);
+                                    }while (staffCampOption<6);
                                     break;
 
                                 case 4:

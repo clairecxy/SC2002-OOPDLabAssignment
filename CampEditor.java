@@ -27,9 +27,9 @@ public class CampEditor {
                 +"(7) Total Slots: " + editCamp.getTotalSlots() + "\r\n"
                 +"(8) Camp Committee Slots (max 10): " + editCamp.getCommitteeSlots() + "\r\n"
                 +"(9) Description: " + editCamp.getDescription() + "\r\n"
-                +"(10) Delete camp\r\n"
-                // +"(11) View suggestions\r\n"
-                +"(11) Quit");
+                +"(10) Visbility: " + editCamp.getVisibility() + "\r\n"
+                +"(11) Delete camp\r\n"
+                +"(12) Quit");
 
                 while (!sc.hasNextInt()){
                     sc.next();
@@ -202,9 +202,32 @@ public class CampEditor {
                         break;
 
                     case 10:
+                        System.out.println("Please select visbility:\n"
+                        + "(1) Visible\n"
+                        + "(2) Hidden\n"
+                        + "(3) Quit");
+
+                        int visibilitySelection = sc.nextInt();
+
+                        switch (visibilitySelection) {
+                            case 1:
+                                editCamp.setVisibility(true);
+                                System.out.println("Camp set as visible.");
+                                break;
+                            case 2:
+                                editCamp.setVisibility(false);
+                                System.out.println("Camp set as hidden.");
+                                break;
+                            default:
+                                break;
+                        }
+
+
+                    case 11:
                         authStaff.deleteCamp(editCamp);    //delete from staff's list
                         allCamps.remove(editCamp);         // delete from all camp list
                         break;
+                        
 
                     // case 11:
                     //     List<Suggestion> suggList = editCamp.getSuggestion();
@@ -241,7 +264,7 @@ public class CampEditor {
                     default:
                         break;
                 }
-            } while (editFieldOption<10);
+            } while (editFieldOption<11);
         //sc.close();
     }
 
