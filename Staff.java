@@ -146,20 +146,20 @@ public class Staff extends User {
     //     }
     // }
 
-    public List<Suggestion> viewSuggestions() {
-        List<Suggestion> allSuggestions = new ArrayList<>();
-        for (Camp camp : this.createdCampsList) {
-            allSuggestions.addAll(camp.getSuggestion());
-        }
-        return allSuggestions;
-    }
+    // public List<Suggestion> viewSuggestions() {
+    //     List<Suggestion> allSuggestions = new ArrayList<>();
+    //     for (Camp camp : this.createdCampsList) {
+    //         allSuggestions.addAll(camp.getSuggestion());
+    //     }
+    //     return allSuggestions;
+    // }
 
-    public void approveSuggestion(Suggestion suggestion) {
-        // Verify that the suggestion is for a camp that this staff member has created
-        if (this.createdCampsList.contains(suggestion.getCamp())) {
-            suggestion.setSuggestionAccepted(true);
-        }
-    }
+    // public void approveSuggestion(Suggestion suggestion) {
+    //     // Verify that the suggestion is for a camp that this staff member has created
+    //     if (this.createdCampsList.contains(suggestion.getCamp())) {
+    //         suggestion.setSuggestionAccepted(true);
+    //     }
+    // }
 
     public void printGeneralReportDetails(Camp camp) {
         // Check if the camp is in the list of camps this staff member has created

@@ -22,8 +22,8 @@ public class CampEditor {
                 +"(8) Camp Committee Slots (max 10): " + editCamp.getCommitteeSlots() + "\r\n"
                 +"(9) Description: " + editCamp.getDescription() + "\r\n"
                 +"(10) Delete camp\r\n"
-                +"(11) View suggestions\r\n"
-                +"(12) Quit");
+                // +"(11) View suggestions\r\n"
+                +"(11) Quit");
 
                 while (!sc.hasNextInt()){
                     sc.next();
@@ -95,36 +95,36 @@ public class CampEditor {
                         allCamps.remove(editCamp);         // delete from all camp list
                         break;
 
-                    case 11:
-                        List<Suggestion> suggList = editCamp.getSuggestion();
-                        int suggIndex = 1;
-                        for (Suggestion suggestions : suggList){
-                            System.out.println("("+suggIndex+")" + suggestions.getSuggestionText());
-                            suggIndex++;                            
-                        }
-                        System.out.println("("+suggIndex+") Quit. ");
-                        System.out.println("Select suggestion to accept or reject.");
-                        int suggReplyChoice = sc.nextInt();
+                    // case 11:
+                    //     List<Suggestion> suggList = editCamp.getSuggestion();
+                    //     int suggIndex = 1;
+                    //     for (Suggestion suggestions : suggList){
+                    //         System.out.println("("+suggIndex+")" + suggestions.getSuggestionText());
+                    //         suggIndex++;                            
+                    //     }
+                    //     System.out.println("("+suggIndex+") Quit. ");
+                    //     System.out.println("Select suggestion to accept or reject.");
+                    //     int suggReplyChoice = sc.nextInt();
                         
-                        if(suggReplyChoice == suggIndex){
-                            break;
-                        }
-                        else{
-                            System.out.println("Suggestion: " + suggList.get(suggReplyChoice-1).getSuggestionText());
-                            System.out.println("(1) Accept Suggestion.\r\n"
-                                +"(2) Reject suggestion.");
-                            int suggAccept = sc.nextInt();
-                            if (suggAccept>2 || suggAccept<1){
-                                System.out.println("Invalid Choice. Please Re-enter choice.");
-                                suggAccept = sc.nextInt();
-                            }
-                            if(suggAccept == 1){
-                                suggList.get(suggReplyChoice-1).setSuggestionAccepted(true);
-                            }
-                            else if (suggAccept == 2){
-                                suggList.get(suggReplyChoice-1).setSuggestionAccepted(false);
-                            }
-                        }
+                    //     if(suggReplyChoice == suggIndex){
+                    //         break;
+                    //     }
+                    //     else{
+                    //         System.out.println("Suggestion: " + suggList.get(suggReplyChoice-1).getSuggestionText());
+                    //         System.out.println("(1) Accept Suggestion.\r\n"
+                    //             +"(2) Reject suggestion.");
+                    //         int suggAccept = sc.nextInt();
+                    //         if (suggAccept>2 || suggAccept<1){
+                    //             System.out.println("Invalid Choice. Please Re-enter choice.");
+                    //             suggAccept = sc.nextInt();
+                    //         }
+                    //         if(suggAccept == 1){
+                    //             suggList.get(suggReplyChoice-1).setSuggestionAccepted(true);
+                    //         }
+                    //         else if (suggAccept == 2){
+                    //             suggList.get(suggReplyChoice-1).setSuggestionAccepted(false);
+                    //         }
+                    //     }
                         
 
                     default:
