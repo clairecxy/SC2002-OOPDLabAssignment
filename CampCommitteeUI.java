@@ -79,7 +79,9 @@ public class CampCommitteeUI {
                     break;
 
                 case 5:     //Generate report of student list
-                    //authCampCommittee.printGeneralReport(commCamp, filter);
+                    System.out.println("\n=====REPORT GENERATOR=====");
+                    reportGenerator reportGenerator = new reportGenerator();
+                    reportGenerator.reportGenerator(commCamp);
                     break;
                 
                 case 6:
