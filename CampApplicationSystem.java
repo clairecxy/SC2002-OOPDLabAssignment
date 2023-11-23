@@ -43,7 +43,7 @@ public class CampApplicationSystem {
         boolean quit = false;
 
         while (quit == false){
-            System.out.println("\n=====WELCOME TO THE CAMP APPLICATION SYSTEM=====");
+            System.out.println("\n=====WELCOME TO THE CAMP APPLICATION SYSTEM====="); 
             System.out.println("Please selection an action:\r\n"
             +"(1) Login\r\n"
             +"(2) Quit application");

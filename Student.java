@@ -1,5 +1,8 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.text.ParseException;
 
 public class Student extends User {
     private List<Camp> enrolledCamps;
@@ -17,16 +20,74 @@ public class Student extends User {
     public List<Camp> getAvailableCamps(List<Camp> allCamps) {
         List<Camp> availableCamps = new ArrayList<>();
         
-        //check each camp if the usergroup matches faculty and if visibility is toggled on
+        // Get the current date in the "dd-MM-yyyy" format
+        Date currentDate = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        String formattedDate = dateFormat.format(currentDate);
         
-        //ADD: check if camp is in enrolled or withdrawn camp. if yes dont add it to available camps
+        // Iterate through all camps and check if they meet the criteria
         for (Camp camp : allCamps) {
             if ((camp.getUserGroup().equals(this.getFaculty()) || camp.getUserGroup().equals("NTU")) && camp.getVisibility() && !this.enrolledCamps.contains(camp) && !this.withdrawnCamps.contains(camp)) {
-                availableCamps.add(camp);
+                
+                String campStartDate = camp.getStartDate();
+                String campEndDate = camp.getEndDate();
+                String campRegEndDate = camp.getRegistrationEndDate();
+                
+                // Check if there is a date clash with enrolled camps
+                boolean dateClash = false;
+                for (Camp enrolledCamp : enrolledCamps) {
+                    String enrolledCampStartDate = enrolledCamp.getStartDate();
+                    String enrolledCampEndDate = enrolledCamp.getEndDate();
+                    
+                    try {
+                        // Convert date strings to Date objects for comparison
+                        Date campStart = dateFormat.parse(campStartDate);
+                        Date campEnd = dateFormat.parse(campEndDate);
+                        Date enrolledCampStart = dateFormat.parse(enrolledCampStartDate);
+                        Date enrolledCampEnd = dateFormat.parse(enrolledCampEndDate);
+                        
+                        // Check for date clash
+                        if ((campStart.before(enrolledCampEnd) || campStart.equals(enrolledCampEnd))
+                                && (campEnd.after(enrolledCampStart) || campEnd.equals(enrolledCampStart))) {
+                            dateClash = true;
+                            break;
+                        }
+                    } catch (ParseException e) {
+                        // Handle or log the ParseException as needed
+                        e.printStackTrace();
+                    }
+                }
+                
+                try {
+                    // Check if the camp's registration deadline is in the future
+                    Date regEndDate = dateFormat.parse(campRegEndDate);
+                    if (!dateClash && formattedDate.compareTo(campRegEndDate) <= 0) {
+                        availableCamps.add(camp);
+                    }
+                } catch (ParseException e) {
+                    // Handle or log the ParseException as needed
+                    e.printStackTrace();
+                }
             }
         }
+        
         return availableCamps;
     }
+
+
+    // public List<Camp> getAvailableCamps(List<Camp> allCamps) {
+    //     List<Camp> availableCamps = new ArrayList<>();
+        
+    //     //check each camp if the usergroup matches faculty and if visibility is toggled on
+        
+    //     //ADD: check if camp is in enrolled or withdrawn camp. if yes dont add it to available camps
+    //     for (Camp camp : allCamps) {
+    //         if ((camp.getUserGroup().equals(this.getFaculty()) || camp.getUserGroup().equals("NTU")) && camp.getVisibility() && !this.enrolledCamps.contains(camp) && !this.withdrawnCamps.contains(camp)) {
+    //             availableCamps.add(camp);
+    //         }
+    //     }
+    //     return availableCamps;
+    // }
 
     // 
 
