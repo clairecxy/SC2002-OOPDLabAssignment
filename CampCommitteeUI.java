@@ -18,7 +18,8 @@ public class CampCommitteeUI {
                 + "(3) View and reply enquiries\n"
                 + "(4) Edit suggestions\n"
                 + "(5) Generate report of student list\n"
-                + "(6) Quit");
+                + "(6) View your points \n"
+                + "(7) Quit");
 
             campCommSelection = sc.nextInt();
 
@@ -55,7 +56,10 @@ public class CampCommitteeUI {
                     //     authCampCommittee.replyEnquiry(replyingEnq, enqReply);
                     // }
                     EnquiryViewingAndReplying enquiryViewingAndReplying = new EnquiryViewingAndReplying(commCamp);
-                    enquiryViewingAndReplying.enquiryUI(commCamp);                 
+                    if (enquiryViewingAndReplying.enquiryUI(commCamp) == 1) {
+                        authCampCommittee.addPoints();
+                    }
+                                     
 
                     break;
                 
@@ -94,11 +98,15 @@ public class CampCommitteeUI {
                 case 5:     //Generate report of student list
                     //authCampCommittee.printGeneralReport(commCamp, filter);
                     break;
+                
+                case 6:
+                    int campCommPoints = authCampCommittee.getTotalPoints();
+                    System.out.println("Your total points are: " +  campCommPoints);
 
                 default:
                     break;
             }
-        }while (campCommSelection<6);
+        }while (campCommSelection<7);
     }
     
 }

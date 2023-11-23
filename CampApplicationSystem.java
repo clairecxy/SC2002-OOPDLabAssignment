@@ -144,19 +144,23 @@ public class CampApplicationSystem {
                                     do{
                                         System.out.println("Choose an action:\r\n"
                                             +"(1) Edit Camp\r\n"
-                                            +"(2) Print Camp Report(s)\r\n"
-                                            +"(3) Quit");
+                                            +"(2) View and reply enquiries \r\n"
+                                            +"(3) Print Camp Report(s)\r\n"
+                                            +"(4) Quit");
                                         staffCampOption = sc.nextInt();
                                         
                                         switch (staffCampOption) {
-                                            
+
                                             case 1:
                                                 System.out.println("=====CAMP EDITOR=====");                                                 
                                                 CampEditor campEditor = new CampEditor();
                                                 campEditor.editCamp(editCampIndex, createdCamps, allCamps, authStaff);
                                                 break;
-
                                             case 2:
+                                                Camp staffCampEnquiry = createdCamps.get(editCampIndex-1);
+                                                EnquiryViewingAndReplying enquiryViewingAndReplying = new EnquiryViewingAndReplying(staffCampEnquiry);
+                                                enquiryViewingAndReplying.enquiryUI(staffCampEnquiry);
+                                            case 3:
                                                 System.out.println("=====REPORT GENERATOR=====");
                                                 StaffReportGenerator staffReportGenerator = new StaffReportGenerator();
                                                 staffReportGenerator.staffReportGenerator(editCampIndex, createdCamps, allCamps, authStaff);
@@ -176,7 +180,6 @@ public class CampApplicationSystem {
                                         allCampsIndex++;
                                     }
                                     break;
-
                                 case 5:
                                     loginSucc = false;
                                     authUser = null;
@@ -269,7 +272,7 @@ public class CampApplicationSystem {
                                         }
                                     }
 
-                                    case 4:     // View all available camps
+                                case 4:     // View all available camps
                                     System.out.println("=====CAMP VIEWER=====");
                                     List<Camp> availCamps = authStudent.getAvailableCamps(allCamps);
                                     System.out.println("Available Camps: remaining slots");
@@ -286,7 +289,8 @@ public class CampApplicationSystem {
                                         System.out.println("Please select an action:\n"
                                             + "(1) Register for a camp\n"
                                             + "(2) Submit enquiry for a camp\n"
-                                            + "(3) Exit\n");
+                                            + "(3) View enquiries and replies\n"
+                                            + "(4) Exit\n");
                                 
                                         int studentSelection = sc.nextInt();
                                         sc.nextLine();  // Consume the rest of the line including newline
@@ -366,8 +370,42 @@ public class CampApplicationSystem {
                                                     authStudent.submitEnquiry(campForEnquire, enquiry);     //student submits enquiry
                                                 }
                                                 break;
+
+                                            case 3: 
+                                                System.out.println("Select camp to view enquiries:");   
+                                                int availCampCounter3 = 1;                                                
+                                                System.out.println("=====CAMP VIEWER=====");
+
+                                                System.out.println("Available Camps: ");
+                                                
+                                                for (Camp availCamp : availCamps) {
+                                                    System.out.println("(" + availCampCounter3 + ") " + availCamp.getCampName());
+                                                    availCampCounter3++;
+                                                }
+
+                                                System.out.println("(" + availCampCounter3 + ") Quit\n");
+
+                                            
+                                                int viewEnquireCamp = sc.nextInt();
+                                            
+                                                Camp studentCampEnquiry = availCamps.get(viewEnquireCamp-1);
+                                                if (studentCampEnquiry.getAllEnquiries().size()==0) {
+                                                     System.out.println("No enquiry yet");
+                                                }
+
+                                                else {
+                                                    for (Enquiry enquiry : studentCampEnquiry.getAllEnquiries()) { 
+                                                        String enquiryText = enquiry.getEnquiryText();
+                                                        String enquiryReply = enquiry.getEnquiryReply(); // Assumes enquiry has been replied to
+                                        
+                                                        System.out.println("Enquiry: " + (enquiryText));
+                                                        
+                                                        System.out.println("Reply: " + (enquiryReply == null ? "No reply yet" : enquiryReply));
+                                                        System.out.println(); // Print a blank line for better readability
+                                                    }
+                                                }
                                 
-                                            case 3:     // Exit
+                                            case 4:     // Exit
                                                 continueSelection = false;
                                                 break;
                                 

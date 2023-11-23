@@ -9,27 +9,28 @@ public class EnquiryViewingAndReplying
         this.camp=camp; 
         this.enquiryList = camp.getAllEnquiries();
     }
-    public void enquiryUI(Camp camp){
+    public int enquiryUI(Camp camp){
 
         Scanner sc = new Scanner(System.in);        //don't close this!
         sc.useDelimiter("\r\n");
 
        if (viewEnquiries() == false){         
             System.out.println("There are no enquiries to view.");
-            return;
+            return 0;
         }
         
         System.out.println("Select enquiry to reply to, 0 to quit: ");
         int replyChoice = sc.nextInt();
 
         if (replyChoice == 0){
-            return; 
+            return 0; 
         }
         else{
             Enquiry replyingEnq = enquiryList.get(replyChoice-1);
             System.out.println("Enter your reply: ");
             String enqReply = sc.next();
             replyEnquiry(replyingEnq, enqReply);
+            return 1;
         }
         
     }
