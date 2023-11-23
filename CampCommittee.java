@@ -115,10 +115,9 @@ public class CampCommittee extends Student {
     }
 
     public int getTotalPoints() {
-        //int totalPoints = points;
-
         for (Suggestion suggestion : suggestions) {
-            if (suggestion.getSuggestionAccepted()) {
+            // addPoints();
+            if (suggestion.getSuggestionAccepted() == true) {
                 addPoints();
             }
         }
