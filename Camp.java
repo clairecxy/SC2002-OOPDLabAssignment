@@ -81,6 +81,10 @@ public class Camp{
         return this.committeeSlots;
     }
 
+    public int getRemainingCommitteeSlots(){
+        return this.remainingCommitteeSlots;
+    }
+
     public String getDescription(){
         return this.description;
     } 

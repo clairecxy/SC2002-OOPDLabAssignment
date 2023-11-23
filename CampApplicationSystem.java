@@ -275,7 +275,7 @@ public class CampApplicationSystem {
                                     System.out.println("Available Camps: remaining slots");
                                     int availCampCounter = 1;
                                     for (Camp availCamp : availCamps) {
-                                        System.out.println("(" + availCampCounter + ") " + availCamp.getCampName() + " : " + availCamp.getRemainingSlots());
+                                        System.out.println("(" + availCampCounter + ") " + availCamp.getCampName() + " - Attendee Slots: " + availCamp.getRemainingSlots() + " | Camp Committee Slots: " + availCamp.getRemainingCommitteeSlots());
                                         availCampCounter++;
                                     }
                                     System.out.println("(" + availCampCounter + ") Quit");
@@ -303,7 +303,7 @@ public class CampApplicationSystem {
                                                 System.out.println("Available Camps: remaining slots");
                                                 
                                                 for (Camp availCamp : availCamps) {
-                                                    System.out.println("(" + availCampCounter1 + ") " + availCamp.getCampName() + " : " + availCamp.getRemainingSlots());
+                                                    System.out.println("(" + availCampCounter1 + ") " + availCamp.getCampName() + " - Attendee Slots: " + availCamp.getRemainingSlots() + " | Camp Committee Slots: " + availCamp.getRemainingCommitteeSlots());
                                                     availCampCounter1++;
                                                 }
 
@@ -348,7 +348,7 @@ public class CampApplicationSystem {
                                                 System.out.println("Available Camps: remaining slots");
                                                 
                                                 for (Camp availCamp : availCamps) {
-                                                    System.out.println("(" + availCampCounter2 + ") " + availCamp.getCampName() + " : " + availCamp.getRemainingSlots());
+                                                    System.out.println("(" + availCampCounter2 + ") " + availCamp.getCampName() + " - Attendee Slots: " + availCamp.getRemainingSlots() + " | Camp Committee Slots: " + availCamp.getRemainingCommitteeSlots());
                                                     availCampCounter2++;
                                                 }
 
