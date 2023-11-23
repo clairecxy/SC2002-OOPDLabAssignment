@@ -6,21 +6,21 @@ public class CampEditor {
     
     public void editCamp(int editCampIndex, List<Camp> createdCamps, List<Camp> allCamps, Staff authStaff){
         Scanner sc = new Scanner(System.in);        //don't close this!
-        sc.useDelimiter("\r\n");
+        sc.useDelimiter("\n");
         
         Camp editCamp = createdCamps.get(editCampIndex-1);      //get selected camp from list of camps staff created
             int editFieldOption;
             do{
                 System.out.println("Please select field to be edited:\r\n"
-                +"(1) Camp Name\r\n"
-                +"(2) Start date\r\n"
-                +"(3) End date\r\n"
-                +"(4) Registration closing date\r\n" 
-                +"(5) User group this camp is open to: own school or whole NTU\r\n"
-                +"(6) Location\r\n"
-                +"(7) Total Slots\r\n"
-                +"(8) Camp Committee Slots (max 10)\r\n"
-                +"(9) Description\r\n"
+                +"(1) Camp Name: " + editCamp.getCampName() + "\r\n"
+                +"(2) Start date: " + editCamp.getStartDate() + "\r\n"
+                +"(3) End date: " + editCamp.getEndDate() + "\r\n"
+                +"(4) Registration closing date: " + editCamp.getRegistrationEndDate() + "\r\n"
+                +"(5) User group this camp is open to: own school or whole NTU: " + editCamp.getUserGroup() + "\r\n"
+                +"(6) Location: " + editCamp.getLocation() + "\r\n"
+                +"(7) Total Slots: " + editCamp.getTotalSlots() + "\r\n"
+                +"(8) Camp Committee Slots (max 10): " + editCamp.getCommitteeSlots() + "\r\n"
+                +"(9) Description: " + editCamp.getDescription() + "\r\n"
                 +"(10) Delete camp\r\n"
                 +"(11) View suggestions\r\n"
                 +"(12) Quit");

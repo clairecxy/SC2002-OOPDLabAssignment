@@ -5,7 +5,7 @@ public class Student extends User {
     private List<Camp> enrolledCamps;
     private List<Camp> withdrawnCamps;
     private List<Enquiry> enquiries;
-    private boolean isCampCommittee;
+    private boolean isCampCommittee = false;
 
     public Student(String userID, String faculty) {
         super(userID, faculty);
@@ -18,13 +18,17 @@ public class Student extends User {
         List<Camp> availableCamps = new ArrayList<>();
         
         //check each camp if the usergroup matches faculty and if visibility is toggled on
+        
+        //ADD: check if camp is in enrolled or withdrawn camp. if yes dont add it to available camps
         for (Camp camp : allCamps) {
-            if ((camp.getUserGroup().equals(this.getFaculty()) || camp.getUserGroup().equals("NTU")) && camp.getVisibility()) {
+            if ((camp.getUserGroup().equals(this.getFaculty()) || camp.getUserGroup().equals("NTU")) && camp.getVisibility() && !this.enrolledCamps.contains(camp) && !this.withdrawnCamps.contains(camp)) {
                 availableCamps.add(camp);
             }
         }
         return availableCamps;
     }
+
+    // 
 
     public List<Camp> getEnrolledCamps() {
         return enrolledCamps;
@@ -42,11 +46,15 @@ public class Student extends User {
         return this.isCampCommittee;
     }
 
-    public boolean setEnrolledCamps(Camp camp, String role) {
+    public void setIsCampCommittee() {
+        this.isCampCommittee = true;
+    }
+
+    public boolean setEnrolledCamps(Camp camp) {
         if (withdrawnCamps.contains(camp)) {
             return false;
         } else {
-            // enrolledCamps.add(camp);
+            enrolledCamps.add(camp);
             // if ("committee".equals(role)) {
             //     this.isCampCommittee = true;
             //     registerForCampAsCommittee(camp);

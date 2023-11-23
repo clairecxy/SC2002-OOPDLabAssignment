@@ -5,13 +5,13 @@ public class CampCommitteeUI {
 
     public void campCommUI(CampCommittee authCampCommittee, Camp commCamp){
         Scanner sc = new Scanner(System.in);        //don't close this!
-        sc.useDelimiter("\r\n");
+        sc.useDelimiter("\n");
 
         int campCommSelection;
 
         
         do{
-            System.out.println("=====WELCOME CAMP COMMITTEE MEMBER====="); 
+            System.out.println("\n=====WELCOME CAMP COMMITTEE MEMBER====="); 
             System.out.println("Please select an action:\n"
                 + "(1) View details of camp\n"
                 + "(2) Submit suggestions for camp\n"
