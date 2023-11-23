@@ -5,6 +5,7 @@ import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.text.ParseException;
 import java.util.InputMismatchException;
+import java.util.Calendar;
 
 public class CampEditor {
     

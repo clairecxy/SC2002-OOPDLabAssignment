@@ -1,8 +1,9 @@
-import java.util.ArrayList;
-import java.util.List;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 public class Student extends User {
     private List<Camp> enrolledCamps;
@@ -25,6 +26,14 @@ public class Student extends User {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         String formattedDate = dateFormat.format(currentDate);
         
+        // Parse the current date as a Date object for comparison
+        try {
+            currentDate = dateFormat.parse(formattedDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            // Handle or log the ParseException as needed
+        }
+        
         // Iterate through all camps and check if they meet the criteria
         for (Camp camp : allCamps) {
             if ((camp.getUserGroup().equals(this.getFaculty()) || camp.getUserGroup().equals("NTU")) && camp.getVisibility() && !this.enrolledCamps.contains(camp) && !this.withdrawnCamps.contains(camp)) {
@@ -45,7 +54,7 @@ public class Student extends User {
                         Date campEnd = dateFormat.parse(campEndDate);
                         Date enrolledCampStart = dateFormat.parse(enrolledCampStartDate);
                         Date enrolledCampEnd = dateFormat.parse(enrolledCampEndDate);
-                        
+
                         // Check for date clash
                         if ((campStart.before(enrolledCampEnd) || campStart.equals(enrolledCampEnd))
                                 && (campEnd.after(enrolledCampStart) || campEnd.equals(enrolledCampStart))) {
@@ -57,11 +66,13 @@ public class Student extends User {
                         e.printStackTrace();
                     }
                 }
-                
+
                 try {
-                    // Check if the camp's registration deadline is in the future
+                    // Parse campRegEndDate as a Date object
                     Date regEndDate = dateFormat.parse(campRegEndDate);
-                    if (!dateClash && formattedDate.compareTo(campRegEndDate) <= 0) {
+                    
+                    // Check if the camp's registration deadline is in the future
+                    if (!dateClash && currentDate.before(regEndDate)) {
                         availableCamps.add(camp);
                     }
                 } catch (ParseException e) {
@@ -73,6 +84,7 @@ public class Student extends User {
         
         return availableCamps;
     }
+    
 
 
     // public List<Camp> getAvailableCamps(List<Camp> allCamps) {
