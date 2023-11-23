@@ -161,93 +161,221 @@ public class Staff extends User {
     //     }
     // }
 
-    public void printGeneralReportDetails(Camp camp) {
+    public String getGeneralReportDetails(Camp camp) {
         // Check if the camp is in the list of camps this staff member has created
         if (this.createdCampsList.contains(camp)) {
-            // Print details of the camp
-            System.out.println("Camp Name: " + camp.getCampName());
-            System.out.println("Start Date: " + camp.getStartDate());
-            System.out.println("End Date: " + camp.getEndDate());
-            System.out.println("Registration End Date: " + camp.getRegistrationEndDate());
-            System.out.println("User Group: " + camp.getUserGroup());
-            System.out.println("Location: " + camp.getLocation());
-            System.out.println("Total Slots: " + camp.getTotalSlots());
-            System.out.println("Committee Slots: " + camp.getCommitteeSlots());
-            System.out.println("Description: " + camp.getDescription());
-            System.out.println("Enquiries and Replies:");
-            for (Enquiry enquiry : camp.getAllEnquiries()) { 
+            // Create a StringBuilder to build the report
+            StringBuilder report = new StringBuilder();
+    
+            // Append details of the camp to the report
+            report.append("Camp Name: ").append(camp.getCampName()).append("\n");
+            report.append("Start Date: ").append(camp.getStartDate()).append("\n");
+            report.append("End Date: ").append(camp.getEndDate()).append("\n");
+            report.append("Registration End Date: ").append(camp.getRegistrationEndDate()).append("\n");
+            report.append("User Group: ").append(camp.getUserGroup()).append("\n");
+            report.append("Location: ").append(camp.getLocation()).append("\n");
+            report.append("Total Slots: ").append(camp.getTotalSlots()).append("\n");
+            report.append("Committee Slots: ").append(camp.getCommitteeSlots()).append("\n");
+            report.append("Description: ").append(camp.getDescription()).append("\n");
+            report.append("Enquiries and Replies:\n");
+    
+            // Iterate over the list of enquiries and append their details to the report
+            for (Enquiry enquiry : camp.getAllEnquiries()) {
                 String enquiryText = enquiry.getEnquiryText();
-                String enquiryReply = enquiry.getEnquiryReply(); // Assumes enquiry has been replied to
-
-                System.out.println("Enquiry: " + enquiryText);
-                
-                System.out.println("Reply: " + (enquiryReply == null ? "No reply yet" : enquiryReply));
-                System.out.println(); // Print a blank line for better readability
+                String enquiryReply = enquiry.getEnquiryReply();
+    
+                report.append("Enquiry: ").append(enquiryText).append("\n");
+                report.append("Reply: ").append(enquiryReply == null ? "No reply yet" : enquiryReply).append("\n");
+                report.append("\n"); // Add a newline for better readability
             }
+    
+            // Convert the StringBuilder to a String and return
+            return report.toString();
         }
-        }
+    
+        // If the camp is not in the createdCampsList, return an appropriate message
+        return "Camp not found in the list of camps created by this staff member.";
+    }
+    
 
-        public void printGeneralReportAttendees(Camp camp) {
+        public String getGeneralReportAttendees(Camp camp) {
+            StringBuilder report = new StringBuilder();
+        
             // Check if the camp is in the list of camps this staff member has created
             if (this.createdCampsList.contains(camp)) {
                 // Retrieve the list of attendees for the camp
                 List<Student> attendees = camp.getAttendees();
-                
-                // Print the header for the attendees section
-                System.out.println("Attendees for camp: " + camp.getCampName());
-                
+        
+                // Append the header for the attendees section to the report
+                report.append("Attendees for camp: ").append(camp.getCampName()).append("\n");
+        
                 // Check if there are attendees to display
                 if (attendees.isEmpty()) {
-                    System.out.println("No attendees to display.");
+                    report.append("No attendees to display.\n");
                 } else {
-                    // Iterate over the list of attendees and print their details
+                    // Iterate over the list of attendees and append their details to the report
                     for (Student attendee : attendees) {
-                        System.out.println("Attendee UserID: " + attendee.getUserID());
+                        report.append("Attendee UserID: ").append(attendee.getUserID()).append("\n");
                     }
                 }
             }
+        
+            // Convert the StringBuilder to a string and return the report
+            return report.toString();
         }
-        public void printGeneralReportCampCommittee(Camp camp) {
-                    // Check if the camp is in the list of camps this staff member has created
-                    if (this.createdCampsList.contains(camp)) {
-                        // Retrieve the list of commmembers for the camp
-                        List<CampCommittee> committeeMembers = camp.getCommitteeMembers();
-                        
-                        // Print the header for the commembers section
-                        System.out.println("Commitee Members for camp: " + camp.getCampName());
-                        
-                        // Check if there are commitee members to display
-                        if (committeeMembers.isEmpty()) {
-                            System.out.println("No committee members to display.");
-                        } else {
-                            // Iterate over the list of attendees and print their details
-                            for (CampCommittee committeeMembersAttendees : committeeMembers) {
-                                System.out.println("Committee Members UserID: " + committeeMembersAttendees.getUserID());
-                            }
-                        }
+        
+        public String getGeneralReportCampCommittee(Camp camp) {
+            // Check if the camp is in the list of camps this staff member has created
+            if (this.createdCampsList.contains(camp)) {
+                // Retrieve the list of committee members for the camp
+                List<CampCommittee> committeeMembers = camp.getCommitteeMembers();
+        
+                // Create a StringBuilder to build the report
+                StringBuilder report = new StringBuilder();
+                
+                // Add the header for the committee members section
+                report.append("Committee Members for camp: ").append(camp.getCampName()).append("\n");
+                
+                // Check if there are committee members to display
+                if (committeeMembers.isEmpty()) {
+                    report.append("No committee members to display.\n");
+                } else {
+                    // Iterate over the list of committee members and append their details to the report
+                    for (CampCommittee committeeMember : committeeMembers) {
+                        report.append("Committee Members UserID: ").append(committeeMember.getUserID()).append("\n");
                     }
-        } 
+                }
+        
+                // Convert the StringBuilder to a String and return
+                return report.toString();
+            }
+        
+            // If the camp is not in the createdCampsList, return an appropriate message
+            return "Camp not found in the list of camps created by this staff member.";
+        }
+        
 
 
     // Method to print a performance report of a camp
-    public void printPerformanceReport(Camp camp) {
+    public String getPerformanceReport(Camp camp) {
+        // Check if the camp is in the list of camps this staff member has created
         if (this.createdCampsList.contains(camp)) {
-                        // Retrieve the list of commmembers for the camp
-                        List<CampCommittee> committeeMembers = camp.getCommitteeMembers();
-                        
-                        // Print the header for the commembers section
-                        System.out.println("Commitee Members for camp: " + camp.getCampName());
-                        
-                        // Check if there are commitee members to display
-                        if (committeeMembers.isEmpty()) {
-                            System.out.println("No committee members to display.");
-                        } else {
-                            // Iterate over the list of attendees and print their details
-                            for (CampCommittee committeeMembersPoints : committeeMembers) {
-                                System.out.println("Committee Members UserID: " + committeeMembersPoints.getUserID());
-                                System.out.println("Committee Members Points: " + committeeMembersPoints.getTotalPoints());
-                            }
-                        }
-                    }
+            // Retrieve the list of committee members for the camp
+            List<CampCommittee> committeeMembers = camp.getCommitteeMembers();
+    
+            // Create a StringBuilder to build the report
+            StringBuilder report = new StringBuilder();
+    
+            // Print the header for the committee members section
+            report.append("Committee Members for camp: ").append(camp.getCampName()).append("\n");
+    
+            // Check if there are committee members to display
+            if (committeeMembers.isEmpty()) {
+                report.append("No committee members to display.").append("\n");
+            } else {
+                // Iterate over the list of committee members and append their details to the report
+                for (CampCommittee committeeMembersPoints : committeeMembers) {
+                    report.append("Committee Members UserID: ").append(committeeMembersPoints.getUserID()).append("\n");
+                    report.append("Committee Members Points: ").append(committeeMembersPoints.getTotalPoints()).append("\n");
+                }
+            }
+    
+            // Convert the StringBuilder to a String and return
+            return report.toString();
+        }
+    
+        // If the camp is not in the createdCampsList, return an appropriate message
+        return "Camp not found in the list of camps created by this staff member.";
     }
+
+    public String getGeneralReport(Camp camp) {
+        // Check if the camp is in the list of camps this staff member has created
+        if (this.createdCampsList.contains(camp)) {
+            // Create a StringBuilder to build the report
+            StringBuilder report = new StringBuilder();
+    
+            // Append details of the camp to the report
+            report.append("Camp Name: ").append(camp.getCampName()).append("\n");
+            report.append("Start Date: ").append(camp.getStartDate()).append("\n");
+            report.append("End Date: ").append(camp.getEndDate()).append("\n");
+            report.append("Registration End Date: ").append(camp.getRegistrationEndDate()).append("\n");
+            report.append("User Group: ").append(camp.getUserGroup()).append("\n");
+            report.append("Location: ").append(camp.getLocation()).append("\n");
+            report.append("Total Slots: ").append(camp.getTotalSlots()).append("\n");
+            report.append("Committee Slots: ").append(camp.getCommitteeSlots()).append("\n");
+            report.append("Description: ").append(camp.getDescription()).append("\n");
+            report.append("Enquiries and Replies:\n");
+    
+            // Iterate over the list of enquiries and append their details to the report
+            for (Enquiry enquiry : camp.getAllEnquiries()) {
+                String enquiryText = enquiry.getEnquiryText();
+                String enquiryReply = enquiry.getEnquiryReply();
+    
+                report.append("Enquiry: ").append(enquiryText).append("\n");
+                report.append("Reply: ").append(enquiryReply == null ? "No reply yet" : enquiryReply).append("\n");
+                report.append("\n"); // Add a newline for better readability
+            }
+
+            report.append("\n");
+    
+            // Retrieve the list of attendees for the camp
+            List<Student> attendees = camp.getAttendees();
+    
+            // Append the header for the attendees section to the report
+            report.append("Attendees for camp: ").append(camp.getCampName()).append("\n");
+    
+            // Check if there are attendees to display
+            if (attendees.isEmpty()) {
+                report.append("No attendees to display.\n");
+            } else {
+                // Iterate over the list of attendees and append their details to the report
+                for (Student attendee : attendees) {
+                    report.append("Attendee UserID: ").append(attendee.getUserID()).append("\n");
+                }
+            }
+
+            report.append("\n");
+    
+            // Retrieve the list of committee members for the camp
+            List<CampCommittee> committeeMembers = camp.getCommitteeMembers();
+    
+            // // Add the header for the committee members section
+            // report.append("Committee Members for camp: ").append(camp.getCampName()).append("\n");
+    
+            // // Check if there are committee members to display
+            // if (committeeMembers.isEmpty()) {
+            //     report.append("No committee members to display.\n");
+            // } else {
+            //     // Iterate over the list of committee members and append their details to the report
+            //     for (CampCommittee committeeMember : committeeMembers) {
+            //         report.append("Committee Members UserID: ").append(committeeMember.getUserID()).append("\n");
+            //     }
+            // }
+    
+            // Retrieve the list of committee members for the camp
+            committeeMembers = camp.getCommitteeMembers();
+    
+            // Print the header for the committee members section
+            report.append("Committee Members for camp: ").append(camp.getCampName()).append("\n");
+    
+            // Check if there are committee members to display
+            if (committeeMembers.isEmpty()) {
+                report.append("No committee members to display.").append("\n");
+            } else {
+                // Iterate over the list of committee members and append their details to the report
+                for (CampCommittee committeeMembersPoints : committeeMembers) {
+                    report.append("Committee Members UserID: ").append(committeeMembersPoints.getUserID()).append("\n");
+                    report.append("Committee Members Points: ").append(committeeMembersPoints.getTotalPoints()).append("\n");
+                }
+            }
+    
+            // Convert the StringBuilder to a String and return
+            return report.toString();
+        }
+    
+        // If the camp is not in the createdCampsList, return an appropriate message
+        return "Camp not found in the list of camps created by this staff member.";
+    }
+    
+    
 }

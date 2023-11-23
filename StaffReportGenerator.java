@@ -1,6 +1,10 @@
 import java.util.List;
 import java.util.Scanner;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+
 public class StaffReportGenerator {
     public void staffReportGenerator(int editCampIndex, List<Camp> createdCamps, List<Camp> allCamps, Staff authStaff){
         Scanner sc = new Scanner(System.in);        //don't close this!
@@ -14,33 +18,31 @@ public class StaffReportGenerator {
             +"(1) All attendees\r\n"
             +"(2) Camp Committee\r\n"
             +"(3) Camp Details\r\n"
-            +"(4) Full General Camp Report\r\n"
-            +"(5) Camp Committee Performance Report\r\n"
+            +"(4) Camp Committee Performance Report\r\n"
+            +"(5) Camp General Report\r\n"
             +"(6) Exit");
             reportChoice = sc.nextInt();
 
             switch (reportChoice) {
                 case 1:
-                    authStaff.printGeneralReportAttendees(reportingCamp);
+                    writeReportToFile(authStaff.getGeneralReportAttendees(reportingCamp), "attendees_report.txt");
                     break;
 
                 case 2:
-                    authStaff.printGeneralReportCampCommittee(reportingCamp);
+                    writeReportToFile(authStaff.getGeneralReportCampCommittee(reportingCamp), "committee_report.txt");
                     break;
 
                 case 3:
-                    authStaff.printGeneralReportDetails(reportingCamp);
-                    break;
-
-                case 4:
-                    authStaff.printGeneralReportDetails(reportingCamp);
-                    authStaff.printGeneralReportCampCommittee(reportingCamp);
-                    authStaff.printGeneralReportAttendees(reportingCamp);
+                    writeReportToFile(authStaff.getGeneralReportDetails(reportingCamp), "camp_details_report.txt");
                     break;
             
-                case 5:
-                    authStaff.printPerformanceReport(reportingCamp);
+                case 4:
+                    writeReportToFile(authStaff.getPerformanceReport(reportingCamp), "performance_report.txt");
                     break;
+
+                case 5:
+                    writeReportToFile(authStaff.getGeneralReport(reportingCamp), "performance_report.txt");
+
 
                 default:
                     break;
@@ -50,5 +52,14 @@ public class StaffReportGenerator {
         
 
 
+    }
+
+    private void writeReportToFile(String report, String fileName) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
+            writer.write(report);
+            System.out.println("Report written to " + fileName);
+        } catch (IOException e) {
+            System.err.println("Error writing report to file: " + e.getMessage());
+        }
     }
 }
