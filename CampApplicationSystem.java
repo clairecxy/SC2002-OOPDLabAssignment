@@ -1,9 +1,20 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Date;
+import java.text.SimpleDateFormat;
+import java.text.ParseException;
+import java.util.InputMismatchException;
 
 public class CampApplicationSystem {
     public static void main(String[] args) {
+
+        //get date
+        Date currentDate = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        String formattedDate = dateFormat.format(currentDate);
+        System.out.println(formattedDate);
+
 
         //initialise lists for camps, staff, students and all users
         
@@ -100,25 +111,148 @@ public class CampApplicationSystem {
                                     System.out.println("Please enter Camp name:");
                                     //sc.next();
                                     String campName = sc.next();
-                                    System.out.println("Please enter Camp start date in DD-Month name-YYYY format:");
-                                    String startDate = sc.next();
-                                    System.out.println("Please enter Camp end date in DD-Month name-YYYY format:");
-                                    String endDate = sc.next();
-                                    System.out.println("Please enter Camp registration end date in DD-Month name-YYYY format:");
-                                    String regEndDate = sc.next();
-                                    System.out.println("Please enter user group this camp is open to: (own school or whole NTU)");
-                                    String userGrp = sc.next();
+
+                                    // Take the start date
+                                    String startDate;
+                                    boolean startDateValid = false;
+                                    do {
+                                        System.out.println("Please enter Camp start date in DD-MM-YYYY format:");
+                                        startDate = sc.next();
+                                        try {
+                                            dateFormat.setLenient(false);
+                                            Date parsedStartDate = dateFormat.parse(startDate);
+
+                                            // Check the format after parsing
+                                            String formattedStartDate = dateFormat.format(parsedStartDate);
+                                            if (startDate.equals(formattedStartDate)) {
+                                                startDateValid = true;
+                                            } else {
+                                                System.out.println("Invalid date format. Please enter dates in DD-MM-YYYY format.");
+                                            }
+                                        } catch (ParseException e) {
+                                            System.out.println("Invalid date format. Please enter dates in DD-MM-YYYY format.");
+                                        }
+                                    } while (!startDateValid);
+
+                                    // Take the end date
+                                    String endDate;
+                                    boolean endDateValid = false;
+                                    do {
+                                        System.out.println("Please enter Camp end date in DD-MM-YYYY format:");
+                                        endDate = sc.next();
+                                        try {
+                                            dateFormat.setLenient(false);
+                                            Date parsedEndDate = dateFormat.parse(endDate);
+
+                                            // Check the format after parsing
+                                            String formattedEndDate = dateFormat.format(parsedEndDate);
+                                            if (endDate.equals(formattedEndDate)) {
+                                                endDateValid = true;
+                                            } else {
+                                                System.out.println("Invalid date format. Please enter dates in DD-MM-YYYY format.");
+                                            }
+                                        } catch (ParseException e) {
+                                            System.out.println("Invalid date format. Please enter dates in DD-MM-YYYY format.");
+                                        }
+                                    } while (!endDateValid);
+
+                            
+                                    // Take the registration end date
+                                    String regEndDate;
+                                    boolean regEndDateValid = false;
+                                    do {
+                                        System.out.println("Please enter Camp registration end date in DD-MM-YYYY format:");
+                                        regEndDate = sc.next();
+                                        try {
+                                            dateFormat.setLenient(false);
+                                            Date parsedRegEndDate = dateFormat.parse(regEndDate);
+
+                                            // Check the format after parsing
+                                            String formattedRegEndDate = dateFormat.format(parsedRegEndDate);
+                                            if (regEndDate.equals(formattedRegEndDate)) {
+                                                regEndDateValid = true;
+                                            } else {
+                                                System.out.println("Invalid date format. Please enter dates in DD-MM-YYYY format.");
+                                            }
+                                        } catch (ParseException e) {
+                                            System.out.println("Invalid date format. Please enter dates in DD-MM-YYYY format.");
+                                        }
+                                    } while (!regEndDateValid);
+
+                                    String userGrp = "";
+                                    boolean validUserGrp = false;
+                                    do {
+                                        try {
+                                            System.out.println("Please enter user group this camp is open to: (ADM, EEE, SCSE, NBS, SSS, or NTU)");
+                                            userGrp = sc.next();
+                                            if (userGrp.equalsIgnoreCase("ADM") ||
+                                                userGrp.equalsIgnoreCase("EEE") ||
+                                                userGrp.equalsIgnoreCase("SCSE") ||
+                                                userGrp.equalsIgnoreCase("NBS") ||
+                                                userGrp.equalsIgnoreCase("SSS") ||
+                                                userGrp.equalsIgnoreCase("NTU")) {
+                                                userGrp = userGrp.toUpperCase();
+                                                validUserGrp = true;
+                                            } else {
+                                                System.out.println("Invalid user group. Please enter a valid user group.");
+                                                System.out.println("Valid user groups: ADM, EEE, SCSE, NBS, SSS or NTU");
+                                            }
+                                        } catch (InputMismatchException e) {
+                                            System.out.println("Invalid input. Please enter a valid user group.");
+                                            sc.next(); // consume the invalid input
+                                        }
+                                    } while (!validUserGrp);
+
+
                                     System.out.println("Please enter Camp location:");
                                     String location = sc.next();
-                                    System.out.println("Please enter total slots of Camp:");
-                                    int totalSlots = sc.nextInt();
-                                    System.out.println("Please enter total slots for Camp Committee: (MAX 10)");
-                                    int campCommSlots = sc.nextInt();
-                                    if (campCommSlots>10){      //check that its max 10
-                                        System.out.println("There cannot be more than 10 slots!");
-                                        System.out.println("Please re-enter total slots for Camp Committee: (MAX 10)");
-                                        campCommSlots = sc.nextInt();
-                                    }
+                                    
+                                    int totalSlots = 0;
+                                    boolean validTotalSlots = false;
+                                    do {
+                                        try {
+                                            System.out.println("Please enter total slots of Camp:");
+                                            totalSlots = sc.nextInt();
+                                            if (totalSlots <= 0){
+                                                System.out.println("There must be at least 1 avbailable slot.");
+                                                validTotalSlots = false;
+                                            } else{
+                                                validTotalSlots = true;
+                                            }
+                                        } catch (InputMismatchException e) {
+                                            System.out.println("Invalid input. Please enter a valid number for total slots.");
+                                            sc.next(); // consume the invalid input
+                                        }
+                                    } while (!validTotalSlots);
+
+                                    int campCommSlots = 0;
+                                    boolean validCampCommSlots = false;
+                                    do {
+                                        try {
+                                            System.out.println("Please enter total slots for Camp Committee: (MAX 10)");
+                                            campCommSlots = sc.nextInt();
+                                            if (campCommSlots > 10) {
+                                                System.out.println("There cannot be more than 10 slots!");
+                                                System.out.println("Please re-enter total slots for Camp Committee: (MAX 10)");
+                                            } else {
+                                                validCampCommSlots = true;
+                                            }
+                                        } catch (InputMismatchException e) {
+                                            System.out.println("Invalid input. Please enter a valid number for Camp Committee slots.");
+                                            sc.next(); // consume the invalid input
+                                        }
+                                    } while (!validCampCommSlots);
+
+                                    
+                                    // System.out.println("Please enter total slots of Camp:");
+                                    // int totalSlots = sc.nextInt();
+                                    // System.out.println("Please enter total slots for Camp Committee: (MAX 10)");
+                                    // int campCommSlots = sc.nextInt();
+                                    // if (campCommSlots>10){      //check that its max 10
+                                    //     System.out.println("There cannot be more than 10 slots!");
+                                    //     System.out.println("Please re-enter total slots for Camp Committee: (MAX 10)");
+                                    //     campCommSlots = sc.nextInt();
+                                    // }
                                     System.out.println("Please enter Camp description:");
                                     String description = sc.next();
                                     allCamps.add(authStaff.createCamp(campName, startDate, endDate, regEndDate, userGrp, location, totalSlots, campCommSlots, description, authStaff));

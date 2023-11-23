@@ -1,9 +1,15 @@
 //import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Date;
+import java.text.SimpleDateFormat;
+import java.text.ParseException;
+import java.util.InputMismatchException;
 
 public class CampEditor {
     
+    SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+
     public void editCamp(int editCampIndex, List<Camp> createdCamps, List<Camp> allCamps, Staff authStaff){
         Scanner sc = new Scanner(System.in);        //don't close this!
         sc.useDelimiter("\n");
@@ -38,27 +44,103 @@ public class CampEditor {
                         break;
 
                     case 2:
-                        System.out.println("Please enter new start date in DD-month name-YYYY:");
-                        String newStartDate = sc.next();
-                        editCamp.setStartDate(newStartDate);
+                        String startDate;
+                        boolean startDateValid = false;
+                        do {
+                            System.out.println("Please enter Camp start date in DD-MM-YYYY format:");
+                            startDate = sc.next();
+                            try {
+                                dateFormat.setLenient(false);
+                                Date parsedStartDate = dateFormat.parse(startDate);
+
+                                // Check the format after parsing
+                                String formattedStartDate = dateFormat.format(parsedStartDate);
+                                if (startDate.equals(formattedStartDate)) {
+                                    startDateValid = true;
+                                } else {
+                                    System.out.println("Invalid date format. Please enter dates in DD-MM-YYYY format.");
+                                }
+                            } catch (ParseException e) {
+                                System.out.println("Invalid date format. Please enter dates in DD-MM-YYYY format.");
+                            }
+                        } while (!startDateValid);
+
+                        editCamp.setStartDate(startDate);
+                        
                         break;
 
                     case 3:
-                        System.out.println("Please enter new end date in DD-month name-YYYY:");
-                        String newEndDate = sc.next();
-                        editCamp.setEndDate(newEndDate);
+                        String endDate;
+                        boolean endDateValid = false;
+                        do {
+                            System.out.println("Please enter Camp end date in DD-MM-YYYY format:");
+                            endDate = sc.next();
+                            try {
+                                dateFormat.setLenient(false);
+                                Date parsedEndDate = dateFormat.parse(endDate);
+
+                                // Check the format after parsing
+                                String formattedEndDate = dateFormat.format(parsedEndDate);
+                                if (endDate.equals(formattedEndDate)) {
+                                    endDateValid = true;
+                                } else {
+                                    System.out.println("Invalid date format. Please enter dates in DD-MM-YYYY format.");
+                                }
+                            } catch (ParseException e) {
+                                System.out.println("Invalid date format. Please enter dates in DD-MM-YYYY format.");
+                            }
+                        } while (!endDateValid);
+
+                        editCamp.setEndDate(endDate);
+
                         break;
 
                     case 4:
-                        System.out.println("Please enter new registration end date in DD-month name-YYYY:");
-                        String newRegEndDate = sc.next();
-                        editCamp.setRegistrationEndDate(newRegEndDate);
+                        String regEndDate;
+                        boolean regEndDateValid = false;
+                        do {
+                            System.out.println("Please enter new registration end date in DD-MM-YYYY format:");
+                            regEndDate = sc.next();
+                            try {
+                                dateFormat.setLenient(false);
+                                Date parsedRegEndDate = dateFormat.parse(regEndDate);
+                                regEndDateValid = true;
+                            } catch (ParseException e) {
+                                System.out.println("Invalid date format. Please enter dates in DD-MM-YYYY format.");
+                            }
+                        } while (!regEndDateValid);
+                        
+                        editCamp.setRegistrationEndDate(regEndDate);
+
                         break;
 
                     case 5:
-                        System.out.println("Please enter new user group this camp is open to: (own school or whole NTU)");
-                        String newUserGrp = sc.next();
-                        editCamp.setUserGroup(newUserGrp);
+                        String userGrp = "";
+                        boolean validUserGrp = false;
+                        do {
+                            System.out.println("Please enter user group this camp is open to: (ADM, EEE, SCSE, NBS, SSS, or NTU)");
+                            userGrp = sc.next();
+                            try {
+                                if (userGrp.equalsIgnoreCase("ADM") ||
+                                    userGrp.equalsIgnoreCase("EEE") ||
+                                    userGrp.equalsIgnoreCase("SCSE") ||
+                                    userGrp.equalsIgnoreCase("NBS") ||
+                                    userGrp.equalsIgnoreCase("SSS") ||
+                                    userGrp.equalsIgnoreCase("NTU")) {
+                                        userGrp = userGrp.toUpperCase();
+                                        validUserGrp = true;
+                                } else {
+                                    System.out.println("Invalid user group. Please enter a valid user group.");
+                                    System.out.println("Valid user groups: ADM, EEE, SCSE, NBS, SSS or NTU");
+                                }
+                            } catch (InputMismatchException e) {
+                                System.out.println("Invalid input. Please enter a valid user group.");
+                                sc.next(); // consume the invalid input
+                            }
+                        } while (!validUserGrp);
+
+                        editCamp.setUserGroup(userGrp);
+                
                         break;
 
                     case 6:
@@ -68,20 +150,49 @@ public class CampEditor {
                         break;
 
                     case 7:
-                        System.out.println("Please enter new total slots of Camp:");
-                        int newTotalSlots = sc.nextInt();
-                        editCamp.setTotalSlots(newTotalSlots);
+                        int totalSlots = 0;
+                        boolean validTotalSlots = false;
+                        do {
+                            try {
+                                System.out.println("Please enter total slots of Camp:");
+                                totalSlots = sc.nextInt();
+                                if (totalSlots <= 0) {
+                                    System.out.println("There must be at least 1 available slot.");
+                                    validTotalSlots = false;
+                                } else {
+                                    validTotalSlots = true;
+                                }
+                            } catch (InputMismatchException e) {
+                                System.out.println("Invalid input. Please enter a valid number for total slots.");
+                                sc.next(); // consume the invalid input
+                            }
+                        } while (!validTotalSlots);
+                    
+                        editCamp.setTotalSlots(totalSlots);
                         break;
+                    
 
                     case 8:
-                        System.out.println("Please enter total slots for Camp Committee:");
-                        int newCampCommSlots = sc.nextInt();
-                        if (newCampCommSlots>10){      //check that its max 10
-                            System.out.println("There cannot be more than 10 slots!");
-                            System.out.println("Please re-enter total slots for Camp Committee: (MAX 10)");
-                            newCampCommSlots = sc.nextInt();
-                        }
-                        editCamp.setCommitteeSlots(newCampCommSlots);
+                        System.out.println("Please enter total slots for Camp Committee: (MAX 10)");
+                        int campCommSlots = 0;
+                        boolean validCampCommSlots = false;
+                        do {
+                            try {
+                                campCommSlots = sc.nextInt();
+                                if (campCommSlots > 10) {
+                                    System.out.println("There cannot be more than 10 slots!");
+                                    System.out.println("Please re-enter total slots for Camp Committee: (MAX 10)");
+                                } else {
+                                    validCampCommSlots = true;
+                                }
+                            } catch (InputMismatchException e) {
+                                System.out.println("Invalid input. Please enter a valid number for Camp Committee slots.");
+                                sc.next(); // consume the invalid input
+                            }
+                        } while (!validCampCommSlots);
+
+                        editCamp.setCommitteeSlots(campCommSlots);
+                    
                         break;
 
                     case 9:
@@ -130,7 +241,7 @@ public class CampEditor {
                     default:
                         break;
                 }
-            } while (editFieldOption<12);
+            } while (editFieldOption<10);
         //sc.close();
     }
 
