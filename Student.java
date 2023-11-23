@@ -46,20 +46,20 @@ public class Student extends User {
         if (withdrawnCamps.contains(camp)) {
             return false;
         } else {
-            enrolledCamps.add(camp);
-            if ("committee".equals(role)) {
-                this.isCampCommittee = true;
-                registerForCampAsCommittee(camp);
-            }
+            // enrolledCamps.add(camp);
+            // if ("committee".equals(role)) {
+            //     this.isCampCommittee = true;
+            //     registerForCampAsCommittee(camp);
+            // }
             return true;
         }
     }
 
-    private void registerForCampAsCommittee(Camp camp) {
-        // Logic to handle registration as a Camp Committee member
-        CampCommittee committeeMember = new CampCommittee(this.getUserID(), this.getFaculty(), camp);
-        camp.addCommitteeMembers(committeeMember); 
-    }
+    // private void registerForCampAsCommittee(Camp camp) {
+    //     // Logic to handle registration as a Camp Committee member
+    //     CampCommittee committeeMember = new CampCommittee(this.getUserID(), this.getFaculty(), camp);
+    //     camp.addCommitteeMembers(committeeMember); 
+    // }
 
     public boolean setWithdrawnCamps(Camp camp) {
         if (enrolledCamps.contains(camp)) {

@@ -329,7 +329,7 @@ public class CampApplicationSystem {
                                                             campToSelect.addAttendees(authStudent);
                                                             System.out.println("You have successfully registered as a attendee for " + campToSelect.getCampName() + ".");
                                                         }
-                                                        if (role == "committee"){
+                                                        else if (role == "committee"){
                                                             CampCommittee downcastingCampCommittee = (CampCommittee) authStudent;  //downcast
                                                             downcastingCampCommittee.setCamp(campToSelect);
                                                             campToSelect.addCommitteeMembers(downcastingCampCommittee);
