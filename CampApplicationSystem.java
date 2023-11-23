@@ -323,17 +323,23 @@ public class CampApplicationSystem {
                                                     sc.nextLine(); // Consume newline
                                                     String role = (roleSelection == 1) ? "attendee" : "committee";
                                                     boolean registrationSuccess = authStudent.setEnrolledCamps(campToSelect, role);
+
                                                     if (registrationSuccess) {
-                                                        campToSelect.addAttendees(authStudent);
-                                                        System.out.println("You have successfully registered as a " + role + " for " + campToSelect.getCampName() + ".");
+                                                        if (role == "attendee"){
+                                                            campToSelect.addAttendees(authStudent);
+                                                            System.out.println("You have successfully registered as a attendee for " + campToSelect.getCampName() + ".");
+                                                        }
+                                                        if (role == "committee"){
+                                                            CampCommittee downcastingCampCommittee = (CampCommittee) authStudent;  //downcast
+                                                            downcastingCampCommittee.setCamp(campToSelect);
+                                                            campToSelect.addCommitteeMembers(downcastingCampCommittee);
+                                                            
+                                                            System.out.println("You have successfully registered as a camp committee member for " + campToSelect.getCampName() + ".");
+                                                        }
                                                     } else {
                                                         System.out.println("Registration failed. You may have already registered or withdrawn from this camp.");
                                                     }
 
-                                                    if (role == "committee"){
-                                                        CampCommittee downcastingCampCommittee = (CampCommittee) authStudent;  //downcast
-                                                        downcastingCampCommittee.setCamp(campToSelect);
-                                                    }
                                                 } else {
                                                     System.out.println("Invalid camp selection. Please try again.");
                                                 }
