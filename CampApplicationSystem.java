@@ -147,8 +147,10 @@ public class CampApplicationSystem {
                                         System.out.println("Choose an action:\r\n"
                                             +"(1) Edit Camp\r\n"
                                             +"(2) View and reply enquiries \r\n"
-                                            +"(3) Print Camp Report(s)\r\n"
-                                            +"(4) Quit");
+                                            +"(3) View pending suggestions\r\n"
+                                            +"(4) View proccessed suggestions\r\n"
+                                            +"(5) Print Camp Report(s)\r\n"
+                                            +"(5) Quit");
                                         staffCampOption = sc.nextInt();
                                         
                                         switch (staffCampOption) {
@@ -165,6 +167,58 @@ public class CampApplicationSystem {
                                                 enquiryViewingAndReplying.enquiryUI(staffCampEnquiry);
                                                 break;
                                             case 3:
+                                                System.out.println("\n=====PENDING SUGGESTIONS====="); 
+                                                List<Suggestion> pendingSuggestions = createdCamps.get(editCampIndex-1).getPendingSuggestion();
+                                                int suggCounter = 1;
+                                                System.out.println("Select suggestion to be viewed, 0 to quit: ");
+                                                for (Suggestion suggestions : pendingSuggestions) {
+                                                    System.out.println("(" + suggCounter+ ") Suggestion: " + suggestions.getSuggestionText());
+                                                    suggCounter++;
+                                                }
+                                                int suggEditChoice = sc.nextInt();
+
+                                                if (suggEditChoice == 0){
+                                                    break;
+                                                }
+                                                else{
+                                                    Suggestion suggChoice = pendingSuggestions.get(suggEditChoice-1);
+                                                    System.out.println("Please select an action:\n"
+                                                    + "(1) Approve suggestion\n"
+                                                    + "(2) Reject suggestion\n"
+                                                    + "(3) Quit");
+
+                                                    int suggestionSelection = sc.nextInt();
+
+                                                    switch (suggestionSelection) {
+                                                        case 1:
+                                                            suggChoice.setSuggestionAccepted();
+                                                            suggChoice.suggProcessed();
+                                                            System.out.println("Suggestion has been marked as approved.");
+                                                            break;
+                                                        case 2:
+                                                            suggChoice.suggProcessed();
+                                                            System.out.println("Suggestion has been marked as rejected.");
+                                                            break;
+                                                        default:
+                                                            break;
+                                                    }
+                                                }
+                                                break;
+                                            case 4:
+                                                System.out.println("\n=====PROCCESSED SUGGESTIONS====="); 
+                                                List<Suggestion> proccessedSuggesitons = createdCamps.get(editCampIndex-1).getProccessedSuggestion();
+                                                int suggCounter1 = 1;
+                                                System.out.println("Prccessed suggestions: ");
+                                                for (Suggestion suggestions : proccessedSuggesitons) {
+                                                    if (suggestions.getSuggestionAccepted()){
+                                                        System.out.println("(" + suggCounter1+ ") Suggestion: " + suggestions.getSuggestionText() + " - Accepted");
+                                                    } else{
+                                                        System.out.println("(" + suggCounter1+ ") Suggestion: " + suggestions.getSuggestionText() + " - Rejected");
+                                                    }
+                                                    suggCounter1++;
+                                                }
+                                            
+                                            case 5:
                                                 System.out.println("\n=====REPORT GENERATOR=====");
                                                 StaffReportGenerator staffReportGenerator = new StaffReportGenerator();
                                                 staffReportGenerator.staffReportGenerator(editCampIndex, createdCamps, allCamps, authStaff);

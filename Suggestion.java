@@ -2,7 +2,7 @@ public class Suggestion {
     private CampCommittee campCommittee;
     private Camp camp;
     private String suggestionText;
-    private boolean suggestionAccepted;
+    private boolean suggestionAccepted = false;
     private boolean suggestionProcessed = false;
 
     public void setCampCommittee(CampCommittee campCommittee) {
@@ -17,8 +17,8 @@ public class Suggestion {
         this.suggestionText = suggestionText;
     }
 
-    public void setSuggestionAccepted(boolean suggestionAccepted) {
-        this.suggestionAccepted = suggestionAccepted;
+    public void setSuggestionAccepted() {
+        this.suggestionAccepted = true;
     }
 
     public CampCommittee getCampCommittee() {

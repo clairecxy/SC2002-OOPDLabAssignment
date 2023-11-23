@@ -118,6 +118,27 @@ public class Camp{
     //     return this.enquiry[enquiries];
     // }
 
+    public List<Suggestion> getPendingSuggestion() {
+        List<Suggestion> pendingSuggestions = new ArrayList<>();
+        for (Suggestion suggestion : this.suggestion) {
+            if (!suggestion.processStatus()) {
+                pendingSuggestions.add(suggestion);
+            }
+        }
+        return pendingSuggestions;
+    }
+
+    public List<Suggestion> getProccessedSuggestion(){
+        List<Suggestion> proccessedSuggestions = new ArrayList<>();
+        for (Suggestion suggestion : this.suggestion) {
+            if (suggestion.processStatus()) {
+                proccessedSuggestions.add(suggestion);
+            }
+        }
+        return proccessedSuggestions;
+    }
+    
+
     public List<Suggestion> getSuggestion(){
         return this.suggestion;
     }
@@ -193,7 +214,6 @@ public class Camp{
             this.committeeMembers.add(campCommMember);
             this.remainingCommitteeSlots--;
         }
-
 
     }
 
