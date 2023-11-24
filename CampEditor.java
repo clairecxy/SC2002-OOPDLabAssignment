@@ -182,7 +182,6 @@ public class CampEditor {
                                 campCommSlots = sc.nextInt();
                                 if (campCommSlots > 10 || campCommSlots < 0) {
                                     System.out.println("There cannot be more than 10 or less than 0 slots!");
-                                    System.out.println("Please re-enter total slots for Camp Committee: (MAX 10)");
                                 } else {
                                     validCampCommSlots = true;
                                 }
