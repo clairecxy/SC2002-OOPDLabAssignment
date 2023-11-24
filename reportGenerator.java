@@ -40,7 +40,7 @@ public class reportGenerator {
                     break;
 
                 case 5:
-                    writeReportToFile(getGeneralReport(reportingCamp), "performance_report.txt");
+                    writeReportToFile(getGeneralReport(reportingCamp), "general_report.txt");
 
 
                 default:

@@ -275,6 +275,8 @@ public class CampApplicationSystem {
                                         break;
                                     }
 
+                                    boolean deleted = false;
+
                                     do{
                                         System.out.println("\n=====CAMP INTERFACE=====");
                                         System.out.println("Choose an action:\r\n"
@@ -291,7 +293,7 @@ public class CampApplicationSystem {
                                             case 1:
                                                 System.out.println("\n=====CAMP EDITOR=====");                                                 
                                                 CampEditor campEditor = new CampEditor();
-                                                campEditor.editCamp(editCampIndex, createdCamps, allCamps, authStaff);
+                                                deleted = campEditor.editCamp(editCampIndex, createdCamps, allCamps, authStaff);
                                                 break;
                                             case 2:
                                                 System.out.println("\n=====ENQUIRIES=====");  
@@ -361,7 +363,7 @@ public class CampApplicationSystem {
                                             default:
                                                 break;
                                         }
-                                    }while (staffCampOption<6);
+                                    }while (staffCampOption<6 && deleted == false);
                                     break;
 
                                 case 4:
@@ -394,13 +396,18 @@ public class CampApplicationSystem {
                         //sc.nextInt();
                         
                         do {
+                            System.out.println("\n=====WELCOME STUDENT=====");
+
+                            if (authStudent.isCampCommittee()){
+                                System.out.println("You are camp committee member of: " + authStudent.getCampCommittee().getCampName());
+                            }
+                            
                             System.out.println(
-                            "\n=====WELCOME STUDENT=====\r\n"
-                            +"(1) Change Password\r\n"
+                            "(1) Change Password\r\n"
                             +"(2) Camp Committee\r\n"
                             +"(3) View your registered camps\r\n"       //can quit camp from here
                             +"(4) View all available camps\r\n"         //can enquire about camps from here
-                            +"(5) Logout");       
+                            +"(5) Logout");    
                         
                         System.out.println("Please selection an action:");
                             studentChoice = sc.nextInt();
@@ -470,14 +477,14 @@ public class CampApplicationSystem {
                                     // if (authStudent.setWithdrawnCamps(quittingCamp) == true){
                                     //     System.out.println("You have successfully withdrawn from " + quittingCamp.getCampName());
                                     // }
-                                    if (authStudent.isCampCommittee()){
-                                        Camp authStudentCampComm = authStudent.getCampCommittee();
-                                        if (quittingCamp == authStudentCampComm){
-                                            System.out.println("You cannot withdrawn from " + quittingCamp.getCampName() + " as you are a camp committee member.");
-                                        }
-                                    } else if (authStudent.setWithdrawnCamps(quittingCamp) == true){
+                                    if (authStudent.getCampCommittee() == quittingCamp){
+                                        System.out.println("You cannot withdrawn from " + quittingCamp.getCampName() + " as you are a camp committee member.");
+                                    } 
+                                    else if (authStudent.setWithdrawnCamps(quittingCamp) == true){
+                                        quittingCamp.removeAttendees(authStudent);
                                         System.out.println("You have successfully withdrawn from " + quittingCamp.getCampName());
                                     }
+
 
                                 case 4:     // View all available camps
                                     System.out.println("\n=====CAMP VIEWER=====");
@@ -548,6 +555,7 @@ public class CampApplicationSystem {
                                                             if (authStudent.isCampCommittee() == false){
                                                                 authStudent.setEnrolledCamps(campToSelect);
                                                                 authStudent.setIsCampCommittee();
+                                                                authStudent.setCampCommittee(campToSelect);
                                                                 CampCommittee downcastingCampCommittee = (CampCommittee) authStudent;  //downcast
                                                                 downcastingCampCommittee.setCamp(campToSelect);
                                                                 campToSelect.addCommitteeMembers(downcastingCampCommittee);

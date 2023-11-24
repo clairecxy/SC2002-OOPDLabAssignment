@@ -242,7 +242,7 @@ public class Camp{
 
         if (this.attendees.contains(attendee)){
             this.attendees.remove(attendee);
-            System.out.println("Student: " + attendee + " successfully quit from " + this.campName);
+            this.remainingSlots++;
         }
     }
 }
