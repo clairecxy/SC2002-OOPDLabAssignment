@@ -170,5 +170,17 @@ public class Student extends User {
         newEnquiry.setEnquiryText(enquiry);
         camp.addEnquiry(newEnquiry);
         this.enquiries.add(newEnquiry);
-    }    
+    }  
+    
+    public List<Camp> getVisibleCamps(List<Camp> allCamps) {
+        List<Camp> visibleCamps = new ArrayList<>();
+        
+        for (Camp camp : allCamps) {
+            if ((camp.getUserGroup().equals(this.getFaculty()) || camp.getUserGroup().equals("NTU")) && camp.getVisibility()) {
+                visibleCamps.add(camp);
+            }
+        }
+        return visibleCamps;
+    }
+    
 }

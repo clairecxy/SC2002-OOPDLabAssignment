@@ -547,10 +547,13 @@ public class CampApplicationSystem {
 
                                                     if (!authStudent.getWithdrawnCamps().contains(campToSelect)) {
                                                         if (role == "attendee"){
-                                                            authStudent.setEnrolledCamps(campToSelect);
-                                                            if (campToSelect.addAttendees(authStudent)==1);
-                                                            System.out.println("You have successfully registered as a attendee for " + campToSelect.getCampName() + ".");
-                                                        }
+                                                           
+                                                            if (campToSelect.addAttendees(authStudent)==1){
+                                                                authStudent.setEnrolledCamps(campToSelect);
+                                                                System.out.println("You have successfully registered as a attendee for " + campToSelect.getCampName() + ".");
+                                                            }
+                                                         }
+                                                        
                                                         else if (role == "committee"){
                                                             if (authStudent.isCampCommittee() == false){
                                                                 authStudent.setEnrolledCamps(campToSelect);
@@ -558,9 +561,9 @@ public class CampApplicationSystem {
                                                                 authStudent.setCampCommittee(campToSelect);
                                                                 CampCommittee downcastingCampCommittee = (CampCommittee) authStudent;  //downcast
                                                                 downcastingCampCommittee.setCamp(campToSelect);
-                                                                campToSelect.addCommitteeMembers(downcastingCampCommittee);
-                                                                
-                                                                System.out.println("You have successfully registered as a camp committee member for " + campToSelect.getCampName() + ".");
+                                                                if (campToSelect.addCommitteeMembers(downcastingCampCommittee) == 1) {;                 
+                                                                    System.out.println("You have successfully registered as a camp committee member for " + campToSelect.getCampName() + ".");
+                                                                }
                                                             } else{
                                                                 System.out.println("You are already a camp committee member for another camp.");
                                                             }
@@ -577,28 +580,30 @@ public class CampApplicationSystem {
                                                                
                                             case 2:     // Submit enquiry for a camp
                                                   
-                                                int availCampCounter2 = 1;                                                
+                                                int visibleCampCounter = 1;                                                
                                                 System.out.println("\n=====CAMP ENQUIRIES=====");
                                                 System.out.println("Select camp for enquiries:"); 
 
                                                 System.out.println("Available Camps: remaining slots");
+
+                                                List<Camp> visibleCamps = authStudent.getVisibleCamps(allCamps);
                                                 
-                                                for (Camp availCamp : availCamps) {
-                                                    System.out.println("(" + availCampCounter2 + ") " + availCamp.getCampName() + " - Attendee Slots: " + availCamp.getRemainingSlots() + " | Camp Committee Slots: " + availCamp.getRemainingCommitteeSlots());
+                                                for (Camp availCamp : visibleCamps) {
+                                                    System.out.println("(" + visibleCampCounter + ") " + availCamp.getCampName() + " - Attendee Slots: " + availCamp.getRemainingSlots() + " | Camp Committee Slots: " + availCamp.getRemainingCommitteeSlots());
                                                     System.out.println("    => Registration end date: " + availCamp.getRegistrationEndDate() + " | Start date: " + availCamp.getStartDate() + " | End date: " + availCamp.getEndDate());
-                                                    availCampCounter2++;
+                                                    visibleCampCounter++;
                                                 }
 
-                                                System.out.println("(" + availCampCounter2 + ") Quit\n");
+                                                System.out.println("(" + visibleCampCounter + ") Quit\n");
 
                                             
                                                 int enquireCamp = sc.nextInt();
             
-                                                if (enquireCamp == availCampCounter+1){
+                                                if (enquireCamp == visibleCampCounter+1){
                                                     break;
                                                 }
-                                                else if (enquireCamp<availCampCounter+1){
-                                                    Camp campForEnquire = availCamps.get(enquireCamp-1);
+                                                else if (enquireCamp<visibleCampCounter+1){
+                                                    Camp campForEnquire = visibleCamps.get(enquireCamp-1);
                                                     System.out.println(campForEnquire.getCampName() + " selected.\r\n"
                                                         +"Please enter your enquiry:");
                                                     String enquiry = sc.next();
