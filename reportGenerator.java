@@ -69,6 +69,7 @@ public class reportGenerator {
     
             // Append details of the camp to the report
             report.append("Camp Name: ").append(camp.getCampName()).append("\n");
+            report.append("Staff in Charge: ").append(camp.getStaffIC()).append("\n");
             report.append("Start Date: ").append(camp.getStartDate()).append("\n");
             report.append("End Date: ").append(camp.getEndDate()).append("\n");
             report.append("Registration End Date: ").append(camp.getRegistrationEndDate()).append("\n");
@@ -180,6 +181,7 @@ public class reportGenerator {
     
             // Append details of the camp to the report
             report.append("Camp Name: ").append(camp.getCampName()).append("\n");
+            report.append("Staff in Charge: ").append(camp.getStaffIC()).append("\n");
             report.append("Start Date: ").append(camp.getStartDate()).append("\n");
             report.append("End Date: ").append(camp.getEndDate()).append("\n");
             report.append("Registration End Date: ").append(camp.getRegistrationEndDate()).append("\n");
