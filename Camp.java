@@ -218,13 +218,15 @@ public class Camp{
     }
 
 
-    public void addAttendees(Student attendee){
+    public int addAttendees(Student attendee){
         if (remainingSlots == 0){
             System.out.println("There are no more slots for this camp.");
+            return 0;
         }
         else{
             this.attendees.add(attendee);
             this.remainingSlots--;
+            return 1;
         }
     }
 

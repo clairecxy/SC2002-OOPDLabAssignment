@@ -548,7 +548,7 @@ public class CampApplicationSystem {
                                                     if (!authStudent.getWithdrawnCamps().contains(campToSelect)) {
                                                         if (role == "attendee"){
                                                             authStudent.setEnrolledCamps(campToSelect);
-                                                            campToSelect.addAttendees(authStudent);
+                                                            if (campToSelect.addAttendees(authStudent)==1);
                                                             System.out.println("You have successfully registered as a attendee for " + campToSelect.getCampName() + ".");
                                                         }
                                                         else if (role == "committee"){
