@@ -556,12 +556,14 @@ public class CampApplicationSystem {
                                                         
                                                         else if (role == "committee"){
                                                             if (authStudent.isCampCommittee() == false){
-                                                                authStudent.setEnrolledCamps(campToSelect);
-                                                                authStudent.setIsCampCommittee();
-                                                                authStudent.setCampCommittee(campToSelect);
+                                                                
                                                                 CampCommittee downcastingCampCommittee = (CampCommittee) authStudent;  //downcast
-                                                                downcastingCampCommittee.setCamp(campToSelect);
-                                                                if (campToSelect.addCommitteeMembers(downcastingCampCommittee) == 1) {;                 
+                                                                
+                                                                if (campToSelect.addCommitteeMembers(downcastingCampCommittee) == 1) {  
+                                                                    downcastingCampCommittee.setCamp(campToSelect);
+                                                                    authStudent.setEnrolledCamps(campToSelect);
+                                                                    authStudent.setIsCampCommittee();
+                                                                    authStudent.setCampCommittee(campToSelect);              
                                                                     System.out.println("You have successfully registered as a camp committee member for " + campToSelect.getCampName() + ".");
                                                                 }
                                                             } else{
