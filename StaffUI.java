@@ -14,9 +14,9 @@ public class StaffUI {
         String formattedDate = dateFormat.format(currentDate);
         
         Scanner sc = new Scanner(System.in);
-        sc.useDelimiter("\n");
+        sc.useDelimiter("\r\n");
 
-        int staffChoice;
+        int staffChoice = 0;
 
         do{
             System.out.println("\n=====WELCOME STAFF MEMBER=====");
@@ -27,12 +27,15 @@ public class StaffUI {
             +"(4) View all camps\r\n"
             +"(5) Logout");
             
-            while (!sc.hasNextInt()){
-                sc.next();
-            }
-            staffChoice = sc.nextInt();
-            
-            //sc.nextInt();      //buffer
+            try{    //exception handling for non-integers and invalid selections
+                staffChoice = Integer.parseInt(sc.next());
+                                    
+                if(staffChoice >5 || staffChoice<1){
+                    throw new Exception("A valid selection was not made.");                    
+                }
+            // while (!sc.hasNextInt()){
+            //     sc.next();
+            // }
 
             switch (staffChoice) {
                 case 1:
@@ -223,8 +226,14 @@ public class StaffUI {
                             +"(4) View proccessed suggestions\r\n"
                             +"(5) Print Camp Report(s)\r\n"
                             +"(6) Quit");
-                        staffCampOption = sc.nextInt();
-                        
+                        //staffCampOption = sc.nextInt();
+                           //exception handling for non-integers and invalid selections
+                            staffCampOption = Integer.parseInt(sc.next());
+                                                
+                            if(staffCampOption >6 || staffCampOption<1){
+                                throw new Exception("A valid selection was not made.");                    
+                            }
+                            
                         switch (staffCampOption) {
 
                             case 1:
@@ -278,6 +287,7 @@ public class StaffUI {
                                             break;
                                     }
                                 }
+                                
                                 break;
                             case 4:
                                 System.out.println("\n=====PROCESSED SUGGESTIONS====="); 
@@ -304,6 +314,7 @@ public class StaffUI {
                             default:
                                 break;
                         }
+                        
                     }while (staffCampOption<6 && deleted == false);
                     break;
 
@@ -321,7 +332,15 @@ public class StaffUI {
                     break;
             }
 
-        }while (staffChoice<5);
+            }
+            catch (NumberFormatException f){
+                System.out.println("Invalid input.");
+            }
+            catch (Exception e) {
+                System.out.println(e.getMessage());                
+            }
+            continue;
+        }while (staffChoice != 5);
 
     }
 }

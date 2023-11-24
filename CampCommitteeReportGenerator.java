@@ -6,11 +6,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class CampCommitteeReportGenerator {
-    public void CampCommitteeReportGenerator(Camp reportingCamp){
+    public void campCommitteeReportGenerator(Camp reportingCamp){
         Scanner sc = new Scanner(System.in);        //don't close this!
-        sc.useDelimiter("\n");
+        sc.useDelimiter("\r\n");
 
-        int reportChoice;
+        int reportChoice = 0;
 
         do{
             System.out.println("What kind of report would you like to print?\r\n"
@@ -19,33 +19,41 @@ public class CampCommitteeReportGenerator {
             +"(3) Camp Details\r\n"
             +"(4) Camp General Report\r\n"
             +"(5) Exit");
-            reportChoice = sc.nextInt();
-
-            switch (reportChoice) {
-                case 1:
-                    writeReportToFile(getGeneralReportAttendees(reportingCamp), "campCommittee_attendees_report.txt");
-                    break;
-
-                case 2:
-                    writeReportToFile(getGeneralReportCampCommittee(reportingCamp), "campCommittee_committee_report.txt");
-                    break;
-
-                case 3:
-                    writeReportToFile(getGeneralReportDetails(reportingCamp), "campCommittee_camp_details_report.txt");
-                    break;
-
-                case 4:
-                    writeReportToFile(getGeneralReport(reportingCamp), "campCommittee_general_report.txt");
-
-
-                default:
-                    break;
-            }
             
+
+            try{
+                reportChoice = Integer.parseInt(sc.next());
+                if(reportChoice >4 || reportChoice<1){
+                    throw new Exception("A valid selection was not made.");                    
+                }
+                
+                switch (reportChoice) {
+                    case 1:
+                        writeReportToFile(getGeneralReportAttendees(reportingCamp), "campCommittee_attendees_report.txt");
+                        break;
+
+                    case 2:
+                        writeReportToFile(getGeneralReportCampCommittee(reportingCamp), "campCommittee_committee_report.txt");
+                        break;
+
+                    case 3:
+                        writeReportToFile(getGeneralReportDetails(reportingCamp), "campCommittee_camp_details_report.txt");
+                        break;
+
+                    case 4:
+                        writeReportToFile(getGeneralReport(reportingCamp), "campCommittee_general_report.txt");
+
+
+                    default:
+                        break;
+                }
+            }catch (NumberFormatException g){
+                System.out.println("Invalid input.");
+            }
+            catch (Exception e) {
+                System.out.println(e.getMessage());                
+            }              
         }while(reportChoice<5);
-        
-
-
     }
 
     private void writeReportToFile(String report, String fileName) {

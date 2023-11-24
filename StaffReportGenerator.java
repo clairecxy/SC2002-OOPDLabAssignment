@@ -8,9 +8,9 @@ import java.io.IOException;
 public class StaffReportGenerator {
     public void StaffReportGenerator(Camp reportingCamp){
         Scanner sc = new Scanner(System.in);        //don't close this!
-        sc.useDelimiter("\n");
+        sc.useDelimiter("\r\n");
 
-        int reportChoice;
+        int reportChoice = 0;
 
         do{
             System.out.println("What kind of report would you like to print?\r\n"
@@ -20,7 +20,13 @@ public class StaffReportGenerator {
             +"(4) Camp Committee Performance Report\r\n"
             +"(5) Camp General Report\r\n"
             +"(6) Exit");
-            reportChoice = sc.nextInt();
+
+            try{    //exception handling for non-integers and invalid selections
+                reportChoice = Integer.parseInt(sc.next());
+                                    
+                if(reportChoice >6 || reportChoice<1){
+                    throw new Exception("A valid selection was not made.");                    
+                }
 
             switch (reportChoice) {
                 case 1:
@@ -46,11 +52,15 @@ public class StaffReportGenerator {
                 default:
                     break;
             }
+            }
+            catch (NumberFormatException i){
+                System.out.println("Invalid input.");
+            }
+            catch (Exception e) {
+                System.out.println(e.getMessage());                
+            }   
             
         }while(reportChoice<6);
-        
-
-
     }
 
     private void writeReportToFile(String report, String fileName) {

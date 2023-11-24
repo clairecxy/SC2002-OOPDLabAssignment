@@ -10,9 +10,9 @@ public class StudentUI {
     public static void staffInterface(Student authStudent, User authUser, List<Camp> allCamps){
         
         Scanner sc = new Scanner(System.in);
-        sc.useDelimiter("\n");
+        sc.useDelimiter("\r\n");
 
-        int studentChoice;
+        int studentChoice = 0;
 
         //sc.nextInt();
 
@@ -31,7 +31,14 @@ public class StudentUI {
             +"(5) Logout");    
 
         System.out.println("Please selection an action:");
-            studentChoice = sc.nextInt();
+            //studentChoice = sc.nextInt();
+            try{    //exception handling for non-integers and invalid selections
+                studentChoice = Integer.parseInt(sc.next());
+                                    
+                if(studentChoice >5 || studentChoice<1){
+                    throw new Exception("A valid selection was not made.");                    
+                }
+
             switch (studentChoice) {    //these loop until Quit is selected
                 case 1:
                     System.out.println("\n=====CHANGE PASSWORD====="); 
@@ -141,8 +148,14 @@ public class StudentUI {
                             + "(3) Edit or delete your enquiry\n"
                             + "(4) View enquiries and replies\n"
                             + "(5) Exit\n");
-                
-                        int studentSelection = sc.nextInt();
+                        
+                        int studentSelection = Integer.parseInt(sc.next());
+                                    
+                        if(studentSelection >5 || studentChoice<1){
+                            throw new Exception("A valid selection was not made.");                    
+                        }
+
+                        //int studentSelection = sc.nextInt();
                         sc.nextLine();  // Consume the rest of the line including newline
                 
                         switch (studentSelection) {
@@ -246,6 +259,9 @@ public class StudentUI {
                                     authStudent.submitEnquiry(campForEnquire, enquiry); 
                                         //student submits enquiry
                                 }
+                                else{
+                                    System.out.println("A valid selection was not made.");
+                                }
                                 break;
 
                             case 3:
@@ -280,7 +296,13 @@ public class StudentUI {
                                     + "(2) Delete enquiry\n"
                                     + "(3) Quit");
 
-                                    editOrDeleteChoice = sc.nextInt();
+                                    editOrDeleteChoice = Integer.parseInt(sc.next());
+                                        
+                                    if(editOrDeleteChoice >2 || editOrDeleteChoice<1){
+                                        throw new Exception("A valid selection was not made.");                    
+                                    }
+
+                                    //editOrDeleteChoice = sc.nextInt();
 
                                     switch (editOrDeleteChoice) {
                                         case 1:
@@ -360,8 +382,14 @@ public class StudentUI {
                     
                 default:
                     break;
+                }
+            }catch (NumberFormatException f){
+                System.out.println("Invalid input.");
             }
-        } while(studentChoice<5);
+            catch (Exception e) {
+                System.out.println(e.getMessage());                
+            }   
+        } while(studentChoice!=5);
 
     }
 }
