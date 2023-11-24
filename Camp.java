@@ -205,21 +205,24 @@ public class Camp{
         this.suggestion.add(suggest);
     }
     
-    public void addCommitteeMembers(CampCommittee campCommMember){
+    public int addCommitteeMembers(CampCommittee campCommMember){
         
-        if (remainingCommitteeSlots == 0){
+        if (this.remainingCommitteeSlots == 0){
             System.out.println("There are no more committee slots for this camp.");
+            return 0;
         }
         else{
             this.committeeMembers.add(campCommMember);
             this.remainingCommitteeSlots--;
+            return 1;
         }
 
     }
 
 
     public int addAttendees(Student attendee){
-        if (remainingSlots == 0){
+       
+        if (this.remainingSlots == 0){
             System.out.println("There are no more slots for this camp.");
             return 0;
         }
