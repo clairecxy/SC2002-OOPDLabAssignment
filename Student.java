@@ -183,4 +183,8 @@ public class Student extends User {
         return visibleCamps;
     }
     
+    public void deleteEnquiries(Enquiry enquiry) {
+        this.enquiries.remove(enquiry);
+        enquiry.getCamp().getAllEnquiries().remove(enquiry);
+    }
 }

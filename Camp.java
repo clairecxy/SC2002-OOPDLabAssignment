@@ -251,8 +251,8 @@ public class Camp{
         }
     }
 
-    public void deleteSuggestion(Suggestion suggesiton){
-        this.suggestion.remove(suggestion);
+    public void deleteSuggestion(Suggestion suggesitons){
+        this.suggestion.remove(suggesitons);
     }
     
 }

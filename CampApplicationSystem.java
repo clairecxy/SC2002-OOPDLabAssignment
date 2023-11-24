@@ -508,7 +508,7 @@ public class CampApplicationSystem {
                                         System.out.println("\nPlease select an action:\n"
                                             + "(1) Register for a camp\n"
                                             + "(2) Submit enquiry for a camp\n"
-                                            + "(3) Edit your enquiry\n"
+                                            + "(3) Edit or delete your enquiry\n"
                                             + "(4) View enquiries and replies\n"
                                             + "(5) Exit\n");
                                 
@@ -619,7 +619,8 @@ public class CampApplicationSystem {
                                                 break;
 
                                             case 3:
-                                                System.out.println("\n=====EDIT ENQUIRIES====="); 
+                                                
+                                                System.out.println("\n=====EDIT OR DELETE ENQUIRIES====="); 
                                                 List<Enquiry> submittedEnquiry = authStudent.getEnquiries();
                                                 System.out.println("Select enquiry to be edited, 0 to quit: ");
                                                 int enqCounter = 1;
@@ -629,24 +630,56 @@ public class CampApplicationSystem {
                                                 }
                                                 
                                                 int enqEditChoice = sc.nextInt();
-                            
+                                                Enquiry enqChoice = submittedEnquiry.get(enqEditChoice-1);
+                                                if (!enqChoice.replyStatus()){
+                                                    System.out.println("You cannot edit the enquiry after it has been processed!");
+                                                    break;
+                                                }     
                                                 if (enqEditChoice == 0){
                                                     break;
                                                 }
                                                 else{
-                                                    Enquiry enqChoice = submittedEnquiry.get(enqEditChoice-1);
-                                                    if (!enqChoice.replyStatus()){
-                                                        System.out.println("Previous enquiry: " + enqChoice.getEnquiryText());
-                                                        
-                                                        System.out.println("Enter edited enquiry: ");
-                                                        String editedEnq = sc.next();
-                                                        enqChoice.setEnquiryText(editedEnq);
-                                                    }
-                                                    else{
-                                                        System.out.println("You cannot edit the enquiry after it has been processed!");
-                                                        break;
-                                                    }
+
+                                                    int editOrDeleteChoice = 0;
+                                                    boolean delete = false;
+
+                                                    do {
                                                     
+                                                    System.out.println("Please selection an action:\n"
+                                                    + "(1) Edit enquiry\n"
+                                                    + "(2) Delete enquiry\n"
+                                                    + "(3) Quit");
+
+                                                    editOrDeleteChoice = sc.nextInt();
+
+                                                    switch (editOrDeleteChoice) {
+                                                        case 1:
+                                                    
+                                                        //if (!enqChoice.replyStatus()){
+                                                            System.out.println("Previous enquiry: " + enqChoice.getEnquiryText());
+                                                            
+                                                            System.out.println("Enter edited enquiry: ");
+                                                            String editedEnq = sc.next();
+                                                            enqChoice.setEnquiryText(editedEnq);
+                                                            break;
+                                                        // }
+                                                        // else{
+                                                        //     System.out.println("You cannot edit the enquiry after it has been processed!");
+                                                        //     break;
+                                                        // }
+
+                                                        case 2:
+                                                            authStudent.deleteEnquiries(enqChoice);
+                                                            System.out.println("Enquiry successfully deleted.");
+                                                            delete = true;
+                                                            //delete logic
+                                                            break;
+                                                            
+                                                        default:
+                                                            break;
+                                                    }
+                                                        
+                                                }while (editOrDeleteChoice<3 && delete == false);
                                                 }
                                                 break;
 
