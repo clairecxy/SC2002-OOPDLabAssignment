@@ -5,8 +5,8 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class reportGenerator {
-    public void reportGenerator(Camp reportingCamp){
+public class CampCommitteeReportGenerator {
+    public void CampCommitteeReportGenerator(Camp reportingCamp){
         Scanner sc = new Scanner(System.in);        //don't close this!
         sc.useDelimiter("\r\n");
 
@@ -17,37 +17,32 @@ public class reportGenerator {
             +"(1) All attendees\r\n"
             +"(2) Camp Committee\r\n"
             +"(3) Camp Details\r\n"
-            +"(4) Camp Committee Performance Report\r\n"
-            +"(5) Camp General Report\r\n"
-            +"(6) Exit");
+            +"(4) Camp General Report\r\n"
+            +"(5) Exit");
             reportChoice = sc.nextInt();
 
             switch (reportChoice) {
                 case 1:
-                    writeReportToFile(getGeneralReportAttendees(reportingCamp), "attendees_report.txt");
+                    writeReportToFile(getGeneralReportAttendees(reportingCamp), "campCommittee_attendees_report.txt");
                     break;
 
                 case 2:
-                    writeReportToFile(getGeneralReportCampCommittee(reportingCamp), "committee_report.txt");
+                    writeReportToFile(getGeneralReportCampCommittee(reportingCamp), "campCommittee_committee_report.txt");
                     break;
 
                 case 3:
-                    writeReportToFile(getGeneralReportDetails(reportingCamp), "camp_details_report.txt");
-                    break;
-            
-                case 4:
-                    writeReportToFile(getPerformanceReport(reportingCamp), "performance_report.txt");
+                    writeReportToFile(getGeneralReportDetails(reportingCamp), "campCommittee_camp_details_report.txt");
                     break;
 
-                case 5:
-                    writeReportToFile(getGeneralReport(reportingCamp), "general_report.txt");
+                case 4:
+                    writeReportToFile(getGeneralReport(reportingCamp), "campCommittee_general_report.txt");
 
 
                 default:
                     break;
             }
             
-        }while(reportChoice<6);
+        }while(reportChoice<5);
         
 
 
@@ -146,34 +141,6 @@ public class reportGenerator {
     }
         
 
-
-    // Method to print a performance report of a camp
-    public String getPerformanceReport(Camp camp) {
-
-            // Retrieve the list of committee members for the camp
-            List<CampCommittee> committeeMembers = camp.getCommitteeMembers();
-    
-            // Create a StringBuilder to build the report
-            StringBuilder report = new StringBuilder();
-    
-            // Print the header for the committee members section
-            report.append("Committee Members for camp: ").append(camp.getCampName()).append("\n");
-    
-            // Check if there are committee members to display
-            if (committeeMembers.isEmpty()) {
-                report.append("No committee members to display.").append("\n");
-            } else {
-                // Iterate over the list of committee members and append their details to the report
-                for (CampCommittee committeeMembersPoints : committeeMembers) {
-                    report.append("Committee Members UserID: ").append(committeeMembersPoints.getUserID()).append("\n");
-                    report.append("Committee Members Points: ").append(committeeMembersPoints.getTotalPoints()).append("\n");
-                }
-            }
-    
-            // Convert the StringBuilder to a String and return
-            return report.toString();
-    }
-
     public String getGeneralReport(Camp camp) {
         // Check if the camp is in the list of camps this staff member has created
             // Create a StringBuilder to build the report
@@ -225,35 +192,35 @@ public class reportGenerator {
             // Retrieve the list of committee members for the camp
             List<CampCommittee> committeeMembers = camp.getCommitteeMembers();
     
-            // // Add the header for the committee members section
-            // report.append("Committee Members for camp: ").append(camp.getCampName()).append("\n");
-    
-            // // Check if there are committee members to display
-            // if (committeeMembers.isEmpty()) {
-            //     report.append("No committee members to display.\n");
-            // } else {
-            //     // Iterate over the list of committee members and append their details to the report
-            //     for (CampCommittee committeeMember : committeeMembers) {
-            //         report.append("Committee Members UserID: ").append(committeeMember.getUserID()).append("\n");
-            //     }
-            // }
-    
-            // Retrieve the list of committee members for the camp
-            committeeMembers = camp.getCommitteeMembers();
-    
-            // Print the header for the committee members section
+            // Add the header for the committee members section
             report.append("Committee Members for camp: ").append(camp.getCampName()).append("\n");
     
             // Check if there are committee members to display
             if (committeeMembers.isEmpty()) {
-                report.append("No committee members to display.").append("\n");
+                report.append("No committee members to display.\n");
             } else {
                 // Iterate over the list of committee members and append their details to the report
-                for (CampCommittee committeeMembersPoints : committeeMembers) {
-                    report.append("Committee Members UserID: ").append(committeeMembersPoints.getUserID()).append("\n");
-                    report.append("Committee Members Points: ").append(committeeMembersPoints.getTotalPoints()).append("\n");
+                for (CampCommittee committeeMember : committeeMembers) {
+                    report.append("Committee Members UserID: ").append(committeeMember.getUserID()).append("\n");
                 }
             }
+    
+            // // Retrieve the list of committee members for the camp
+            // committeeMembers = camp.getCommitteeMembers();
+    
+            // // Print the header for the committee members section
+            // report.append("Committee Members for camp: ").append(camp.getCampName()).append("\n");
+    
+            // // Check if there are committee members to display
+            // if (committeeMembers.isEmpty()) {
+            //     report.append("No committee members to display.").append("\n");
+            // } else {
+            //     // Iterate over the list of committee members and append their details to the report
+            //     for (CampCommittee committeeMembersPoints : committeeMembers) {
+            //         report.append("Committee Members UserID: ").append(committeeMembersPoints.getUserID()).append("\n");
+            //         report.append("Committee Members Points: ").append(committeeMembersPoints.getTotalPoints()).append("\n");
+            //     }
+            // }
     
             // Convert the StringBuilder to a String and return
             return report.toString();

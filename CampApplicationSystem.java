@@ -359,9 +359,9 @@ public class CampApplicationSystem {
                                             
                                             case 5:
                                                 System.out.println("\n=====REPORT GENERATOR=====");
-                                                reportGenerator reportGenerator = new reportGenerator();
+                                                StaffReportGenerator StaffReportGenerator = new StaffReportGenerator();
                                                 Camp reportingCamp = createdCamps.get(editCampIndex-1);
-                                                reportGenerator.reportGenerator(reportingCamp);
+                                                StaffReportGenerator.StaffReportGenerator(reportingCamp);
                                                 break;
                                         
                                             default:
