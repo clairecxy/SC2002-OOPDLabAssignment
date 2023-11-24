@@ -7,7 +7,7 @@ import java.util.Scanner;
 // import java.util.InputMismatchException;
 
 public class StudentUI {
-    public static void staffInterface(Student authStudent, User authUser, List<Camp> allCamps){
+    public static void studentInterface(Student authStudent, User authUser, List<Camp> allCamps){
         
         Scanner sc = new Scanner(System.in);
         sc.useDelimiter("\r\n");

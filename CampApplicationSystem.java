@@ -92,7 +92,7 @@ public class CampApplicationSystem {
                             else if(studentList.contains(authUser)){      //login page for staff
                                 Student authStudent = (Student) authUser;
                                 StudentUI studentUI = new StudentUI();
-                                studentUI.staffInterface(authStudent, authUser, allCamps);
+                                studentUI.studentInterface(authStudent, authUser, allCamps);
                                 loginSucc = false;
                                 authUser = null;
                                 System.out.println("Logout successful."); 
