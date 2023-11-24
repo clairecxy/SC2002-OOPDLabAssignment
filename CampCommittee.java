@@ -125,4 +125,9 @@ public class CampCommittee extends Student {
         return points;
 
     }
+
+    public void deleteSuggestions(Suggestion suggestion) {
+        this.suggestions.remove(suggestion);
+        this.camp.deleteSuggestion(suggestion);
+    }
 }

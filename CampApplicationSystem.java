@@ -304,6 +304,9 @@ public class CampApplicationSystem {
                                             case 3:
                                                 System.out.println("\n=====PENDING SUGGESTIONS====="); 
                                                 List<Suggestion> pendingSuggestions = createdCamps.get(editCampIndex-1).getPendingSuggestion();
+                                                if (pendingSuggestions.isEmpty()){
+                                                    System.out.println("There are no pending suggestions.");
+                                                }
                                                 int suggCounter = 1;
                                                 System.out.println("Select suggestion to be viewed, 0 to quit: ");
                                                 for (Suggestion suggestions : pendingSuggestions) {
@@ -340,7 +343,7 @@ public class CampApplicationSystem {
                                                 }
                                                 break;
                                             case 4:
-                                                System.out.println("\n=====PROCCESSED SUGGESTIONS====="); 
+                                                System.out.println("\n=====PROCESSED SUGGESTIONS====="); 
                                                 List<Suggestion> proccessedSuggesitons = createdCamps.get(editCampIndex-1).getProccessedSuggestion();
                                                 int suggCounter1 = 1;
                                                 System.out.println("Prccessed suggestions: ");
@@ -352,6 +355,7 @@ public class CampApplicationSystem {
                                                     }
                                                     suggCounter1++;
                                                 }
+                                                break;
                                             
                                             case 5:
                                                 System.out.println("\n=====REPORT GENERATOR=====");

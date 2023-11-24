@@ -250,4 +250,9 @@ public class Camp{
             this.remainingSlots++;
         }
     }
+
+    public void deleteSuggestion(Suggestion suggesiton){
+        this.suggestion.remove(suggestion);
+    }
+    
 }

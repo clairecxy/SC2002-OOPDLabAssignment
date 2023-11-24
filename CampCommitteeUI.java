@@ -15,7 +15,7 @@ public class CampCommitteeUI {
             System.out.println("Please select an action:\n"
                 + "(1) View details of camp\n"
                 + "(2) Submit suggestions for camp\n"
-                + "(3) Edit suggestions\n"
+                + "(3) Edit or delete suggestions\n"
                 + "(4) View and reply enquiries\n"
                 + "(5) Generate report of student list\n"
                 + "(6) View your points \n"
@@ -38,9 +38,9 @@ public class CampCommitteeUI {
                 
                 
                 case 3: //edit suggestion
-                    System.out.println("=====EDIT SUGGESTIONS====="); 
+                    System.out.println("=====EDIT OR DELETE SUGGESTIONS====="); 
                     List<Suggestion> submittedSuggestions = authCampCommittee.getSuggestions();
-                    System.out.println("Select suggestion to be edited, 0 to quit: ");
+                    System.out.println("Select suggestion to be edited or deleted, 0 to quit: ");
                     int suggCounter = 1;
                     for (Suggestion suggestions : submittedSuggestions) {
                         System.out.println("(" + suggCounter+ ") Suggestion: " + suggestions.getSuggestionText() + "\n");
@@ -54,18 +54,37 @@ public class CampCommitteeUI {
                     }
                     else{
                         Suggestion suggChoice = submittedSuggestions.get(suggEditChoice-1);
-                        if (!suggChoice.processStatus()){
-                            System.out.println("Previous suggestion: " + suggChoice.getSuggestionText());
-                            
-                            System.out.println("Enter edited suggestion: ");
-                            String editedSugg = sc.next();
-                            suggChoice.setSuggestionText(editedSugg);
-                        }
-                        else{
-                            System.out.println("You cannot edit the suggestion after it has been processed!");
-                            break;
-                        }
-                        
+                        System.out.println("Please selection an action:\n"
+                        + "(1) Edit suggestion\n"
+                        + "(2) Delete suggestion\n"
+                        + "(3) Quit");
+
+                        int editOrDeleteChoice = sc.nextInt();
+
+                        switch (editOrDeleteChoice) {
+                            case 1:
+                                if (!suggChoice.processStatus()){
+                                    System.out.println("Previous suggestion: " + suggChoice.getSuggestionText());
+                                    
+                                    System.out.println("Enter edited suggestion: ");
+                                    String editedSugg = sc.next();
+                                    suggChoice.setSuggestionText(editedSugg);
+                                }
+                                else{
+                                    System.out.println("You cannot edit the suggestion after it has been processed!");
+                                    break;
+                                }
+                                break;
+                            case 2:
+                                authCampCommittee.deleteSuggestions(suggChoice);
+                                System.out.println("Suggestion successfully deleted.");
+                                //delete logic
+                                break;
+
+                            default:
+                                break;
+                        }while (editOrDeleteChoice<3);
+
                     }
                     break;
 
