@@ -13,7 +13,7 @@ public class CampEditor {
 
     public boolean editCamp(int editCampIndex, List<Camp> createdCamps, List<Camp> allCamps, Staff authStaff){
         Scanner sc = new Scanner(System.in);        //don't close this!
-        sc.useDelimiter("\r\n");
+        sc.useDelimiter("\n");
         
         Camp editCamp = createdCamps.get(editCampIndex-1);      //get selected camp from list of camps staff created
         int editFieldOption = 0;
@@ -82,6 +82,7 @@ public class CampEditor {
 
                 case 3:
                     String endDate;
+                    String currentStartDate = editCamp.getStartDate();
                     boolean endDateValid = false;
                     do {
                         System.out.println("Please enter Camp end date in DD-MM-YYYY format:");
@@ -89,21 +90,27 @@ public class CampEditor {
                         try {
                             dateFormat.setLenient(false);
                             Date parsedEndDate = dateFormat.parse(endDate);
+                            Date parsedStartDate = dateFormat.parse(currentStartDate);
 
                             // Check the format after parsing
                             String formattedEndDate = dateFormat.format(parsedEndDate);
                             if (endDate.equals(formattedEndDate)) {
-                                endDateValid = true;
+                                if (!parsedEndDate.before(parsedStartDate)){
+                                    endDateValid = true;
+                                } else{
+                                    System.out.println("End date cannot be before start date.");
+                                }
                             } else {
                                 System.out.println("Invalid date format. Please enter dates in DD-MM-YYYY format.");
                             }
+                            
+
                         } catch (ParseException e) {
                             System.out.println("Invalid date format. Please enter dates in DD-MM-YYYY format.");
                         }
                     } while (!endDateValid);
-
+                
                     editCamp.setEndDate(endDate);
-
                     break;
 
                 case 4:

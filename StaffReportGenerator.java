@@ -8,7 +8,7 @@ import java.io.IOException;
 public class StaffReportGenerator {
     public void StaffReportGenerator(Camp reportingCamp){
         Scanner sc = new Scanner(System.in);        //don't close this!
-        sc.useDelimiter("\r\n");
+        sc.useDelimiter("\n");
 
         int reportChoice = 0;
 

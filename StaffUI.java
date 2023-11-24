@@ -14,7 +14,7 @@ public class StaffUI {
         String formattedDate = dateFormat.format(currentDate);
         
         Scanner sc = new Scanner(System.in);
-        sc.useDelimiter("\r\n");
+        sc.useDelimiter("\n");
 
         int staffChoice = 0;
 
@@ -82,14 +82,20 @@ public class StaffUI {
                         try {
                             dateFormat.setLenient(false);
                             Date parsedEndDate = dateFormat.parse(endDate);
+                            Date parsedStartDate = dateFormat.parse(startDate);
 
                             // Check the format after parsing
                             String formattedEndDate = dateFormat.format(parsedEndDate);
                             if (endDate.equals(formattedEndDate)) {
-                                endDateValid = true;
+                                if (!parsedEndDate.before(parsedStartDate)){
+                                    endDateValid = true;
+                                } else{
+                                    System.out.println("End date cannot be before start date.");
+                                }
                             } else {
                                 System.out.println("Invalid date format. Please enter dates in DD-MM-YYYY format.");
                             }
+
                         } catch (ParseException e) {
                             System.out.println("Invalid date format. Please enter dates in DD-MM-YYYY format.");
                         }
