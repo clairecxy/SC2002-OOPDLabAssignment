@@ -81,10 +81,16 @@ public class CampCommitteeUI {
                                     }
                                     break;
                                 case 2:
-                                    authCampCommittee.deleteSuggestions(suggChoice);
-                                    System.out.println("Suggestion successfully deleted.");
-                                    delete = true;
-                                    //delete logic
+                                    if (!suggChoice.processStatus()){
+                                       authCampCommittee.deleteSuggestions(suggChoice);
+                                        System.out.println("Suggestion successfully deleted.");
+                                        delete = true;
+                                        //delete logic
+                                    }
+                                    else{
+                                        System.out.println("You cannot delete the suggestion after it has been processed!");
+                                        break;
+                                    }
                                     break;
 
                                 default:
@@ -106,8 +112,8 @@ public class CampCommitteeUI {
 
                 case 5:     //Generate report of student list
                     System.out.println("\n=====REPORT GENERATOR=====");
-                    reportGenerator reportGenerator = new reportGenerator();
-                    reportGenerator.reportGenerator(commCamp);
+                    CampCommitteeReportGenerator CampCommitteeReportGenerator = new CampCommitteeReportGenerator();
+                    CampCommitteeReportGenerator.CampCommitteeReportGenerator(commCamp);
                     break;
                 
                 case 6:
