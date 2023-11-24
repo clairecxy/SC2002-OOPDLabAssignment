@@ -631,7 +631,7 @@ public class CampApplicationSystem {
                                                 
                                                 int enqEditChoice = sc.nextInt();
                                                 Enquiry enqChoice = submittedEnquiry.get(enqEditChoice-1);
-                                                if (!enqChoice.replyStatus()){
+                                                if (enqChoice.replyStatus()){
                                                     System.out.println("You cannot edit the enquiry after it has been processed!");
                                                     break;
                                                 }     
@@ -700,6 +700,9 @@ public class CampApplicationSystem {
 
                                             
                                                 int viewEnquireCamp = sc.nextInt();
+                                                if (viewEnquireCamp == availCampCounter3){
+                                                    break;
+                                                }
                                             
                                                 Camp studentCampEnquiry = availCamps.get(viewEnquireCamp-1);
                                                 if (studentCampEnquiry.getAllEnquiries().size()==0) {
