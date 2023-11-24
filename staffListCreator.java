@@ -10,7 +10,7 @@ import java.util.Scanner;
  * @version 1.0
  * @since 20/11/2023
  */
-public class staffListCreator {
+public class StaffListCreator {
     
     /**
      * Creates a new list of Users by extracting data from the staffList.csv file.

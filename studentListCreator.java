@@ -10,7 +10,7 @@ import java.util.List;
  * @version 1.0
  * @since 20/11/2023
  */
-public class studentListCreator {
+public class StudentListCreator {
 
     /**
      * Creates a new list of Users by extracting data from the studentList.csv file.
