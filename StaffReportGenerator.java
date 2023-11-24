@@ -24,23 +24,23 @@ public class StaffReportGenerator {
 
             switch (reportChoice) {
                 case 1:
-                    writeReportToFile(getGeneralReportAttendees(reportingCamp), "attendees_report.txt");
+                    writeReportToFile(getGeneralReportAttendees(reportingCamp), "staff_attendees_report.txt");
                     break;
 
                 case 2:
-                    writeReportToFile(getGeneralReportCampCommittee(reportingCamp), "committee_report.txt");
+                    writeReportToFile(getGeneralReportCampCommittee(reportingCamp), "staff_committee_report.txt");
                     break;
 
                 case 3:
-                    writeReportToFile(getGeneralReportDetails(reportingCamp), "camp_details_report.txt");
+                    writeReportToFile(getGeneralReportDetails(reportingCamp), "staff_camp_details_report.txt");
                     break;
             
                 case 4:
-                    writeReportToFile(getPerformanceReport(reportingCamp), "performance_report.txt");
+                    writeReportToFile(getPerformanceReport(reportingCamp), "staff_performance_report.txt");
                     break;
 
                 case 5:
-                    writeReportToFile(getGeneralReport(reportingCamp), "general_report.txt");
+                    writeReportToFile(getGeneralReport(reportingCamp), "staff_general_report.txt");
 
 
                 default:
