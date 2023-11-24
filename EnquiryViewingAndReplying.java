@@ -12,7 +12,7 @@ public class EnquiryViewingAndReplying
     public int enquiryUI(Camp camp){
 
         Scanner sc = new Scanner(System.in);        //don't close this!
-        sc.useDelimiter("\r\n");
+        sc.useDelimiter("\n");
 
        if (viewEnquiries() == false){         
             System.out.println("There are no enquiries to view.");

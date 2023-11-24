@@ -13,7 +13,6 @@ public class CampApplicationSystem {
         Date currentDate = new Date();
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         String formattedDate = dateFormat.format(currentDate);
-        System.out.println("Todays date is: " + formattedDate);
 
         //initialise lists for camps, staff, students and all users
         
@@ -35,7 +34,7 @@ public class CampApplicationSystem {
         // }
 
         Scanner sc = new Scanner(System.in);
-        sc.useDelimiter("\r\n");
+        sc.useDelimiter("\n");
 
         boolean loginSucc = false;
         User authUser = null;
@@ -43,6 +42,7 @@ public class CampApplicationSystem {
 
         while (quit == false){
             System.out.println("\n=====WELCOME TO THE CAMP APPLICATION SYSTEM====="); 
+            System.out.println("Todays date is: " + formattedDate);
             System.out.println("Please selection an action:\n"
             +"(1) Login\n"
             +"(2) Quit application");
