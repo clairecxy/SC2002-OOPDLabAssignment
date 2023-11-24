@@ -14,6 +14,10 @@ public class CampEditor {
     public boolean editCamp(int editCampIndex, List<Camp> createdCamps, List<Camp> allCamps, Staff authStaff){
         Scanner sc = new Scanner(System.in);        //don't close this!
         sc.useDelimiter("\n");
+
+        Date currentDate = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        String formattedDate = dateFormat.format(currentDate);
         
         Camp editCamp = createdCamps.get(editCampIndex-1);      //get selected camp from list of camps staff created
         int editFieldOption = 0;
@@ -56,6 +60,7 @@ public class CampEditor {
 
                 case 2:
                     String startDate;
+                    String currentEndDate = editCamp.getEndDate();
                     boolean startDateValid = false;
                     do {
                         System.out.println("Please enter Camp start date in DD-MM-YYYY format:");
@@ -63,11 +68,20 @@ public class CampEditor {
                         try {
                             dateFormat.setLenient(false);
                             Date parsedStartDate = dateFormat.parse(startDate);
+                            Date parsedEndDate = dateFormat.parse(currentEndDate);
 
                             // Check the format after parsing
                             String formattedStartDate = dateFormat.format(parsedStartDate);
                             if (startDate.equals(formattedStartDate)) {
-                                startDateValid = true;
+                                if (!parsedStartDate.before(currentDate)){
+                                    if (!parsedStartDate.after(parsedEndDate)){
+                                        startDateValid = true;
+                                    } else{
+                                        System.out.println("Start date cannot be after end date.");
+                                    }
+                                } else{
+                                    System.out.println("Start date cannot be in the past.");
+                                } 
                             } else {
                                 System.out.println("Invalid date format. Please enter dates in DD-MM-YYYY format.");
                             }
@@ -77,7 +91,6 @@ public class CampEditor {
                     } while (!startDateValid);
 
                     editCamp.setStartDate(startDate);
-                    
                     break;
 
                 case 3:

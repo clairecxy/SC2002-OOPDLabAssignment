@@ -64,7 +64,11 @@ public class StaffUI {
                             // Check the format after parsing
                             String formattedStartDate = dateFormat.format(parsedStartDate);
                             if (startDate.equals(formattedStartDate)) {
-                                startDateValid = true;
+                                if (!parsedStartDate.before(currentDate)){
+                                    startDateValid = true;
+                                } else{
+                                    System.out.println("Start date cannot be in the past.");
+                                } 
                             } else {
                                 System.out.println("Invalid date format. Please enter dates in DD-MM-YYYY format.");
                             }
