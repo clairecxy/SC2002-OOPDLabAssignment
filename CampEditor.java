@@ -5,7 +5,7 @@ import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.text.ParseException;
 import java.util.InputMismatchException;
-import java.util.Calendar;
+//import java.util.Calendar;
 
 public class CampEditor {
     
@@ -13,12 +13,13 @@ public class CampEditor {
 
     public boolean editCamp(int editCampIndex, List<Camp> createdCamps, List<Camp> allCamps, Staff authStaff){
         Scanner sc = new Scanner(System.in);        //don't close this!
-        sc.useDelimiter("\n");
+        sc.useDelimiter("\r\n");
         
         Camp editCamp = createdCamps.get(editCampIndex-1);      //get selected camp from list of camps staff created
-        int editFieldOption;
+        int editFieldOption = 0;
         boolean deleted = false;
         do{
+            
             System.out.println("Please select field to be edited:\r\n"
             +"(1) Camp Name: " + editCamp.getCampName() + "\r\n"
             +"(2) Start date: " + editCamp.getStartDate() + "\r\n"
@@ -33,10 +34,18 @@ public class CampEditor {
             +"(11) Delete camp\r\n"
             +"(12) Quit");
 
-            while (!sc.hasNextInt()){
-                sc.next();
-            }
-            editFieldOption = sc.nextInt();
+            try{    //exception handling for non-integers and invalid selections
+                editFieldOption = Integer.parseInt(sc.next());
+                                    
+                if(editFieldOption >11 || editFieldOption<1){
+                    throw new Exception("A valid selection was not made.");                    
+                }
+
+
+            // while (!sc.hasNextInt()){
+            //     sc.next();
+            // }
+            //editFieldOption = sc.nextInt();
             
             switch (editFieldOption) {
                 case 1:
@@ -267,10 +276,14 @@ public class CampEditor {
                 default:
                     break;
             }
+            }
+            catch (NumberFormatException h){
+                System.out.println("Invalid input.");
+            }
+            catch (Exception e) {
+                System.out.println(e.getMessage());                
+            }       
         } while (editFieldOption<11);
         return deleted;
-        //sc.close();
     }
-
-
 }

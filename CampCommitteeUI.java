@@ -5,9 +5,9 @@ public class CampCommitteeUI {
 
     public void campCommUI(CampCommittee authCampCommittee, Camp commCamp){
         Scanner sc = new Scanner(System.in);        //don't close this!
-        sc.useDelimiter("\n");
+        sc.useDelimiter("\r\n");
 
-        int campCommSelection;
+        int campCommSelection = 0;
 
         
         do{
@@ -21,9 +21,13 @@ public class CampCommitteeUI {
                 + "(6) View your points \n"
                 + "(7) Quit");
 
-            campCommSelection = sc.nextInt();
-
-        
+            try{    //exception handling for non-integers and invalid selections
+                campCommSelection = Integer.parseInt(sc.next());
+                                    
+                if(campCommSelection >7 || campCommSelection<1){
+                    throw new Exception("A valid selection was not made.");                    
+                }
+                   
             switch (campCommSelection) {
                 case 1:     //view details of camp
                     authCampCommittee.viewCampDetails();
@@ -46,9 +50,13 @@ public class CampCommitteeUI {
                         System.out.println("(" + suggCounter+ ") Suggestion: " + suggestions.getSuggestionText() + "\n");
                         suggCounter++;
                     }
+                    int suggEditChoice;
+                    suggEditChoice = Integer.parseInt(sc.next());
+                                        
+                    if(suggEditChoice > suggCounter-- || suggEditChoice<1){
+                        throw new Exception("A valid selection was not made.");                    
+                    }
                     
-                    int suggEditChoice = sc.nextInt();
-
                     if (suggEditChoice == 0){
                         break;
                     }
@@ -62,9 +70,13 @@ public class CampCommitteeUI {
                             System.out.println("Please selection an action:\n"
                             + "(1) Edit suggestion\n"
                             + "(2) Delete suggestion\n"
-                            + "(3) Quit");
-
-                            editOrDeleteChoice = sc.nextInt();
+                            + "(3) Quit");                         
+                            
+                            editOrDeleteChoice = Integer.parseInt(sc.next());
+                                                
+                            if(editOrDeleteChoice > 3 || suggEditChoice<1){
+                                throw new Exception("A valid selection was not made.");                    
+                            }
 
                             switch (editOrDeleteChoice) {
                                 case 1:
@@ -113,7 +125,7 @@ public class CampCommitteeUI {
                 case 5:     //Generate report of student list
                     System.out.println("\n=====REPORT GENERATOR=====");
                     CampCommitteeReportGenerator CampCommitteeReportGenerator = new CampCommitteeReportGenerator();
-                    CampCommitteeReportGenerator.CampCommitteeReportGenerator(commCamp);
+                    CampCommitteeReportGenerator.campCommitteeReportGenerator(commCamp);
                     break;
                 
                 case 6:
@@ -123,7 +135,13 @@ public class CampCommitteeUI {
                 default:
                     break;
             }
-        }while (campCommSelection<7);
-    }
+        }catch (NumberFormatException g){
+            System.out.println("Invalid input.");
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());                
+        }               
+    }while (campCommSelection<7);
+}
     
 }
