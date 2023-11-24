@@ -452,9 +452,22 @@ public class CampApplicationSystem {
                                     if (registeredCamps.isEmpty()){
                                         System.out.println("You have no registered camps.");
                                     }
-                                    for (Camp regCamps : registeredCamps){
-                                        System.out.println("(" + registeredCampCounter + ") " + regCamps.getCampName());
-                                        registeredCampCounter++;
+                                    if (authStudent.isCampCommittee()){
+                                        Camp campCommitteeCamp = authStudent.getCampCommittee();
+                                        for (Camp regCamps : registeredCamps){
+                                            if (regCamps == campCommitteeCamp){
+                                                System.out.println("(" + registeredCampCounter + ") " + regCamps.getCampName() + " - Camp Committee");
+                                            }
+                                            else {
+                                                System.out.println("(" + registeredCampCounter + ") " + regCamps.getCampName() + " - Attendee");
+                                            }
+                                            registeredCampCounter++;
+                                        }
+                                    } else {
+                                        for (Camp regCamps : registeredCamps){
+                                            System.out.println("(" + registeredCampCounter + ") " + regCamps.getCampName() + " - Attendee");
+                                            registeredCampCounter++;
+                                        }
                                     }
 
                                     System.out.println("To quit a camp, enter camp number. To exit, enter 0.");
