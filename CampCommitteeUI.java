@@ -5,7 +5,7 @@ public class CampCommitteeUI {
 
     public void campCommUI(CampCommittee authCampCommittee, Camp commCamp){
         Scanner sc = new Scanner(System.in);        //don't close this!
-        sc.useDelimiter("\n");
+        sc.useDelimiter("\r\n");
 
         int campCommSelection;
 

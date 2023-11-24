@@ -9,6 +9,7 @@ public class Student extends User {
     private List<Camp> enrolledCamps;
     private List<Camp> withdrawnCamps;
     private List<Enquiry> enquiries;
+    private Camp campCommittee;
     private boolean isCampCommittee = false;
 
     public Student(String userID, String faculty) {
@@ -72,7 +73,7 @@ public class Student extends User {
                     Date regEndDate = dateFormat.parse(campRegEndDate);
                     
                     // Check if the camp's registration deadline is in the future
-                    if (!dateClash && currentDate.before(regEndDate)) {
+                    if (!dateClash && !currentDate.after(regEndDate)) {
                         availableCamps.add(camp);
                     }
                 } catch (ParseException e) {
@@ -121,6 +122,15 @@ public class Student extends User {
 
     public void setIsCampCommittee() {
         this.isCampCommittee = true;
+    }
+
+    public Camp getCampCommittee() {
+        return this.campCommittee;
+    }
+
+    public void setCampCommittee(Camp camp) {
+        this.campCommittee = camp;
+        return;
     }
 
     public boolean setEnrolledCamps(Camp camp) {

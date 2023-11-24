@@ -13,7 +13,7 @@ public class CampEditor {
 
     public void editCamp(int editCampIndex, List<Camp> createdCamps, List<Camp> allCamps, Staff authStaff){
         Scanner sc = new Scanner(System.in);        //don't close this!
-        sc.useDelimiter("\n");
+        sc.useDelimiter("\r\n");
         
         Camp editCamp = createdCamps.get(editCampIndex-1);      //get selected camp from list of camps staff created
             int editFieldOption;

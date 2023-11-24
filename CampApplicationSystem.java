@@ -13,8 +13,7 @@ public class CampApplicationSystem {
         Date currentDate = new Date();
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         String formattedDate = dateFormat.format(currentDate);
-        System.out.println(formattedDate);
-
+        System.out.println("Todays date is: " + formattedDate);
 
         //initialise lists for camps, staff, students and all users
         
@@ -36,7 +35,7 @@ public class CampApplicationSystem {
         // }
 
         Scanner sc = new Scanner(System.in);
-        sc.useDelimiter("\n");
+        sc.useDelimiter("\r\n");
 
         boolean loginSucc = false;
         User authUser = null;
@@ -44,8 +43,8 @@ public class CampApplicationSystem {
 
         while (quit == false){
             System.out.println("\n=====WELCOME TO THE CAMP APPLICATION SYSTEM====="); 
-            System.out.println("Please selection an action:\r\n"
-            +"(1) Login\r\n"
+            System.out.println("Please selection an action:\n"
+            +"(1) Login\n"
             +"(2) Quit application");
 
             int loginChoice = sc.nextInt();
@@ -231,8 +230,9 @@ public class CampApplicationSystem {
                                         try {
                                             System.out.println("Please enter total slots for Camp Committee: (MAX 10)");
                                             campCommSlots = sc.nextInt();
-                                            if (campCommSlots > 10 || campCommSlots <0) {
-                                                System.out.println("There cannot be more than 10 or less than 0 slots!");
+                                            if (campCommSlots > 10) {
+                                                System.out.println("There cannot be more than 10 slots!");
+                                                System.out.println("Please re-enter total slots for Camp Committee: (MAX 10)");
                                             } else {
                                                 validCampCommSlots = true;
                                             }
@@ -437,9 +437,13 @@ public class CampApplicationSystem {
                                     System.out.println("\n=====CAMP MANAGER====="); 
                                     List<Camp> registeredCamps = authStudent.getEnrolledCamps();
                                     System.out.println("Registered Camps:");
-                                    int registedCampCounter = 1;
+                                    int registeredCampCounter = 1;
+                                    if (registeredCamps.isEmpty()){
+                                        System.out.println("You have no registered camps.");
+                                    }
                                     for (Camp regCamps : registeredCamps){
-                                        System.out.println("(" + registedCampCounter + ") " + regCamps.getCampName());
+                                        System.out.println("(" + registeredCampCounter + ") " + regCamps.getCampName());
+                                        registeredCampCounter++;
                                     }
 
                                     System.out.println("To quit a camp, enter camp number. To exit, enter 0.");
@@ -463,7 +467,15 @@ public class CampApplicationSystem {
                                     // }
 
                                     Camp quittingCamp = registeredCamps.get(quitCampSelection-1);
-                                    if (authStudent.setWithdrawnCamps(quittingCamp) == true){
+                                    // if (authStudent.setWithdrawnCamps(quittingCamp) == true){
+                                    //     System.out.println("You have successfully withdrawn from " + quittingCamp.getCampName());
+                                    // }
+                                    if (authStudent.isCampCommittee()){
+                                        Camp authStudentCampComm = authStudent.getCampCommittee();
+                                        if (quittingCamp == authStudentCampComm){
+                                            System.out.println("You cannot withdrawn from " + quittingCamp.getCampName() + " as you are a camp committee member.");
+                                        }
+                                    } else if (authStudent.setWithdrawnCamps(quittingCamp) == true){
                                         System.out.println("You have successfully withdrawn from " + quittingCamp.getCampName());
                                     }
 
@@ -479,9 +491,9 @@ public class CampApplicationSystem {
                                     }
                                     System.out.println("(" + availCampCounter + ") Quit");
                                 
-                                    boolean continueSelection = true;
+                                    // boolean continueSelection = true;
                                 
-                                    while (continueSelection) {
+                                    // while (continueSelection) {
                                         System.out.println("\nPlease select an action:\n"
                                             + "(1) Register for a camp\n"
                                             + "(2) Submit enquiry for a camp\n"
@@ -514,7 +526,8 @@ public class CampApplicationSystem {
                                                 sc.nextLine();  // Consume the rest of the line including newline
                                 
                                                 if (campSelection == availCampCounter) {
-                                                    continueSelection = false;
+                                                    // continueSelection = false;
+                                                    break;
                                                 } else if (campSelection > 0 && campSelection < availCampCounter) {
                                                     Camp campToSelect = availCamps.get(campSelection - 1);
                                                     System.out.println("Select role for registration:\n"
@@ -523,15 +536,17 @@ public class CampApplicationSystem {
                                                     int roleSelection = sc.nextInt();
                                                     sc.nextLine(); // Consume newline
                                                     String role = (roleSelection == 1) ? "attendee" : "committee";
-                                                    boolean registrationSuccess = authStudent.setEnrolledCamps(campToSelect);
+                                                    // boolean registrationSuccess = authStudent.setEnrolledCamps(campToSelect);
 
-                                                    if (registrationSuccess) {
+                                                    if (!authStudent.getWithdrawnCamps().contains(campToSelect)) {
                                                         if (role == "attendee"){
+                                                            authStudent.setEnrolledCamps(campToSelect);
                                                             campToSelect.addAttendees(authStudent);
                                                             System.out.println("You have successfully registered as a attendee for " + campToSelect.getCampName() + ".");
                                                         }
                                                         else if (role == "committee"){
                                                             if (authStudent.isCampCommittee() == false){
+                                                                authStudent.setEnrolledCamps(campToSelect);
                                                                 authStudent.setIsCampCommittee();
                                                                 CampCommittee downcastingCampCommittee = (CampCommittee) authStudent;  //downcast
                                                                 downcastingCampCommittee.setCamp(campToSelect);
@@ -651,14 +666,10 @@ public class CampApplicationSystem {
                                                     }
                                                 }    
                                 
-                                            case 5:     // Exit
-                                                continueSelection = false;
-                                                break;
                                 
                                             default:
-                                                System.out.println("Invalid selection. Please try again.");
                                                 break;
-                                        }
+                                        
                                     }
                                     break;
                                     
