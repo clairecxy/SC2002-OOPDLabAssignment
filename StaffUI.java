@@ -5,6 +5,8 @@ import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.text.ParseException;
 import java.util.InputMismatchException;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class StaffUI {
 
@@ -15,6 +17,12 @@ public class StaffUI {
         
         Scanner sc = new Scanner(System.in);
         sc.useDelimiter("\r\n");
+
+        Comparator<Camp> campNameComparator = new Comparator<Camp>() {
+            public int compare(Camp camp1, Camp camp2) {
+                return camp1.getCampName().compareTo(camp2.getCampName());
+            }
+        };
 
         int staffChoice = 0;
 
@@ -211,6 +219,9 @@ public class StaffUI {
                 case 3:
                     System.out.println("\n=====VIEW YOUR CAMPS=====");
                     List<Camp> createdCamps = authStaff.viewAllCreatedCamps();
+
+                    Collections.sort(createdCamps, campNameComparator);
+
                     System.out.println("Select camp to view:\r\n"
                     +"List of Camps created:");
                     int campIndex = 1;
@@ -331,6 +342,10 @@ public class StaffUI {
 
                 case 4:
                     System.out.println("\n=====CAMP VIEWER====="); 
+
+                    Collections.sort(allCamps, campNameComparator);
+
+
                     int allCampsIndex = 1;
                     System.out.println("All camps:");
                     for (Camp camps : allCamps){

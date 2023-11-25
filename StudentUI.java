@@ -1,6 +1,9 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Collections;
 
 /**
  * Represents the user menu for Students in the system.
@@ -33,6 +36,12 @@ public class StudentUI {
         
         Scanner sc = new Scanner(System.in);
         sc.useDelimiter("\r\n");
+
+        Comparator<Camp> campNameComparator = new Comparator<Camp>() {
+            public int compare(Camp camp1, Camp camp2) {
+                return camp1.getCampName().compareTo(camp2.getCampName());
+            }
+        };
 
         int studentChoice = 0;
 
@@ -90,6 +99,10 @@ public class StudentUI {
                 case 3:
                     System.out.println("\n=====CAMP MANAGER====="); 
                     List<Camp> registeredCamps = authStudent.getEnrolledCamps();
+
+                    Collections.sort(registeredCamps, campNameComparator);
+
+
                     System.out.println("Registered Camps:");
                     int registeredCampCounter = 1;
                     if (registeredCamps.isEmpty()){
@@ -134,6 +147,9 @@ public class StudentUI {
                 case 4:     // View all available camps
                     System.out.println("\n=====CAMP VIEWER=====");
                     List<Camp> availCamps = authStudent.getAvailableCamps(allCamps);
+
+                    Collections.sort(availCamps, campNameComparator);
+
                     System.out.println("Available Camps: remaining slots");
                     int availCampCounter = 1;
                     for (Camp availCamp : availCamps) {
