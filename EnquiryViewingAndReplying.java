@@ -45,6 +45,9 @@ public class EnquiryViewingAndReplying
             
                 for (Enquiry enquiry : enquiries) {
                     System.out.println("(" + enquiryCounter+ ") Enquiry Text: " + enquiry.getEnquiryText() + "\n");
+                    if (enquiry.replyStatus()){
+                        System.out.println("    => Reply: " + enquiry.getEnquiryReply());
+                    }
                     enquiryCounter++;
 
                 }

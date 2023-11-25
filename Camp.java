@@ -380,10 +380,10 @@ public class Camp{
         this.committeeSlots = commSlots;
 
         if (this.committeeMembers == null){
-            this.remainingCommitteeSlots = commSlots;
+            this.remainingCommitteeSlots = committeeSlots;
         }
         else{
-            this.remainingCommitteeSlots = committeeSlots - this.committeeMembers.size();
+            this.remainingCommitteeSlots = this.committeeSlots - this.committeeMembers.size();
         }
     }
 
