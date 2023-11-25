@@ -287,6 +287,7 @@ public class StaffUI {
                                         case 1:
                                             suggChoice.setSuggestionAccepted();
                                             suggChoice.suggProcessed();
+                                            suggChoice.getCampCommittee().addPoints();
                                             System.out.println("Suggestion has been marked as approved.");
                                             break;
                                         case 2:

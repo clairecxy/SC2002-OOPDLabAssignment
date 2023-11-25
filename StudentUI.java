@@ -1,12 +1,21 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-// import java.util.Date;
-// import java.text.SimpleDateFormat;
-// import java.text.ParseException;
-// import java.util.InputMismatchException;
 
+/**
+ * Represents the user menu for Students in the system.
+ * @author Claire Chu Xinyi
+ * @version 1.0
+ * @since 20/11/2023
+ */
 public class StudentUI {
+    
+    /**
+     * The method which displays the user menu for Students.
+     * @param authStudent the Student account this menu belongs to.
+     * @param authUser  
+     * @param allCamps
+     */
     public static void studentInterface(Student authStudent, User authUser, List<Camp> allCamps){
         
         Scanner sc = new Scanner(System.in);
