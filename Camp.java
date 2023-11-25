@@ -446,7 +446,6 @@ public class Camp{
             this.remainingCommitteeSlots--;
             return 1;
         }
-
     }
 
     /**
@@ -471,8 +470,8 @@ public class Camp{
     }
 
     /**
-     * 
-     * @param attendee
+     * Deletes a Student attendee from this Camp's attendee list.
+     * @param attendee the Student attendee to be removed.
      */
     public void removeAttendees(Student attendee){
 
@@ -482,10 +481,13 @@ public class Camp{
         }
     }
 
+    /**
+     * Deletes a Suggestion from this Camp's suggestion list.
+     * @param suggestions the Suggestion to be deleted.
+     */
     public void deleteSuggestion(Suggestion suggestions){
         this.suggestion.remove(suggestions);
     }
-
 }
 
 
