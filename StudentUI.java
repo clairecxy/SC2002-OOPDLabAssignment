@@ -161,10 +161,11 @@ public class StudentUI {
 
                         System.out.println("\nPlease select an action:\n"
                             + "(1) Register for a camp\n"
-                            + "(2) Submit enquiry for a camp\n"
-                            + "(3) Edit or delete your enquiry\n"
-                            + "(4) View enquiries and replies\n"
-                            + "(5) Exit\n");
+                            + "(2) View details of a camp\n"
+                            + "(3) Submit enquiry for a camp\n"
+                            + "(4) Edit or delete your enquiry\n"
+                            + "(5) View enquiries and replies\n"
+                            + "(6) Exit\n");
                         
                         int studentSelection = Integer.parseInt(sc.next());
                                     
@@ -240,8 +241,41 @@ public class StudentUI {
                                 }
                                 break;
                 
-                                                
-                            case 2:     // Submit enquiry for a camp
+                            case 2:
+                                
+                                System.out.println("\n=====CAMP DETAILS=====");
+                                System.out.println("Select camp to view detasils:");
+
+                                System.out.println("Available Camps: remaining slots");
+                                
+                                for (Camp availCamp : availCamps) {
+                                    System.out.println("(" + availCampCounter1 + ") " + availCamp.getCampName() + " - Attendee Slots: " + availCamp.getRemainingSlots() + " | Camp Committee Slots: " + availCamp.getRemainingCommitteeSlots());
+                                    System.out.println("    => Registration end date: " + availCamp.getRegistrationEndDate() + " | Start date: " + availCamp.getStartDate() + " | End date: " + availCamp.getEndDate());
+                                    availCampCounter1++;
+                                }
+
+                                System.out.println("(" + availCampCounter1 + ") Quit\n");
+
+                                int campSelection = sc.nextInt();
+                                sc.nextLine();
+
+                                Camp camp = availCamps.get(campSelection - 1);
+
+                                System.out.println("Camp Name: " + camp.getCampName());
+                                System.out.println("Start Date: " + camp.getStartDate());
+                                System.out.println("End Date: " + camp.getEndDate());
+                                System.out.println("Registration End Date: " + camp.getRegistrationEndDate());
+                                System.out.println("User Group: " + camp.getUserGroup());
+                                System.out.println("Location: " + camp.getLocation());
+                                System.out.println("Total Slots: " + camp.getTotalSlots());
+                                System.out.println("Remaining Slots: " + camp.getRemainingSlots());
+                                System.out.println("Committee Slots: " + amp.getCommitteeSlots());
+                                System.out.println("Description: " + camp.getDescription());
+
+                                break;
+
+                                
+                            case 3:     // Submit enquiry for a camp
                                     
                                 int visibleCampCounter = 1;                                                
                                 System.out.println("\n=====CAMP ENQUIRIES=====");
@@ -278,7 +312,7 @@ public class StudentUI {
                                 }
                                 break;
 
-                            case 3:
+                            case 4:
                                 
                                 System.out.println("\n=====EDIT OR DELETE ENQUIRIES====="); 
                                 List<Enquiry> submittedEnquiry = authStudent.getEnquiries();
@@ -340,7 +374,7 @@ public class StudentUI {
                                 }
                                 break;
 
-                            case 4: 
+                            case 5: 
                                     
                                 int availCampCounter3 = 1;                                                
                                 System.out.println("\n=====VIEW ENQUIRIES=====");
@@ -376,7 +410,8 @@ public class StudentUI {
                                         System.out.println("Reply: " + (enquiryReply == null ? "No reply yet" : enquiryReply));
                                         System.out.println(); // Print a blank line for better readability
                                     }
-                                }    
+                                }  
+                                break;  
                             default:
                                 break;
                     }
