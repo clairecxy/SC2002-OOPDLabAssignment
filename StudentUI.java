@@ -43,6 +43,12 @@ public class StudentUI {
             }
         };
 
+        Comparator<Camp> campLocationComparator = new Comparator<Camp>() {
+            public int compare(Camp camp1, Camp camp2) {
+                return camp1.getLocation().compareTo(camp2.getLocation());
+            }
+        };
+
         int studentChoice = 0;
 
         do {
@@ -57,7 +63,8 @@ public class StudentUI {
             +"(2) Enter Camp Committee Interface\r\n"
             +"(3) View your registered camps\r\n"       //can quit camp from here
             +"(4) View all available camps\r\n"         //can enquire about camps from here
-            +"(5) Logout");    
+            +"(5) Filter all camps\r\n"
+            +"(6) Logout");    
 
         System.out.println("Please selection an action:");
             try{    //exception handling for non-integers and invalid selections
@@ -424,6 +431,43 @@ public class StudentUI {
                     }
                     break;
                     
+                case 5:
+                    System.out.println("Please select filter option:\n"
+                    + "(1) Start date (Earliest to Latest)\n"
+                    + "(2) Location (Alphabetical order)\n"
+                    + "(3) Total slots\n"
+                    + "(4) Camp Committee slots\n"
+                    + "(5) Quit");
+
+                    List<Camp> visibleCamps = authStudent.getVisibleCamps(allCamps);
+
+                    try{    //exception handling for non-integers and invalid selections
+                        filterChoice = Integer.parseInt(sc.next());
+                                            
+                        if(filterChoice >5 || filterChoice<1){
+                            throw new Exception("A valid selection was not made.");                    
+                        }
+                    }
+
+                    switch (filterChoice) {    //these loop until Quit is selected
+                        case 1:
+                            break;
+                        case 2:
+                            Collections.sort(visibleCamps, campLocationComparator);
+                            for (Camp availCamp : visibleCamps) {
+                                System.out.println("(" + visibleCampCounter + ") " + availCamp.getCampName());
+                                System.out.println("    => Location: " + availCamp.getLocation());
+                                visibleCampCounter++;
+                            }
+                            break;
+                        case 3:
+                            break;
+                        case 4:
+                            break;
+
+                    } while (filterChoice<5)
+                    break;
+
                 default:
                     break;
                 }
