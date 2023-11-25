@@ -3,10 +3,17 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.Date;
 import java.text.SimpleDateFormat;
-//import java.text.ParseException;
-//import java.util.InputMismatchException;
 
+/**
+ * Represents the main system of the Camp Application System.
+ * @author Claire Chu Xinyi
+ * @since 20/11/23
+ */
 public class CampApplicationSystem {
+    /**
+     * This method implements the Camp Application System program.
+     * @param args User-defined command line arguments.
+     */
     public static void main(String[] args) {
 
         //get date
