@@ -62,21 +62,28 @@ public class StaffUI {
                     do {
                         System.out.println("Please enter Camp name:");
                         campName = sc.next();
-                            
+            
+                        boolean campNameExists = false;
+            
                         try {
-                            
-                            // Check if a camp with the same name already exists
-                            boolean campNameExists = allCamps.stream().anyMatch(camp -> camp.getCampName().equalsIgnoreCase(campName));
-                            
-                            if (campNameExists) {
-                                System.out.println("A camp with the same name already exists. Please enter a different name.");
-                            } else {
-                                isCampNameValid = true;
+                            for (Camp camp : allCamps) {
+                                if (camp.getCampName().equals(campName)) {
+                                    campNameExists = true;
+                                    break; // Exit the loop as soon as a matching camp name is found
+                                }
                             }
-                            
-                        } catch (Exception e) {
-                            System.out.println("Invalid input. Please enter a valid camp name.");
-                            sc.nextLine(); // Consume the invalid input
+                        } catch (NullPointerException e) {
+                            // Handle a possible null reference exception when accessing camp.getCampName()
+                            // You can customize the error message or handle the exception as needed.
+                            System.out.println("An error occurred while checking camp names. Please try again.");
+                            continue;
+                        }
+            
+                        if (campNameExists) {
+                            System.out.println("A camp with the same name already exists. Please enter a different name.");
+                            isCampNameValid = false; // Set to false to continue the loop
+                        } else {
+                            isCampNameValid = true; // Set to true to exit the loop
                         }
                     } while (!isCampNameValid);
 
