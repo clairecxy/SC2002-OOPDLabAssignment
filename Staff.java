@@ -46,14 +46,22 @@ public class Staff extends User {
         return camp;
     }
     
+    /**
+     * Deletes the Camp created by this Staff from the system.
+     * Removes the Camp from this Staff's list of created Camps.
+     * @param camp The Camp to be deleted.
+     */
     public void deleteCamp(Camp camp) {
         this.createdCampsList.remove(camp);
         //this.campApplicationSystem.remove(camp);
     }
 
+    /**
+     * Gets the list of Camps created by the Staff.
+     * @return the list of Camps created by the Staff
+     */
     public List<Camp> viewAllCreatedCamps(){
         return this.createdCampsList;
-    }
-    
+    }   
     
 }

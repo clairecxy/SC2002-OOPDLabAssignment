@@ -40,6 +40,7 @@ public class Student extends User {
 
     /**
      * Creates a new Student with the given user ID and faculty.
+     * The user ID and faculty is inherited from the User class.
      * This Student contains lists for:
      * 1. Enrolled Camps
      * 2. Withdrawn Camps
