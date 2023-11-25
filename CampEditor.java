@@ -1,16 +1,43 @@
-//import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.text.ParseException;
 import java.util.InputMismatchException;
-//import java.util.Calendar;
 
+/**
+ * Represents an editor to edit or delete a Camp in the system for use by Staff.
+ * @author Claire Chu Xinyi
+ * @version 1.0
+ * @since 20/11/2023
+ */
 public class CampEditor {
     
+    /**
+     * A formatter to format dates.
+     */
     SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 
+    /**
+     * Displays attributes of the Camp that can be edited.
+     * Attributes of Camps that can be edited are:
+     * 1. Camp Name
+     * 2. Start dates
+     * 3. End dates
+     * 4. Registration deadlines
+     * 5. User groups the Camp is open to
+     * 6. Location of the Camp
+     * 7. Total slots for attendees
+     * 8. The number of Camp Committee slots
+     * 9. The Camp's description
+     * 10. The Camp's visibility
+     * Users can choose to delete Camps.
+     * @param editCampIndex the index of the selected Camp in the list of Camps created by the Staff.
+     * @param createdCamps the list of Camps created by the Staff.
+     * @param allCamps the list of all Camps in the system.
+     * @param authStaff the Staff using the CampEditor menu.
+     * @return whether the Camp has been deleted.
+     */
     public boolean editCamp(int editCampIndex, List<Camp> createdCamps, List<Camp> allCamps, Staff authStaff){
         Scanner sc = new Scanner(System.in);        //don't close this!
         sc.useDelimiter("\r\n");
@@ -292,39 +319,6 @@ public class CampEditor {
                     deleted = true;
                     break;
                     
-
-                // case 11:
-                //     List<Suggestion> suggList = editCamp.getSuggestion();
-                //     int suggIndex = 1;
-                //     for (Suggestion suggestions : suggList){
-                //         System.out.println("("+suggIndex+")" + suggestions.getSuggestionText());
-                //         suggIndex++;                            
-                //     }
-                //     System.out.println("("+suggIndex+") Quit. ");
-                //     System.out.println("Select suggestion to accept or reject.");
-                //     int suggReplyChoice = sc.nextInt();
-                    
-                //     if(suggReplyChoice == suggIndex){
-                //         break;
-                //     }
-                //     else{
-                //         System.out.println("Suggestion: " + suggList.get(suggReplyChoice-1).getSuggestionText());
-                //         System.out.println("(1) Accept Suggestion.\r\n"
-                //             +"(2) Reject suggestion.");
-                //         int suggAccept = sc.nextInt();
-                //         if (suggAccept>2 || suggAccept<1){
-                //             System.out.println("Invalid Choice. Please Re-enter choice.");
-                //             suggAccept = sc.nextInt();
-                //         }
-                //         if(suggAccept == 1){
-                //             suggList.get(suggReplyChoice-1).setSuggestionAccepted(true);
-                //         }
-                //         else if (suggAccept == 2){
-                //             suggList.get(suggReplyChoice-1).setSuggestionAccepted(false);
-                //         }
-                //     }
-                    
-
                 default:
                     break;
             }
