@@ -247,19 +247,19 @@ public class StudentUI {
                                 System.out.println("Select camp to view detasils:");
 
                                 System.out.println("Available Camps: remaining slots");
-                                
+                                int availCampCounter2 = 1;
                                 for (Camp availCamp : availCamps) {
-                                    System.out.println("(" + availCampCounter1 + ") " + availCamp.getCampName() + " - Attendee Slots: " + availCamp.getRemainingSlots() + " | Camp Committee Slots: " + availCamp.getRemainingCommitteeSlots());
+                                    System.out.println("(" + availCampCounter2 + ") " + availCamp.getCampName() + " - Attendee Slots: " + availCamp.getRemainingSlots() + " | Camp Committee Slots: " + availCamp.getRemainingCommitteeSlots());
                                     System.out.println("    => Registration end date: " + availCamp.getRegistrationEndDate() + " | Start date: " + availCamp.getStartDate() + " | End date: " + availCamp.getEndDate());
-                                    availCampCounter1++;
+                                    availCampCounter2++;
                                 }
 
-                                System.out.println("(" + availCampCounter1 + ") Quit\n");
+                                System.out.println("(" + availCampCounter2 + ") Quit\n");
 
-                                int campSelection = sc.nextInt();
+                                int campSelection1 = sc.nextInt();
                                 sc.nextLine();
 
-                                Camp camp = availCamps.get(campSelection - 1);
+                                Camp camp = availCamps.get(campSelection1 - 1);
 
                                 System.out.println("Camp Name: " + camp.getCampName());
                                 System.out.println("Start Date: " + camp.getStartDate());
@@ -269,7 +269,7 @@ public class StudentUI {
                                 System.out.println("Location: " + camp.getLocation());
                                 System.out.println("Total Slots: " + camp.getTotalSlots());
                                 System.out.println("Remaining Slots: " + camp.getRemainingSlots());
-                                System.out.println("Committee Slots: " + amp.getCommitteeSlots());
+                                System.out.println("Committee Slots: " + camp.getCommitteeSlots());
                                 System.out.println("Description: " + camp.getDescription());
 
                                 break;
