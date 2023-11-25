@@ -5,8 +5,8 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class StaffReportGenerator {
-    public void StaffReportGenerator(Camp reportingCamp){
+public class StaffReportGenerator implements ReportGenerator {
+    public void generateReport(Camp reportingCamp){
         Scanner sc = new Scanner(System.in);        //don't close this!
         sc.useDelimiter("\n");
 
@@ -30,23 +30,24 @@ public class StaffReportGenerator {
 
             switch (reportChoice) {
                 case 1:
-                    writeReportToFile(getGeneralReportAttendees(reportingCamp), "attendees_report.txt");
+                    writeReportToFile(getGeneralReportAttendees(reportingCamp), reportingCamp.getCampName() + "_staff_attendees_report.txt");
                     break;
 
                 case 2:
-                    writeReportToFile(getGeneralReportCampCommittee(reportingCamp), "committee_report.txt");
+                    writeReportToFile(getGeneralReportCampCommittee(reportingCamp), reportingCamp.getCampName() + "_staff_committee_report.txt");
                     break;
 
                 case 3:
-                    writeReportToFile(getGeneralReportDetails(reportingCamp), "camp_details_report.txt");
+                    writeReportToFile(getGeneralReportDetails(reportingCamp), reportingCamp.getCampName() + "_staff_camp_details_report.txt");
                     break;
             
                 case 4:
-                    writeReportToFile(getPerformanceReport(reportingCamp), "performance_report.txt");
+                    writeReportToFile(getPerformanceReport(reportingCamp), reportingCamp.getCampName() + "_staff_performance_report.txt");
                     break;
 
                 case 5:
-                    writeReportToFile(getGeneralReport(reportingCamp), "general_report.txt");
+                    writeReportToFile(getGeneralReport(reportingCamp), reportingCamp.getCampName() + "_staff_general_report.txt");
+                    break;
 
 
                 default:

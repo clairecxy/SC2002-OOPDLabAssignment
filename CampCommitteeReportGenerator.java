@@ -5,8 +5,8 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class CampCommitteeReportGenerator {
-    public void campCommitteeReportGenerator(Camp reportingCamp){
+public class CampCommitteeReportGenerator implements ReportGenerator {
+    public void generateReport(Camp reportingCamp){
         Scanner sc = new Scanner(System.in);        //don't close this!
         sc.useDelimiter("\n");
 
@@ -29,19 +29,20 @@ public class CampCommitteeReportGenerator {
                 
                 switch (reportChoice) {
                     case 1:
-                        writeReportToFile(getGeneralReportAttendees(reportingCamp), "campCommittee_attendees_report.txt");
+                        writeReportToFile(getGeneralReportAttendees(reportingCamp), reportingCamp.getCampName() + "_campCommittee_attendees_report.txt");
                         break;
 
                     case 2:
-                        writeReportToFile(getGeneralReportCampCommittee(reportingCamp), "campCommittee_committee_report.txt");
+                        writeReportToFile(getGeneralReportCampCommittee(reportingCamp), reportingCamp.getCampName() + "_campCommittee_committee_report.txt");
                         break;
 
                     case 3:
-                        writeReportToFile(getGeneralReportDetails(reportingCamp), "campCommittee_camp_details_report.txt");
+                        writeReportToFile(getGeneralReportDetails(reportingCamp), reportingCamp.getCampName() + "_campCommittee_camp_details_report.txt");
                         break;
 
                     case 4:
-                        writeReportToFile(getGeneralReport(reportingCamp), "campCommittee_general_report.txt");
+                        writeReportToFile(getGeneralReport(reportingCamp), reportingCamp.getCampName() + "_campCommittee_general_report.txt");
+                        break;
 
 
                     default:
