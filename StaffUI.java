@@ -426,7 +426,7 @@ public class StaffUI {
                         + "(4) Camp Committee slots\n"
                         + "(5) Quit");
 
-                        List<Camp> visibleCamps = authStaff.viewAllCreatedCamps(allCamps);
+                        List<Camp> visibleCamps = authStaff.viewAllCreatedCamps();
                     
                         int visibleCampCounter = 1; 
                         
