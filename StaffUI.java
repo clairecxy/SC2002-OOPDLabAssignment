@@ -24,6 +24,39 @@ public class StaffUI {
             }
         };
 
+        Comparator<Camp> campLocationComparator = new Comparator<Camp>() {
+            public int compare(Camp camp1, Camp camp2) {
+                return camp1.getLocation().compareTo(camp2.getLocation());
+            }
+        };
+
+        Comparator<Camp> campDateComparator = new Comparator<Camp>() {
+            public int compare(Camp camp1, Camp camp2) {
+                try {
+                    Date camp1StartDate = dateFormat.parse(camp1.getStartDate());
+                    Date camp2StartDate = dateFormat.parse(camp2.getStartDate());
+                    return camp1StartDate.compareTo(camp2StartDate);
+                } catch (ParseException e) {
+                    // Handle the exception here or log it.
+                    e.printStackTrace(); // For demonstration purposes, you can replace this with proper error handling.
+                    return 0; // Return a default value or handle it according to your application's logic.
+                }
+            }
+        };
+
+        Comparator<Camp> campAttendeeComparator = new Comparator<Camp>() {
+            public int compare(Camp camp1, Camp camp2) {
+                return Integer.compare(camp1.getTotalSlots(), camp2.getTotalSlots());
+            }
+        };
+
+        Comparator<Camp> campCampCommitteeComparator = new Comparator<Camp>() {
+            public int compare(Camp camp1, Camp camp2) {
+                return Integer.compare(camp1.getCommitteeSlots(), camp2.getCommitteeSlots());
+            }
+        };
+
+
         int staffChoice = 0;
 
         do{
@@ -33,12 +66,13 @@ public class StaffUI {
             +"(2) Create new camp\r\n"
             +"(3) View your camps\r\n"      //from here: can edit, delete
             +"(4) View all camps\r\n"
-            +"(5) Logout");
+            +"(5) Filter all camps\r\n"
+            +"(6) Logout");
             
             try{    //exception handling for non-integers and invalid selections
                 staffChoice = Integer.parseInt(sc.next());
                                     
-                if(staffChoice >5 || staffChoice<1){
+                if(staffChoice >6 || staffChoice<1){
                     throw new Exception("A valid selection was not made.");                    
                 }
             // while (!sc.hasNextInt()){
@@ -381,6 +415,67 @@ public class StaffUI {
                         allCampsIndex++;
                     }
                     break;
+
+                case 5:
+                    int filterChoice = 0;
+                    do{
+                        System.out.println("Please select filter option:\n"
+                        + "(1) Start date (Earliest to Latest)\n"
+                        + "(2) Location (Alphabetical order)\n"
+                        + "(3) Total slots\n"
+                        + "(4) Camp Committee slots\n"
+                        + "(5) Quit");
+
+                        List<Camp> visibleCamps = authStaff.viewAllCreatedCamps(allCamps);
+                    
+                        int visibleCampCounter = 1; 
+                        
+                            //exception handling for non-integers and invalid selections
+                            filterChoice = Integer.parseInt(sc.next());
+                            //int filterChoice = sc.nextInt();
+                                                
+                            if(filterChoice >5 || filterChoice<1){
+                                throw new Exception("A valid selection was not made.");                    
+                            }
+                        
+                            switch (filterChoice) {    //these loop until Quit is selected
+                                case 1:
+                                    Collections.sort(visibleCamps, campDateComparator);
+                                    for (Camp availCamp : visibleCamps) {
+                                        System.out.println("(" + visibleCampCounter + ") " + availCamp.getCampName());
+                                        System.out.println("    => Start date: " + availCamp.getStartDate());
+                                        visibleCampCounter++;
+                                    }
+                                    break;
+                                case 2:
+                                    Collections.sort(visibleCamps, campLocationComparator);
+                                    for (Camp availCamp : visibleCamps) {
+                                        System.out.println("(" + visibleCampCounter + ") " + availCamp.getCampName());
+                                        System.out.println("    => Location: " + availCamp.getLocation());
+                                        visibleCampCounter++;
+                                    }
+                                    break;
+                                case 3:
+                                    Collections.sort(visibleCamps, campAttendeeComparator);
+                                    for (Camp availCamp : visibleCamps) {
+                                        System.out.println("(" + visibleCampCounter + ") " + availCamp.getCampName());
+                                        System.out.println("    => Total attendee slots: " + availCamp.getTotalSlots());
+                                        visibleCampCounter++;
+                                    }
+                                    break;
+                                case 4:
+                                    Collections.sort(visibleCamps, campCampCommitteeComparator);
+                                    for (Camp availCamp : visibleCamps) {
+                                        System.out.println("(" + visibleCampCounter + ") " + availCamp.getCampName());
+                                        System.out.println("    => Total camp cammittee slots: " + availCamp.getCommitteeSlots());
+                                        visibleCampCounter++;
+                                    }
+                                    break;
+
+                            }
+
+                    }while (filterChoice<5); 
+                    break;
                     
                 default:
                     break;
@@ -394,7 +489,7 @@ public class StaffUI {
                 System.out.println(e.getMessage());                
             }
             continue;
-        }while (staffChoice != 5);
+        }while (staffChoice != 6);
 
     }
 }
