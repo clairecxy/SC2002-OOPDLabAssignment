@@ -1,17 +1,48 @@
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Represents a Student in the system.
+ * @author Aryan Garg
+ * @version 1.0
+ * @since 20/11/2023
+ */
 public class Student extends User {
+    
+    /**
+     * This Student's list of Camps they are enrolled in.
+     */
     private List<Camp> enrolledCamps;
+
+    /**
+     * This Student's list of Camps they have withdrawn from.
+     */
     private List<Camp> withdrawnCamps;
+
+    /**
+     * This Student's list Enquiries they have made for Camps available to them.
+     */
     private List<Enquiry> enquiries;
+
+    /**
+     * The Camp this Student is a Camp Committee of, if any.
+     */
     private Camp campCommittee;
+
+    /**
+     * A flag indicating if a Student is a Camp Committee member for any Camp.
+     * The default value
+     */
     private boolean isCampCommittee = false;
 
+    /**
+     * 
+     * @param userID
+     * @param faculty
+     */
     public Student(String userID, String faculty) {
         super(userID, faculty);
         enrolledCamps = new ArrayList<>();
@@ -85,24 +116,6 @@ public class Student extends User {
         
         return availableCamps;
     }
-    
-
-
-    // public List<Camp> getAvailableCamps(List<Camp> allCamps) {
-    //     List<Camp> availableCamps = new ArrayList<>();
-        
-    //     //check each camp if the usergroup matches faculty and if visibility is toggled on
-        
-    //     //ADD: check if camp is in enrolled or withdrawn camp. if yes dont add it to available camps
-    //     for (Camp camp : allCamps) {
-    //         if ((camp.getUserGroup().equals(this.getFaculty()) || camp.getUserGroup().equals("NTU")) && camp.getVisibility() && !this.enrolledCamps.contains(camp) && !this.withdrawnCamps.contains(camp)) {
-    //             availableCamps.add(camp);
-    //         }
-    //     }
-    //     return availableCamps;
-    // }
-
-    // 
 
     public List<Camp> getEnrolledCamps() {
         return enrolledCamps;
