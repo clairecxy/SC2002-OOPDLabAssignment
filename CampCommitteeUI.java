@@ -1,8 +1,26 @@
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Represents the user menu for Camp Committee in the system.
+ * @author Claire Chu Xinyi
+ * @version 1.0
+ * @since 20/11/2023
+ */
 public class CampCommitteeUI {
 
+    /**
+     * The method which displays the Camp Committee menu for Camp Committee members.
+     * The Camp Committee menus allows for:
+     * 1. Viewing details of the Camp.
+     * 2. Submiting Suggestions for the Camp.
+     * 3. Editing or deleting Suggestions.
+     * 4. Viewing and replying to enquiries.
+     * 5. Generating reports of the Camp.
+     * 6. Viewing the Camp Committee member's own points.
+     * @param authCampCommittee The Camp Committee member this menu belongs to.
+     * @param commCamp the Camp this Camp Committee member is a member of.
+     */
     public void campCommUI(CampCommittee authCampCommittee, Camp commCamp){
         Scanner sc = new Scanner(System.in);        //don't close this!
         sc.useDelimiter("\r\n");
@@ -17,7 +35,7 @@ public class CampCommitteeUI {
                 + "(2) Submit suggestions for camp\n"
                 + "(3) Edit or delete suggestions\n"
                 + "(4) View and reply enquiries\n"
-                + "(5) Generate report of student list\n"
+                + "(5) Generate report\n"
                 + "(6) View your points \n"
                 + "(7) Quit");
 
@@ -39,8 +57,6 @@ public class CampCommitteeUI {
                     authCampCommittee.submitSuggestion(suggestion);     //this adds to comm's sugg list and camp's sugg list
                     break;
             
-                
-                
                 case 3: //edit suggestion
                     System.out.println("=====EDIT OR DELETE SUGGESTIONS====="); 
                     List<Suggestion> submittedSuggestions = authCampCommittee.getSuggestions();

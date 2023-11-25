@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Date;
@@ -8,8 +7,34 @@ import java.util.InputMismatchException;
 import java.util.Collections;
 import java.util.Comparator;
 
+/**
+ * Represents the user menu for Staff in the system.
+ * @author Tan Hui Ling
+ * @version 1.0
+ * @since 20/11/2023
+ */
 public class StaffUI {
 
+    /**
+     * The method which displays the user menu for Staff.
+     * The user menus allows for:
+     * 1. Changing of Password.
+     * 2. Creating new camps.
+     * 3. Viewing this Staff's created camps.
+     * 4. Viewing all camps in the system.
+     * 5. Filtering all camps by the order they are displayed in.
+     * 
+     * Viewing Camps will allow this Staff to:
+     * 1. Edit their Camps.
+     * 2, View and reply to enquiries for their Camps.
+     * 3. View pending suggestions for their Camps.
+     * 4. View proccessed suggestions for their Camps.
+     * 5. Print Camp Report(s).
+     * 
+     * @param authStaff The Staff this menu belongs to. 
+     * @param authUser The User reference of the Staff object.
+     * @param allCamps All camps within the Camp Application System.
+     */
     public static void staffInterface(Staff authStaff, User authUser, List<Camp> allCamps){
         Date currentDate = new Date();
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
@@ -262,16 +287,6 @@ public class StaffUI {
                         }
                     } while (!validCampCommSlots);
 
-                    
-                    // System.out.println("Please enter total slots of Camp:");
-                    // int totalSlots = sc.nextInt();
-                    // System.out.println("Please enter total slots for Camp Committee: (MAX 10)");
-                    // int campCommSlots = sc.nextInt();
-                    // if (campCommSlots>10){      //check that its max 10
-                    //     System.out.println("There cannot be more than 10 slots!");
-                    //     System.out.println("Please re-enter total slots for Camp Committee: (MAX 10)");
-                    //     campCommSlots = sc.nextInt();
-                    // }
                     System.out.println("Please enter Camp description:");
                     String description = sc.next();
                     allCamps.add(authStaff.createCamp(campName, startDate, endDate, regEndDate, userGrp, location, totalSlots, campCommSlots, description, authStaff));
@@ -309,8 +324,6 @@ public class StaffUI {
                             +"(4) View proccessed suggestions\r\n"
                             +"(5) Print Camp Report(s)\r\n"
                             +"(6) Quit");
-                        //staffCampOption = sc.nextInt();
-                           //exception handling for non-integers and invalid selections
                             staffCampOption = Integer.parseInt(sc.next());
                                                 
                             if(staffCampOption >6 || staffCampOption<1){
@@ -432,8 +445,7 @@ public class StaffUI {
                         
                             //exception handling for non-integers and invalid selections
                             filterChoice = Integer.parseInt(sc.next());
-                            //int filterChoice = sc.nextInt();
-                                                
+                                                                           
                             if(filterChoice >5 || filterChoice<1){
                                 throw new Exception("A valid selection was not made.");                    
                             }
@@ -471,7 +483,6 @@ public class StaffUI {
                                         visibleCampCounter++;
                                     }
                                     break;
-
                             }
 
                     }while (filterChoice<5); 
@@ -490,6 +501,5 @@ public class StaffUI {
             }
             continue;
         }while (staffChoice != 6);
-
     }
 }
