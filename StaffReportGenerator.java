@@ -1,11 +1,22 @@
 import java.util.List;
 import java.util.Scanner;
-
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 
+/**
+ * Represents a Report Generator for Staff in the system.
+ * @author Tan Hui Ling
+ * @version 1.0
+ * @since 20/11/2023
+ */
 public class StaffReportGenerator implements ReportGenerator {
+
+    /**
+     * Generates a report for the Camp.
+     * Generates different reports based on the type of report requested by the Staff.
+     * @param reportingCamp the Camp this Report Generator is generating the report for.
+     */
     public void generateReport(Camp reportingCamp){
         Scanner sc = new Scanner(System.in);        //don't close this!
         sc.useDelimiter("\r\n");
@@ -64,6 +75,12 @@ public class StaffReportGenerator implements ReportGenerator {
         }while(reportChoice<6);
     }
 
+    /**
+     * Generates the report in a .txt format.
+     * @param report the report text.
+     * @param fileName the name of the generated report.
+     * The file name is dependent on the type of report generated.
+     */
     private void writeReportToFile(String report, String fileName) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
             writer.write(report);
@@ -73,6 +90,12 @@ public class StaffReportGenerator implements ReportGenerator {
         }
     }
 
+    /**
+     * Gets the details of the Camp to be put into the Camp details report.
+     * Appends the Camp's details into the report text.
+     * @param camp the Camp this Report Generator is generating the report for.
+     * @return the String containing the report generated.
+     */
     public String getGeneralReportDetails(Camp camp) {
         // Check if the camp is in the list of camps this staff member has created
             // Create a StringBuilder to build the report
@@ -106,7 +129,12 @@ public class StaffReportGenerator implements ReportGenerator {
     
     }
     
-
+    /**
+     * Gets the details of the Camp's attendees to be put into the attendee report.
+     * Appends the attendee's details into the report text.
+     * @param camp the Camp this Report Generator is generating the report for.
+     * @return the String containing the report generated.
+     */
     public String getGeneralReportAttendees(Camp camp) {
         StringBuilder report = new StringBuilder();
     
@@ -130,7 +158,13 @@ public class StaffReportGenerator implements ReportGenerator {
         // Convert the StringBuilder to a string and return the report
         return report.toString();
     }
-        
+    
+    /**
+     * Gets the details of the Camp's Camp Committee to be put into the Camp Committee report.
+     * Appends the Camp Committee members' details into the report text.
+     * @param camp the Camp this Report Generator is generating the report for.
+     * @return the String containing the report generated.
+     */
     public String getGeneralReportCampCommittee(Camp camp) {
         // Check if the camp is in the list of camps this staff member has created
             // Retrieve the list of committee members for the camp
@@ -156,9 +190,13 @@ public class StaffReportGenerator implements ReportGenerator {
             return report.toString();
     }
         
-
-
-    // Method to print a performance report of a camp
+    
+    /**
+     * Gets the details of the Camp's Camp Committee's performances to be put into the Camp Committee performance report.
+     * Appends the Camp Committee members' performances into the report text.
+     * @param camp the Camp this Report Generator is generating the report for.
+     * @return the String containing the report generated.
+     */
     public String getPerformanceReport(Camp camp) {
 
             // Retrieve the list of committee members for the camp
@@ -185,6 +223,12 @@ public class StaffReportGenerator implements ReportGenerator {
             return report.toString();
     }
 
+     /**
+     * Gets all the details of the Camp (including attendees, committee members, enquiries and suggestions) to be put into the general report.
+     * Appends the Camp's details into the report text.
+     * @param camp the Camp this Report Generator is generating the report for.
+     * @return the String containing the report generated.
+     */
     public String getGeneralReport(Camp camp) {
         // Check if the camp is in the list of camps this staff member has created
             // Create a StringBuilder to build the report
@@ -235,19 +279,6 @@ public class StaffReportGenerator implements ReportGenerator {
     
             // Retrieve the list of committee members for the camp
             List<CampCommittee> committeeMembers = camp.getCommitteeMembers();
-    
-            // // Add the header for the committee members section
-            // report.append("Committee Members for camp: ").append(camp.getCampName()).append("\n");
-    
-            // // Check if there are committee members to display
-            // if (committeeMembers.isEmpty()) {
-            //     report.append("No committee members to display.\n");
-            // } else {
-            //     // Iterate over the list of committee members and append their details to the report
-            //     for (CampCommittee committeeMember : committeeMembers) {
-            //         report.append("Committee Members UserID: ").append(committeeMember.getUserID()).append("\n");
-            //     }
-            // }
     
             // Retrieve the list of committee members for the camp
             committeeMembers = camp.getCommitteeMembers();
