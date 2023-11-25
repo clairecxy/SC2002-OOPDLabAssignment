@@ -53,7 +53,6 @@ public class Staff extends User {
 
     public List<Camp> viewAllCreatedCamps(){
         return this.createdCampsList;
-    }
-    
+    }   
     
 }
