@@ -208,7 +208,7 @@ public class StudentUI {
                         
                         int studentSelection = Integer.parseInt(sc.next());
                                     
-                        if(studentSelection >5 || studentChoice<1){
+                        if(studentSelection >6 || studentChoice<1){
                             throw new Exception("A valid selection was not made.");                    
                         }
 
