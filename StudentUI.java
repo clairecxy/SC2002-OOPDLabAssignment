@@ -40,9 +40,7 @@ public class StudentUI {
         Scanner sc = new Scanner(System.in);
         sc.useDelimiter("\r\n");
 
-        Date currentDate = new Date();
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-        String formattedDate = dateFormat.format(currentDate);
 
         Comparator<Camp> campNameComparator = new Comparator<Camp>() {
             public int compare(Camp camp1, Camp camp2) {
@@ -58,23 +56,27 @@ public class StudentUI {
 
         Comparator<Camp> campDateComparator = new Comparator<Camp>() {
             public int compare(Camp camp1, Camp camp2) {
-                String camp1StartDate = camp1.getStartDate();
-                String camp2StartDate = camp2.getStartDate();
-                Date dateCamp1StartDate = dateFormat.parse(camp1StartDate);
-                Date dateCcamp2StartDate = dateFormat.parse(camp2StartDate);
-                return dateCamp1StartDate.compareTo(dateCamp2StartDate);
+                try {
+                    Date camp1StartDate = dateFormat.parse(camp1.getStartDate());
+                    Date camp2StartDate = dateFormat.parse(camp2.getStartDate());
+                    return camp1StartDate.compareTo(camp2StartDate);
+                } catch (ParseException e) {
+                    // Handle the exception here or log it.
+                    e.printStackTrace(); // For demonstration purposes, you can replace this with proper error handling.
+                    return 0; // Return a default value or handle it according to your application's logic.
+                }
             }
         };
 
         Comparator<Camp> campAttendeeComparator = new Comparator<Camp>() {
             public int compare(Camp camp1, Camp camp2) {
-                return camp1.getTotalSlots().compareTo(camp2.getTotalSlots());
+                return Integer.compare(camp1.getTotalSlots(), camp2.getTotalSlots());
             }
         };
 
         Comparator<Camp> campCampCommitteeComparator = new Comparator<Camp>() {
             public int compare(Camp camp1, Camp camp2) {
-                return camp1.getCommitteeSlots().compareTo(camp2.getCommitteeSlots());
+                return Integer.compare(camp1.getCommitteeSlots(), camp2.getCommitteeSlots());
             }
         };
 
@@ -206,7 +208,7 @@ public class StudentUI {
                         
                         int studentSelection = Integer.parseInt(sc.next());
                                     
-                        if(studentSelection >5 || studentChoice<1){
+                        if(studentSelection >6 || studentChoice<1){
                             throw new Exception("A valid selection was not made.");                    
                         }
 
