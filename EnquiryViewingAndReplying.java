@@ -1,14 +1,40 @@
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Represents a system to view and reply to enquiries in the system.
+ * @author Aryan Garg
+ * @version 1.0
+ * @since 20/11/2023
+ */
 public class EnquiryViewingAndReplying 
 {
+    /**
+     * The Camp that this Enquiry viewer is viewing Enquiries for.
+     */
     private Camp camp;
+
+    /**
+     * The list of Enquiries of this Camp.
+     */
     private List<Enquiry> enquiryList;
+
+    /**
+     * Creates a new EnquiryViewingAndReplying object for use with the given Camp.
+     * @param camp the Camp this Enquiry viewer is viewing Enquiries for.
+     */
     public EnquiryViewingAndReplying(Camp camp){
         this.camp=camp; 
         this.enquiryList = camp.getAllEnquiries();
     }
+    
+    /**
+     * The method which displays the enquiries for the Camp (if any).
+     * Users can select and reply to the displayed enquiries.
+     * If the Enquiry was replied to successfully, 1 is returned, else, 0.
+     * @param camp the Camp this Enquiry viewer is viewing Enquiries for.
+     * @return whether the Enquiry was replied to successfully.
+     */
     public int enquiryUI(Camp camp){
 
         Scanner sc = new Scanner(System.in);        //don't close this!
@@ -35,6 +61,11 @@ public class EnquiryViewingAndReplying
         
     }
 
+    /**
+     * Allows Users to view a list of Enquiries submitted by Students for the Camp.
+     * Upon viewing, Users can reply to an Enquiry they have selected.
+     * @return whether an Enquiry was replied to succesfully.
+     */
     public boolean viewEnquiries() {
         
             List<Enquiry> enquiries = camp.getAllEnquiries();
@@ -59,6 +90,11 @@ public class EnquiryViewingAndReplying
             }
         }
 
+    /**
+     * Allows Users to reply to an Enquiry submitted by a Student for the Camp.
+     * @param enquiry the Enquiry submitted by the Student.
+     * @param reply the reply to the submitted Enquiry.
+     */
     public void replyEnquiry(Enquiry enquiry, String reply) {
         if (enquiry != null) {
             enquiry.setEnquiryReply(reply);
