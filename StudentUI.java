@@ -442,7 +442,7 @@ public class StudentUI {
                     List<Camp> visibleCamps = authStudent.getVisibleCamps(allCamps);
                     int filterChoice = 0;
                     int visibleCampCounter = 1; 
-
+                    
                     try{    //exception handling for non-integers and invalid selections
                         filterChoice = Integer.parseInt(sc.next());
                                             
