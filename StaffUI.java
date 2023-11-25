@@ -318,7 +318,7 @@ public class StaffUI {
                                 System.out.println("\n=====REPORT GENERATOR=====");
                                 StaffReportGenerator StaffReportGenerator = new StaffReportGenerator();
                                 Camp reportingCamp = createdCamps.get(editCampIndex-1);
-                                StaffReportGenerator.StaffReportGenerator(reportingCamp);
+                                StaffReportGenerator.generateReport(reportingCamp);
                                 break;
                         
                             default:

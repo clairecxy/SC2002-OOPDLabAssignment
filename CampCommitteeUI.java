@@ -125,7 +125,7 @@ public class CampCommitteeUI {
                 case 5:     //Generate report of student list
                     System.out.println("\n=====REPORT GENERATOR=====");
                     CampCommitteeReportGenerator CampCommitteeReportGenerator = new CampCommitteeReportGenerator();
-                    CampCommitteeReportGenerator.campCommitteeReportGenerator(commCamp);
+                    CampCommitteeReportGenerator.generateReport(commCamp);
                     break;
                 
                 case 6:
