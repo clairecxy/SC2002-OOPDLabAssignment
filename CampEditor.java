@@ -41,7 +41,7 @@ public class CampEditor {
             try{    //exception handling for non-integers and invalid selections
                 editFieldOption = Integer.parseInt(sc.next());
                                     
-                if(editFieldOption >11 || editFieldOption<1){
+                if(editFieldOption >12 || editFieldOption<1){
                     throw new Exception("A valid selection was not made.");                    
                 }
 

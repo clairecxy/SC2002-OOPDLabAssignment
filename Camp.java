@@ -244,27 +244,35 @@ public class Camp{
         return this.visible;
     }
 
+    /**
+     * Gets the list of Student attendees of this Camp.
+     * @return this Camp's list of Student attendees.
+     */
     public List<Student> getAttendees(){
         return this.attendees;
     }
 
+    /**
+     * Gets the list of Camp Committee members of this Camp.
+     * @return this Camp's list of Camp Committee members.
+     */
     public List<CampCommittee> getCommitteeMembers(){
         return this.committeeMembers;
     } 
 
+    /**
+     * Gets the list of Enquiries made by Students for this Camp.
+     * @return this Camp's list of Student Enquiries.
+     */
     public List<Enquiry> getAllEnquiries(){
         return this.enquiry;
     }
 
-    // public Enquiry getNewEnquiry(){
-    //     int enquiries = 0;
-    //     while (this.enquiry[enquiries].getEnquiryReply() != null){
-    //         enquiries++;
-    //     }
-    //     if(this.enquiry[enquiries].getEnquiryReply() == null)
-    //     return this.enquiry[enquiries];
-    // }
-
+    /**
+     * Gets the list of unprocessed Suggestions made by Camp Committee members of this Camp.
+     * Unprocessed refers to Suggestions not approved or rejected by this Camp's Staff.
+     * @return this Camp's list of unprocessed Suggestions.
+     */
     public List<Suggestion> getPendingSuggestion() {
         List<Suggestion> pendingSuggestions = new ArrayList<>();
         for (Suggestion suggestion : this.suggestion) {
@@ -275,6 +283,11 @@ public class Camp{
         return pendingSuggestions;
     }
 
+    /**
+     * Gets the list of processed Suggestions made by Camp Committee members of this Camp.
+     * Processed refers to Suggestions already approved or rejected by this Camp's Staff.
+     * @return this Camp's list of processed Suggestions.
+     */
     public List<Suggestion> getProccessedSuggestion(){
         List<Suggestion> proccessedSuggestions = new ArrayList<>();
         for (Suggestion suggestion : this.suggestion) {
@@ -285,35 +298,68 @@ public class Camp{
         return proccessedSuggestions;
     }
     
-
+    /**
+     * Gets the list of Suggestions made by Camp Committee members of this Camp.
+     * @return this Camp's list of Camp Committee submitted Suggestions.
+     */
     public List<Suggestion> getSuggestion(){
         return this.suggestion;
     }
 
+    /**
+     * Changes the name of this Camp.
+     * @param campName this Camp's new name.
+     */
     public void setCampName(String campName){
         this.campName = campName;
     }
-                
+    
+    /**
+     * Changes the starting date of this Camp.
+     * @param startDate this Camp's new start date.
+     */
     public void setStartDate(String startDate){
         this.startDate = startDate;
     }
 
+    /**
+     * Changes the ending date of this Camp.
+     * @param endDate this Camp's new end date.
+     */
     public void setEndDate(String endDate){
         this.endDate = endDate;
     }
 
+    /**
+     * Changes the registration deadline of this Camp.
+     * @param registrationEndDate this Camp's new registration deadline.
+     */
     public void setRegistrationEndDate(String registrationEndDate){
         this.regEndDate = registrationEndDate;
     }
 
+    /**
+     * Changes the User group this Camp is open to.
+     * User groups are either individual faculties or the whole NTU.
+     * @param userGroups the new User group this Camp is open to.
+     */
     public void setUserGroup(String userGroups){
         this.userGroup = userGroups;
     }
 
+    /**
+     * Changes the location this Camp is held at.
+     * @param locationStr the new location of this Camp.
+     */
     public void setLocation(String locationStr){
         this.location = locationStr;
     }
 
+    /**
+     * Changes the total number of slots for Student attendees of this Camp.
+     * Updates this Camp's remaining slots according to the new number of slots.
+     * @param slots the new total number of slots for Student attendees for this Camp.
+     */
     public void setTotalSlots(int slots){
         this.totalSlots = slots;
 
@@ -323,17 +369,39 @@ public class Camp{
         else{
             this.remainingSlots = totalSlots - this.attendees.size();
         }
-        
     }
 
+    /**
+     * Changes the total number of slots for Camp Committee members of this Camp.
+     * Updates this Camp's remaining Committee slots according to the new number of Committee slots.
+     * @param commSlots the new total number of Camp Committee slots for this Camp.
+     */
     public void setCommitteeSlots(int commSlots){
         this.committeeSlots = commSlots;
+
+        if (this.committeeMembers == null){
+            this.remainingCommitteeSlots = commSlots;
+        }
+        else{
+            this.remainingCommitteeSlots = committeeSlots - this.committeeMembers.size();
+        }
     }
 
+    /**
+     * Changes this Camp's description.
+     * @param desc this Camp's new description.
+     */
     public void setDescription(String desc){
         this.description = desc;
     }
 
+    /**
+     * Changes the visbiity of this Camp.
+     * true indicates this Camp will appear in the list of available Camps for members of this Camp's User groups.
+     * false indicates this Camp will not appear in the list of available Camps for any Students.
+     * This Camp's Staff is able to view the Camp regardless of its visibility.
+     * @param visibility the boolean of whether this Camp is visible to Students.
+     */
     public void setVisibility(boolean visibility){
         if (!visibility){
             this.visible = false;
@@ -343,15 +411,30 @@ public class Camp{
         }
     }
 
-    
+    /**
+     * Adds a Student submitted Enquiry to this Camp's list of Enquiries.
+     * @param query the new Enquiry for this Camp.
+     */
     public void addEnquiry(Enquiry query){
         this.enquiry.add(query);
     }
 
+    /**
+     * Adds a Camp Committee member submitted Suggestion to this Camp's list of Enquiries.
+     * @param suggest the new Suggestion for this Camp.
+     */
     public void addSuggestion(Suggestion suggest){
         this.suggestion.add(suggest);
     }
     
+    /**
+     * Adds a new Camp Committee member to this Camp.
+     * A return flag indicates whether the addition was successful.
+     * 0 indicates failure.
+     * 1 indicates success.
+     * @param campCommMember the Camp Committee member added to this Camp.
+     * @return whether the Camp Committee member addition was successful.
+     */
     public int addCommitteeMembers(CampCommittee campCommMember){
         
         if (this.remainingCommitteeSlots == 0){
@@ -366,7 +449,14 @@ public class Camp{
 
     }
 
-
+    /**
+     * Adds a new Student attendee to this Camp.
+     * A return flag indicates whether the addition was successful.
+     * 0 indicates failure.
+     * 1 indicates success.
+     * @param attendee the Student attendee added to this Camp.
+     * @return whether the Student attendee addition was successful.
+     */
     public int addAttendees(Student attendee){
        
         if (this.remainingSlots == 0){
@@ -380,17 +470,11 @@ public class Camp{
         }
     }
 
-
-
+    /**
+     * 
+     * @param attendee
+     */
     public void removeAttendees(Student attendee){
-
-        // if (committeeMembers.contains(attendee))
-        // for (int comms = 0; comms<committeeSlots; comm++){      //reject quit if in committee
-        //     if (committeeMembers[comms].getUserID() == attendee.getUserID()){
-        //         System.out.println("Committee members cannot quit camp.");
-        //         break;
-        //     }
-        // }
 
         if (this.attendees.contains(attendee)){
             this.attendees.remove(attendee);
