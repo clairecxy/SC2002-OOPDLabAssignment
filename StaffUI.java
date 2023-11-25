@@ -58,10 +58,12 @@ public class StaffUI {
                     
                     String campName;
                     boolean isCampNameValid = false;
+
                     do {
+                        System.out.println("Please enter Camp name:");
+                        campName = sc.next();
+                            
                         try {
-                            System.out.println("Please enter Camp name:");
-                            campName = sc.next();
                             
                             // Check if a camp with the same name already exists
                             boolean campNameExists = allCamps.stream().anyMatch(camp -> camp.getCampName().equalsIgnoreCase(campName));
