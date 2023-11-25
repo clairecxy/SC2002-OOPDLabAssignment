@@ -12,9 +12,22 @@ public class StudentUI {
     
     /**
      * The method which displays the user menu for Students.
-     * @param authStudent the Student account this menu belongs to.
-     * @param authUser  
-     * @param allCamps
+     * The user menus allows for:
+     * 1. Changing the password.
+     * 2. Entering the Camp Committee Interface.
+     * 3. Viewing all the Student's registered Camps.
+     * 4. Viewing all the Camps available for Student's registration.
+     * 5. Logging out of the system.
+     * 
+     * Through the Camp Viewer, students can:
+     * 1. Register for Camps
+     * 2. Submit enquiries
+     * 3. Edit their submitted enquiries
+     * 4. View their submitted enquiries and replies.
+     * 
+     * @param authStudent The Student this menu belongs to.
+     * @param authUser The User reference of the Student object.
+     * @param allCamps All camps within the Camp Application System.
      */
     public static void studentInterface(Student authStudent, User authUser, List<Camp> allCamps){
         
@@ -22,8 +35,6 @@ public class StudentUI {
         sc.useDelimiter("\r\n");
 
         int studentChoice = 0;
-
-        //sc.nextInt();
 
         do {
             System.out.println("\n=====WELCOME STUDENT=====");
@@ -34,13 +45,12 @@ public class StudentUI {
             
             System.out.println(
             "(1) Change Password\r\n"
-            +"(2) Camp Committee\r\n"
+            +"(2) Enter Camp Committee Interface\r\n"
             +"(3) View your registered camps\r\n"       //can quit camp from here
             +"(4) View all available camps\r\n"         //can enquire about camps from here
             +"(5) Logout");    
 
         System.out.println("Please selection an action:");
-            //studentChoice = sc.nextInt();
             try{    //exception handling for non-integers and invalid selections
                 studentChoice = Integer.parseInt(sc.next());
                                     
@@ -109,24 +119,9 @@ public class StudentUI {
                     if (quitCampSelection == 0){        //doesn't want to quit anything
                         break;
                     }
-                    // else if (quitCampSelection <= registeredCamps.size()){      //chosen a camp to quit
-                    //     Camp quittingCamp = registeredCamps.get(quitCampSelection-1);
-                    //     if (authStudent instanceof CampCommittee){
-                    //         CampCommittee authCampCommitteeQuit = (CampCommittee) authStudent;
-                    //         if (quittingCamp.getCommitteeMembers().contains(authCampCommitteeQuit)){
-                    //             System.out.println("Camp Committee cannot quit camp!");         //if comm, cannot quit camp
-                    //         }                            
-                    //     }
-                    //     //commslots
-                    //     else{
-                            // authStudent.setWithdrawnCamps(quittingCamp);       //removes from enrolled camp + adds to withdrawn camps
-                        // }
-                    // }
-
+                
                     Camp quittingCamp = registeredCamps.get(quitCampSelection-1);
-                    // if (authStudent.setWithdrawnCamps(quittingCamp) == true){
-                    //     System.out.println("You have successfully withdrawn from " + quittingCamp.getCampName());
-                    // }
+                    
                     if (authStudent.getCampCommittee() == quittingCamp){
                         System.out.println("You cannot withdrawn from " + quittingCamp.getCampName() + " as you are a camp committee member.");
                     } 
@@ -147,10 +142,7 @@ public class StudentUI {
                         availCampCounter++;
                     }
                     System.out.println("(" + availCampCounter + ") Quit");
-                
-                    // boolean continueSelection = true;
-                
-                    // while (continueSelection) {
+
                         System.out.println("\nPlease select an action:\n"
                             + "(1) Register for a camp\n"
                             + "(2) Submit enquiry for a camp\n"
@@ -164,7 +156,6 @@ public class StudentUI {
                             throw new Exception("A valid selection was not made.");                    
                         }
 
-                        //int studentSelection = sc.nextInt();
                         sc.nextLine();  // Consume the rest of the line including newline
                 
                         switch (studentSelection) {
@@ -189,7 +180,6 @@ public class StudentUI {
                                 sc.nextLine();  // Consume the rest of the line including newline
                 
                                 if (campSelection == availCampCounter) {
-                                    // continueSelection = false;
                                     break;
                                 } else if (campSelection > 0 && campSelection < availCampCounter) {
                                     Camp campToSelect = availCamps.get(campSelection - 1);
@@ -199,7 +189,6 @@ public class StudentUI {
                                     int roleSelection = sc.nextInt();
                                     sc.nextLine(); // Consume newline
                                     String role = (roleSelection == 1) ? "attendee" : "committee";
-                                    // boolean registrationSuccess = authStudent.setEnrolledCamps(campToSelect);
 
                                     if (!authStudent.getWithdrawnCamps().contains(campToSelect)) {
                                         if (role == "attendee"){
@@ -311,24 +300,15 @@ public class StudentUI {
                                         throw new Exception("A valid selection was not made.");                    
                                     }
 
-                                    //editOrDeleteChoice = sc.nextInt();
-
                                     switch (editOrDeleteChoice) {
                                         case 1:
-                                    
-                                        //if (!enqChoice.replyStatus()){
                                             System.out.println("Previous enquiry: " + enqChoice.getEnquiryText());
                                             
                                             System.out.println("Enter edited enquiry: ");
                                             String editedEnq = sc.next();
                                             enqChoice.setEnquiryText(editedEnq);
                                             break;
-                                        // }
-                                        // else{
-                                        //     System.out.println("You cannot edit the enquiry after it has been processed!");
-                                        //     break;
-                                        // }
-
+                                        
                                         case 2:
                                             authStudent.deleteEnquiries(enqChoice);
                                             System.out.println("Enquiry successfully deleted.");
@@ -381,11 +361,8 @@ public class StudentUI {
                                         System.out.println(); // Print a blank line for better readability
                                     }
                                 }    
-                
-                
                             default:
                                 break;
-                        
                     }
                     break;
                     
@@ -399,6 +376,5 @@ public class StudentUI {
                 System.out.println(e.getMessage());                
             }   
         } while(studentChoice!=5);
-
     }
 }

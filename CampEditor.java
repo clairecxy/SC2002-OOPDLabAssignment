@@ -232,24 +232,29 @@ public class CampEditor {
                     break;
 
                 case 10:
-                    System.out.println("Please select visbility:\n"
-                    + "(1) Visible\n"
-                    + "(2) Hidden\n"
-                    + "(3) Quit");
+                    if (editCamp.getAttendees().isEmpty() && editCamp.getCommitteeMembers().isEmpty()){
+                        System.out.println("Please select visbility:\n"
+                        + "(1) Visible\n"
+                        + "(2) Hidden\n"
+                        + "(3) Quit");
 
-                    int visibilitySelection = sc.nextInt();
+                        int visibilitySelection = sc.nextInt();
 
-                    switch (visibilitySelection) {
-                        case 1:
-                            editCamp.setVisibility(true);
-                            System.out.println("Camp set as visible.");
-                            break;
-                        case 2:
-                            editCamp.setVisibility(false);
-                            System.out.println("Camp set as hidden.");
-                            break;
-                        default:
-                            break;
+                        switch (visibilitySelection) {
+                            case 1:
+                                editCamp.setVisibility(true);
+                                System.out.println("Camp set as visible.");
+                                break;
+                            case 2:
+                                editCamp.setVisibility(false);
+                                System.out.println("Camp set as hidden.");
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                    else{
+                        System.out.println("You are not allowed to change the visbility of your Camp once students have registered.");
                     }
                     break;
 
