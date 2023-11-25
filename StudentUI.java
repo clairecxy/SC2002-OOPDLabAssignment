@@ -70,7 +70,7 @@ public class StudentUI {
             try{    //exception handling for non-integers and invalid selections
                 studentChoice = Integer.parseInt(sc.next());
                                     
-                if(studentChoice >5 || studentChoice<1){
+                if(studentChoice >6 || studentChoice<1){
                     throw new Exception("A valid selection was not made.");                    
                 }
 
@@ -428,10 +428,12 @@ public class StudentUI {
                                 break;  
                             default:
                                 break;
-                    }
+                    }   
                     break;
                     
                 case 5:
+                int filterChoice = 0;
+                do{
                     System.out.println("Please select filter option:\n"
                     + "(1) Start date (Earliest to Latest)\n"
                     + "(2) Location (Alphabetical order)\n"
@@ -440,49 +442,51 @@ public class StudentUI {
                     + "(5) Quit");
 
                     List<Camp> visibleCamps = authStudent.getVisibleCamps(allCamps);
-                    int filterChoice = 0;
+                  
                     int visibleCampCounter = 1; 
                     
-                    try{    //exception handling for non-integers and invalid selections
+                        //exception handling for non-integers and invalid selections
                         filterChoice = Integer.parseInt(sc.next());
+                        //int filterChoice = sc.nextInt();
                                             
                         if(filterChoice >5 || filterChoice<1){
                             throw new Exception("A valid selection was not made.");                    
                         }
+                    
+                        switch (filterChoice) {    //these loop until Quit is selected
+                            case 1:
+                                break;
+                            case 2:
+                                Collections.sort(visibleCamps, campLocationComparator);
+                                for (Camp availCamp : visibleCamps) {
+                                    System.out.println("(" + visibleCampCounter + ") " + availCamp.getCampName());
+                                    System.out.println("    => Location: " + availCamp.getLocation());
+                                    visibleCampCounter++;
+                                }
+                                break;
+                            case 3:
+                                break;
+                            case 4:
+                                break;
 
-                    switch (filterChoice) {    //these loop until Quit is selected
-                        case 1:
-                            break;
-                        case 2:
-                            Collections.sort(visibleCamps, campLocationComparator);
-                            for (Camp availCamp : visibleCamps) {
-                                System.out.println("(" + visibleCampCounter + ") " + availCamp.getCampName());
-                                System.out.println("    => Location: " + availCamp.getLocation());
-                                visibleCampCounter++;
-                            }
-                            break;
-                        case 3:
-                            break;
-                        case 4:
-                            break;
+                        }
 
-                    } while (filterChoice<5);
-
-                    }catch (NumberFormatException f){
-                        System.out.println("Invalid input.");
-                    }
-
+                    }while (filterChoice<5); 
                     break;
-
+                
                 default:
                     break;
                 }
+            
+            
             }catch (NumberFormatException f){
                 System.out.println("Invalid input.");
             }
             catch (Exception e) {
                 System.out.println(e.getMessage());                
-            }   
-        } while(studentChoice!=5);
+            }
+           
+        } 
+        while(studentChoice!=6);
     }
 }
