@@ -1,9 +1,9 @@
 public interface ReportGenerator {
-    void generateReport(Camp reportingCamp);
+    public void generateReport(Camp reportingCamp);
     // void writeReportToFile(String report, String fileName);
-    String getGeneralReportDetails(Camp camp);
-    String getGeneralReportAttendees(Camp camp);
-    String getGeneralReportCampCommittee(Camp camp);
-    String getGeneralReport(Camp camp);
+    public String getGeneralReportDetails(Camp camp);
+    public String getGeneralReportAttendees(Camp camp);
+    public String getGeneralReportCampCommittee(Camp camp);
+    public String getGeneralReport(Camp camp);
     // String getPerformanceReport(Camp camp);
 }

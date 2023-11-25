@@ -115,7 +115,7 @@ public class Camp{
      */
     public Camp(String name, String start, String end, String endReg, String users, String locationStr, 
                 int slots, int commSlots, String desc, Staff staffIC){
-
+        
         setCampName(name);
         setStartDate(start);
         setEndDate(end);
@@ -136,6 +136,7 @@ public class Camp{
         this.enquiry = new ArrayList<>();      
 
         this.suggestion = new ArrayList<>();
+        
     }
 
     /**
@@ -238,6 +239,7 @@ public class Camp{
      * Gets the visibility status this Camp.
      * @return this Camp's visibility status.
      */
+
     public boolean getVisibility(){
         return this.visible;
     }
@@ -396,8 +398,10 @@ public class Camp{
         }
     }
 
-    public void deleteSuggestion(Suggestion suggesitons){
-        this.suggestion.remove(suggesitons);
+    public void deleteSuggestion(Suggestion suggestions){
+        this.suggestion.remove(suggestions);
     }
-    
+
 }
+
+

@@ -14,7 +14,7 @@ public class StaffUI {
         String formattedDate = dateFormat.format(currentDate);
         
         Scanner sc = new Scanner(System.in);
-        sc.useDelimiter("\n");
+        sc.useDelimiter("\r\n");
 
         int staffChoice = 0;
 

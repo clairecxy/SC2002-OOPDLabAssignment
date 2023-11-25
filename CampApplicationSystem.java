@@ -30,7 +30,7 @@ public class CampApplicationSystem {
         allUsers.addAll(staffList);
 
         Scanner sc = new Scanner(System.in);
-        sc.useDelimiter("\n");
+        sc.useDelimiter("\r\n");
         
         
             boolean loginSucc = false;

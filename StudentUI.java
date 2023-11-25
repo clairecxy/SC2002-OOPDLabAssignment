@@ -10,7 +10,7 @@ public class StudentUI {
     public static void studentInterface(Student authStudent, User authUser, List<Camp> allCamps){
         
         Scanner sc = new Scanner(System.in);
-        sc.useDelimiter("\n");
+        sc.useDelimiter("\r\n");
 
         int studentChoice = 0;
 
