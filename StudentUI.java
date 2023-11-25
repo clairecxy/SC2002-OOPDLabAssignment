@@ -440,6 +440,8 @@ public class StudentUI {
                     + "(5) Quit");
 
                     List<Camp> visibleCamps = authStudent.getVisibleCamps(allCamps);
+                    int filterChoice = 0;
+                    int visibleCampCounter = 1; 
 
                     try{    //exception handling for non-integers and invalid selections
                         filterChoice = Integer.parseInt(sc.next());
@@ -447,7 +449,6 @@ public class StudentUI {
                         if(filterChoice >5 || filterChoice<1){
                             throw new Exception("A valid selection was not made.");                    
                         }
-                    }
 
                     switch (filterChoice) {    //these loop until Quit is selected
                         case 1:
@@ -466,6 +467,11 @@ public class StudentUI {
                             break;
 
                     } while (filterChoice<5)
+
+                    }catch (NumberFormatException f){
+                        System.out.println("Invalid input.");
+                    }
+
                     break;
 
                 default:
