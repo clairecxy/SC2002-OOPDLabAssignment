@@ -34,14 +34,18 @@ public class Student extends User {
 
     /**
      * A flag indicating if a Student is a Camp Committee member for any Camp.
-     * The default value
+     * The default value is false to indicate that a Student is not a Camp Committee member for any Camp.
      */
     private boolean isCampCommittee = false;
 
     /**
-     * 
-     * @param userID
-     * @param faculty
+     * Creates a new Student with the given user ID and faculty.
+     * This Student contains lists for:
+     * 1. Enrolled Camps
+     * 2. Withdrawn Camps
+     * 3. Enquiries submited by this Student.
+     * @param userID This Student's user ID.
+     * @param faculty This Student's faculty.
      */
     public Student(String userID, String faculty) {
         super(userID, faculty);
@@ -50,6 +54,14 @@ public class Student extends User {
         enquiries = new ArrayList<>();
     }
 
+    /**
+     * Gets the Camps available to this Student.
+     * Filters all Camps within the system via:
+     * 1. Clashes with previously registered Camps
+     * 2. Whether a Camp is open to their User group.
+     * @param allCamps All Camps within the system.
+     * @return the list of Camps that are available to the Student.
+     */
     public List<Camp> getAvailableCamps(List<Camp> allCamps) {
         List<Camp> availableCamps = new ArrayList<>();
         
@@ -117,54 +129,86 @@ public class Student extends User {
         return availableCamps;
     }
 
+    /**
+     * Gets this Student's enrolled Camps.
+     * @return the list of Camps that this Student is enrolled in.
+     */
     public List<Camp> getEnrolledCamps() {
         return enrolledCamps;
     }
 
+    /**
+     * Gets this Student's withdrawn Camps.
+     * @return the list of Camps that this Student has withdrawn from.
+     */
     public List<Camp> getWithdrawnCamps() {
         return withdrawnCamps;
     }
 
+    /**
+     * Gets the Enquiries submitted by this Student.
+     * @return the list of Enquries submitted by the Student.
+     */
     public List<Enquiry> getEnquiries(){
         return enquiries;
     }
 
+    /**
+     * Gets the status of a Student being a Camp Committee member.
+     * true indicates that this Student is a Camp Committee member.
+     * false indicates that this Student is not a Camp Committee member.
+     * @return whether this Student is a Camp Committee member.
+     */
     public boolean isCampCommittee() {
         return this.isCampCommittee;
     }
 
+    /**
+     * Changes the flag of a Student being a Camp Committee member to true.
+     * Indicates that a Student is a Camp Committee member.
+     */
     public void setIsCampCommittee() {
         this.isCampCommittee = true;
     }
 
+    /**
+     * Gets the Camp this Student is a Camp Committee of.
+     * @return the Camp this Student is a Camp Committee of.
+     */
     public Camp getCampCommittee() {
         return this.campCommittee;
     }
 
+    /**
+     * Sets the Camp this Student is a Camp Committee of.
+     * @param camp the Camp this Student is a Camp Committee of
+     */
     public void setCampCommittee(Camp camp) {
         this.campCommittee = camp;
         return;
     }
 
+    /**
+     * Adds a Camp into the list of enrolled Camps of this Student.
+     * This student is only allowed to enroll in the Camp if they have not previously enrolled in the same Camp.
+     * @param camp the Camp that this Student has enrolled in.
+     * @return whether the Camp was successfully enrolled into.
+     */
     public boolean setEnrolledCamps(Camp camp) {
         if (withdrawnCamps.contains(camp)) {
             return false;
         } else {
             enrolledCamps.add(camp);
-            // if ("committee".equals(role)) {
-            //     this.isCampCommittee = true;
-            //     registerForCampAsCommittee(camp);
-            // }
             return true;
         }
     }
 
-    // private void registerForCampAsCommittee(Camp camp) {
-    //     // Logic to handle registration as a Camp Committee member
-    //     CampCommittee committeeMember = new CampCommittee(this.getUserID(), this.getFaculty(), camp);
-    //     camp.addCommitteeMembers(committeeMember); 
-    // }
-
+    /**
+     * Adds a Camp into the list of withdrawn Camps of this Student.
+     * A Student can only withdraw from the Camp if they are not a Camp Committee member of the Camp.
+     * @param camp the Camp that this Student has withdrawn from.
+     * @return whether the Camp was successfully withdrawn from.
+     */
     public boolean setWithdrawnCamps(Camp camp) {
         if (enrolledCamps.contains(camp)) {
             enrolledCamps.remove(camp);
@@ -175,6 +219,12 @@ public class Student extends User {
         }
     }
     
+    /**
+     * Submits a new Enquiry for a Camp that this Student is eligble to join.
+     * A new Enuiry object is created using the Enquiry text submitted by this Student for the Camp.
+     * @param camp the Camp this Student is enquiring for.
+     * @param enquiry the Enquiry text this Student is submitting to the Camp.
+     */
     public void submitEnquiry(Camp camp, String enquiry) {
         //make new enquiry object and set attributes
         Enquiry newEnquiry = new Enquiry();
@@ -185,6 +235,11 @@ public class Student extends User {
         this.enquiries.add(newEnquiry);
     }  
     
+    /**
+     * Gets a list of all Camps this Student is eligble for.
+     * @param allCamps the list of all Camps within the system.
+     * @return The list of Camps that the Student is eligible to join.
+     */
     public List<Camp> getVisibleCamps(List<Camp> allCamps) {
         List<Camp> visibleCamps = new ArrayList<>();
         
@@ -196,6 +251,11 @@ public class Student extends User {
         return visibleCamps;
     }
     
+    /**
+     * Deletes the enquiries for the Camp.
+     * The enquiry is removed from both the Camp's Enquiry list and this Student's list of submitted Enquiries.
+     * @param enquiry the Enquiry that this Student wishes to delete.
+     */
     public void deleteEnquiries(Enquiry enquiry) {
         this.enquiries.remove(enquiry);
         enquiry.getCamp().getAllEnquiries().remove(enquiry);
