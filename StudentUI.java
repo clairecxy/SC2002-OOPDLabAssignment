@@ -284,6 +284,13 @@ public class StudentUI {
                                 System.out.println("Available Camps: remaining slots");
 
                                 List<Camp> visibleCamps = authStudent.getVisibleCamps(allCamps);
+
+                                Collections.sort(visibleCamps, campNameComparator);
+
+                                if (authStudent.isCampCommittee()){
+                                    Camp campCommittee = authStudent.getCampCommittee();
+                                    visibleCamps.remove(campCommittee);
+                                }
                                 
                                 for (Camp availCamp : visibleCamps) {
                                     System.out.println("(" + visibleCampCounter + ") " + availCamp.getCampName() + " - Attendee Slots: " + availCamp.getRemainingSlots() + " | Camp Committee Slots: " + availCamp.getRemainingCommitteeSlots());
