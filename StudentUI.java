@@ -37,6 +37,10 @@ public class StudentUI {
         Scanner sc = new Scanner(System.in);
         sc.useDelimiter("\r\n");
 
+        Date currentDate = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        String formattedDate = dateFormat.format(currentDate);
+
         Comparator<Camp> campNameComparator = new Comparator<Camp>() {
             public int compare(Camp camp1, Camp camp2) {
                 return camp1.getCampName().compareTo(camp2.getCampName());
@@ -48,6 +52,29 @@ public class StudentUI {
                 return camp1.getLocation().compareTo(camp2.getLocation());
             }
         };
+
+        Comparator<Camp> campDateComparator = new Comparator<Camp>() {
+            public int compare(Camp camp1, Camp camp2) {
+                String camp1StartDate = camp1.getStartDate();
+                String camp2StartDate = camp2.getStartDate();
+                Date dateCamp1StartDate = dateFormat.parse(camp1StartDate);
+                Date dateCcamp2StartDate = dateFormat.parse(camp2StartDate);
+                return dateCamp1StartDate.compareTo(dateCamp2StartDate);
+            }
+        };
+
+        Comparator<Camp> campAttendeeComparator = new Comparator<Camp>() {
+            public int compare(Camp camp1, Camp camp2) {
+                return camp1.getTotalSlots().compareTo(camp2.getTotalSlots());
+            }
+        };
+
+        Comparator<Camp> campCampCommitteeComparator = new Comparator<Camp>() {
+            public int compare(Camp camp1, Camp camp2) {
+                return camp1.getCommitteeSlots().compareTo(camp2.getCommitteeSlots());
+            }
+        };
+
 
         int studentChoice = 0;
 
@@ -455,6 +482,12 @@ public class StudentUI {
                     
                         switch (filterChoice) {    //these loop until Quit is selected
                             case 1:
+                                Collections.sort(visibleCamps, campDateComparator);
+                                for (Camp availCamp : visibleCamps) {
+                                    System.out.println("(" + visibleCampCounter + ") " + availCamp.getCampName());
+                                    System.out.println("    => Start date: " + availCamp.getStartDate());
+                                    visibleCampCounter++;
+                                }
                                 break;
                             case 2:
                                 Collections.sort(visibleCamps, campLocationComparator);
@@ -465,8 +498,20 @@ public class StudentUI {
                                 }
                                 break;
                             case 3:
+                                Collections.sort(visibleCamps, campAttendeeComparator);
+                                for (Camp availCamp : visibleCamps) {
+                                    System.out.println("(" + visibleCampCounter + ") " + availCamp.getCampName());
+                                    System.out.println("    => Total attendee slots: " + availCamp.getTotalSlots());
+                                    visibleCampCounter++;
+                                }
                                 break;
                             case 4:
+                                Collections.sort(visibleCamps, campCampCommitteeComparator);
+                                for (Camp availCamp : visibleCamps) {
+                                    System.out.println("(" + visibleCampCounter + ") " + availCamp.getCampName());
+                                    System.out.println("    => Total camp cammittee slots: " + availCamp.getCommitteeSlots());
+                                    visibleCampCounter++;
+                                }
                                 break;
 
                         }
