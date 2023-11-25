@@ -53,15 +53,15 @@ public class CampEditor {
             
             switch (editFieldOption) {
                 case 1:
-                    String newcCampName;
+                    String newCampName;
                     boolean isCampNameValid = false;
                     do {
                         try {
                             System.out.println("Please enter Camp name:");
-                            newcCampName = sc.next();
+                            newCampName = sc.next();
                             
                             // Check if a camp with the same name already exists
-                            boolean campNameExists = allCamps.stream().anyMatch(camp -> camp.getCampName().equalsIgnoreCase(newcCampName));
+                            boolean campNameExists = allCamps.stream().anyMatch(camp -> camp.getCampName().equalsIgnoreCase(newCampName));
                             
                             if (campNameExists) {
                                 System.out.println("A camp with the same name already exists. Please enter a different name.");
