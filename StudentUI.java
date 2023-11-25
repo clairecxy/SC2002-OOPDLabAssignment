@@ -466,7 +466,7 @@ public class StudentUI {
                         case 4:
                             break;
 
-                    } while (filterChoice<5)
+                    } while (filterChoice<5);
 
                     }catch (NumberFormatException f){
                         System.out.println("Invalid input.");
