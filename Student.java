@@ -23,7 +23,7 @@ public class Student extends User {
     private List<Camp> withdrawnCamps;
 
     /**
-     * This Student's list Enquiries they have made for Camps available to them.
+     * This Student's list of Enquiries they have made for Camps available to them.
      */
     private List<Enquiry> enquiries;
 

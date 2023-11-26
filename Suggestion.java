@@ -5,10 +5,32 @@
  * @since 20/11/2023
  */
 public class Suggestion {
+    /**
+     * The Camp Committee member who submitted this Suggestion.
+     */
     private CampCommittee campCommittee;
+
+    /**
+     * The Camp this Suggestion is for.
+     */
     private Camp camp;
+
+    /**
+     * The text of this Suggestion.
+     */
     private String suggestionText;
+
+    /**
+     * Flag indicating whether this Suggestion was accepted by the Camp's Staff creator.
+     * The default valuse is false indicating that the Suggestion is not currently accepted.
+     */
     private boolean suggestionAccepted = false;
+
+    /**
+     * Flag indicating whether this Suggestion has been proccessed by the Camp's Staff creator.
+     * Suggestion is considered processed if it has been accepted or rejected by the Staff.
+     * The default valuse is false indicating that the Suggestion is not yet proccessed.
+     */
     private boolean suggestionProcessed = false;
 
     

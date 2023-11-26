@@ -6,10 +6,30 @@
  * @since 20/11/2023
  */
 public class Enquiry {
+    /**
+     * The Student who submitted this Enquiry.
+     */
     private Student student;
+
+    /**
+     * The Camp this Enquiry is enquiring about.
+     */
     private Camp camp;
+
+    /**
+     * The text of this Enquiry.
+     */
     private String enquiryText;
+
+    /**
+     * Flag indicating whether this Enquiry has been replied to.
+     * The default valuse is false indicating that the Enquiry has not been replied to.
+     */
     private boolean isReplied = false;
+
+    /**
+     * The text of the reply to this Enquiry.
+     */
     private String enquiryReply;
     
 
@@ -21,7 +41,6 @@ public class Enquiry {
     public void setStudent(Student student) {
         this.student = student;
     }
-
     
     /** 
      * Sets the Camp the Enquiry belongs to.
@@ -31,7 +50,6 @@ public class Enquiry {
         this.camp = camp;
     }
 
-    
     /** 
      * Sets the Enquiry's text.
      * @param enquiryText the Enquiry's text.
