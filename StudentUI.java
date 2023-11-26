@@ -179,6 +179,7 @@ public class StudentUI {
                         quittingCamp.removeAttendees(authStudent);
                         System.out.println("You have successfully withdrawn from " + quittingCamp.getCampName());
                     }
+                    break;
 
 
                 case 4:     // View all available camps
@@ -281,7 +282,7 @@ public class StudentUI {
                             case 2:
                                 
                                 System.out.println("\n=====CAMP DETAILS=====");
-                                System.out.println("Select camp to view detasils:");
+                                System.out.println("Select camp to view details:");
 
                                 System.out.println("Available Camps: remaining slots");
                                 int availCampCounter2 = 1;
