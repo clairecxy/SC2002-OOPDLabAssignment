@@ -28,13 +28,13 @@ public class Staff extends User {
     /**
      * A Camp created by the Staff with the given attributes.
      * @param name The Camp's name.
-     * @param start The Camp's startind date.
+     * @param start The Camp's starting date.
      * @param end The Camp's ending date.
      * @param endReg The Camp's registration deadline.
-     * @param users The User groups this Camp is open to.
+     * @param users The User groups the Camp is open to.
      * @param locationStr The Camp's location.
-     * @param slots The number of attendee slots this Camp has.
-     * @param commSlots The number of Camp Committee slots this Camp has.
+     * @param slots The number of attendee slots the Camp has.
+     * @param commSlots The number of Camp Committee slots the Camp has.
      * @param desc The Camp's description.
      * @param staffIC This Staff.
      * @return The created Camp.
@@ -53,12 +53,11 @@ public class Staff extends User {
      */
     public void deleteCamp(Camp camp) {
         this.createdCampsList.remove(camp);
-        //this.campApplicationSystem.remove(camp);
     }
 
     /**
-     * Gets the list of Camps created by the Staff.
-     * @return the list of Camps created by the Staff
+     * Gets the list of Camps created by this Staff.
+     * @return the list of Camps created by this Staff.
      */
     public List<Camp> viewAllCreatedCamps(){
         return this.createdCampsList;

@@ -5,7 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 /**
- * Represents a Report Generator for Staff in the system.
+ * Represents a Report Generator for Camp Committee members in the system.
  * @author Tan Hui Ling
  * @version 1.0
  * @since 20/11/2023

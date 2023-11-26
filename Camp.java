@@ -220,7 +220,7 @@ public class Camp{
     }
 
     /**
-     * Gets description of this Camp.
+     * Gets the description of this Camp.
      * @return this Camp's description.
      */
     public String getDescription(){
@@ -396,11 +396,11 @@ public class Camp{
     }
 
     /**
-     * Changes the visbiity of this Camp.
+     * Changes the visibility of this Camp.
      * true indicates this Camp will appear in the list of available Camps for members of this Camp's User groups.
      * false indicates this Camp will not appear in the list of available Camps for any Students.
      * This Camp's Staff is able to view the Camp regardless of its visibility.
-     * @param visibility the boolean of whether this Camp is visible to Students.
+     * @param visibility whether this Camp is visible to Students.
      */
     public void setVisibility(boolean visibility){
         if (!visibility){
@@ -420,7 +420,7 @@ public class Camp{
     }
 
     /**
-     * Adds a Camp Committee member submitted Suggestion to this Camp's list of Enquiries.
+     * Adds a Camp Committee member submitted Suggestion to this Camp's list of Suggestions.
      * @param suggest the new Suggestion for this Camp.
      */
     public void addSuggestion(Suggestion suggest){
@@ -474,7 +474,6 @@ public class Camp{
      * @param attendee the Student attendee to be removed.
      */
     public void removeAttendees(Student attendee){
-
         if (this.attendees.contains(attendee)){
             this.attendees.remove(attendee);
             this.remainingSlots++;
@@ -482,7 +481,7 @@ public class Camp{
     }
 
     /**
-     * Deletes a Suggestion from this Camp's suggestion list.
+     * Deletes a Suggestion from this Camp's Suggestion list.
      * @param suggestions the Suggestion to be deleted.
      */
     public void deleteSuggestion(Suggestion suggestions){

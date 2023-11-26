@@ -24,14 +24,14 @@ public class StudentUI {
      * 5. Logging out of the system.
      * 
      * Through the Camp Viewer, students can:
-     * 1. Register for Camps
-     * 2. Submit enquiries
-     * 3. Edit their submitted enquiries
+     * 1. Register for Camps.
+     * 2. Submit enquiries.
+     * 3. Edit their submitted enquiries.
      * 4. View their submitted enquiries and replies.
      * 
      * @param authStudent The Student this menu belongs to.
      * @param authUser The User reference of the Student object.
-     * @param allCamps All camps within the Camp Application System.
+     * @param allCamps All Camps within the Camp Application System.
      */
     public static void studentInterface(Student authStudent, User authUser, List<Camp> allCamps){
         

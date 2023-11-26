@@ -17,14 +17,14 @@ public class User {
     private String faculty;
     
     /**
-     * The password of this user. Default value is "password".
+     * The password of this User. Default value is "password".
      */
     private String password = "password";
 
     /** 
-     * Creates a new User with the respective user ID and faculty.
-     * @param userID The user's ID.
-     * @param faculty The user's faculty.
+     * Creates a new User with the given user ID and faculty.
+     * @param userID The User's ID.
+     * @param faculty The User's faculty.
     */
     public User(String userID, String faculty) {
         this.userID = userID;
@@ -32,48 +32,48 @@ public class User {
     }
 
     /**
-     * Gets the user ID of this user.
-     * @return this user's ID.
+     * Gets the user ID of this User.
+     * @return this User's ID.
      */
     public String getUserID() {
         return userID;
     }
 
     /**
-     * Edits the user's ID.
-     * @param userID this user's new ID.
+     * Changes the User's ID.
+     * @param userID this User's new ID.
      */
     public void setUserID(String userID) {
         this.userID = userID;
     }
 
     /**
-     * Gets the user's faculty.
-     * @return this user's faculty.
+     * Gets the User's faculty.
+     * @return this User's faculty.
      */
     public String getFaculty() {
         return faculty;
     }
 
     /**
-     * Changes the faculty of this user.
-     * @param faculty this user's new faculty.
+     * Changes the faculty of this User.
+     * @param faculty this User's new faculty.
      */
     public void setFaculty(String faculty) {
         this.faculty = faculty;
     }
 
     /**
-     * Gets the current password of this user.
-     * @return this user's current password.
+     * Gets the current password of this User.
+     * @return this User's current password.
      */
     public String getPassword() {
         return password;
     }
 
     /**
-     * Changes the password of this user.
-     * @param newPassword the new password of this user.
+     * Changes the password of this User.
+     * @param newPassword the new password of this User.
      */
     public void setPassword(String newPassword) {
         this.password = newPassword;

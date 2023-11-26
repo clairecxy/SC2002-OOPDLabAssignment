@@ -29,7 +29,7 @@ public class CampCommittee extends Student {
      * Creates a new Camp Committee with the given user ID and faculty.
      * The user ID and faculty is inheritied from the Student class.
      * @param userID this Camp Committee member's User ID.
-     * @param faculty this Camp Committee member faculty.
+     * @param faculty this Camp Committee member's faculty.
      * @param camp the Camp this Camp Committee member is part of.
      */
     public CampCommittee(String userID, String faculty, Camp camp) {
@@ -122,7 +122,7 @@ public class CampCommittee extends Student {
 
     /**
      * Deletes a Suggestion the Camp Committee member has posted.
-     * The Suggestion is removed from both the Camp's Suggestion list and this Camp Committee's list of submitted Enquiries.
+     * The Suggestion is removed from both the Camp's Suggestion list and this Camp Committee's list of submitted Suggestions.
      * @param suggestion the Suggestion that this Camp Committee member wishes to delete.
      */
     public void deleteSuggestions(Suggestion suggestion) {

@@ -20,11 +20,11 @@ public class StaffUI {
      * The user menus allows for:
      * 1. Changing of Password.
      * 2. Creating new camps.
-     * 3. Viewing this Staff's created camps.
+     * 3. Viewing the given Staff's created camps.
      * 4. Viewing all camps in the system.
      * 5. Filtering all camps by the order they are displayed in.
      * 
-     * Viewing Camps will allow this Staff to:
+     * Viewing Camps will allow the given Staff to:
      * 1. Edit their Camps.
      * 2, View and reply to enquiries for their Camps.
      * 3. View pending suggestions for their Camps.

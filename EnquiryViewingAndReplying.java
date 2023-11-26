@@ -93,7 +93,7 @@ public class EnquiryViewingAndReplying
     /**
      * Allows Users to reply to an Enquiry submitted by a Student for the Camp.
      * @param enquiry the Enquiry submitted by the Student.
-     * @param reply the reply to the submitted Enquiry.
+     * @param reply the reply to the given Enquiry.
      */
     public void replyEnquiry(Enquiry enquiry, String reply) {
         if (enquiry != null) {
