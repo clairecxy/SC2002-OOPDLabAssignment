@@ -15,7 +15,7 @@ public class EnquiryViewingAndReplying
     private Camp camp;
 
     /**
-     * The list of Enquiries of this Camp.
+     * The list of Enquiries of the given Camp.
      */
     private List<Enquiry> enquiryList;
 

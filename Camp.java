@@ -20,7 +20,7 @@ public class Camp{
     private String startDate;
 
     /**
-     * The ending date of the Camp.
+     * The ending date of this Camp.
      * The ending date is later than the starting date.
      */
     private String endDate;
@@ -75,18 +75,18 @@ public class Camp{
     /**
      * The visibility setting of this Camp.
      * true indicates eligible Students are able to see this Camp in their available camps.
-     * false indicates eligible Students are not able to see this Camp in their available camps.
+     * false indicates all Students are not able to see this Camp in their available camps.
      * Staff that created this Camp is able to view this Camp regardless of its visbility status.
      */
     private boolean visible = true;
 
     /**
-     * A list of Students representing attendees who signed up for this Camp.
+     * A list of Student attendees who signed up for this Camp.
      */
     private List<Student> attendees;
 
     /**
-     * A list of Students representing attendees who signed up for this Camp as Committee members.
+     * A list of attendees who signed up for this Camp as Committee members.
      */
     private List<CampCommittee> committeeMembers;
 
