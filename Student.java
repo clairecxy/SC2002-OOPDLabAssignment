@@ -58,7 +58,7 @@ public class Student extends User {
     /**
      * Gets the Camps available to this Student.
      * Filters all Camps within the system via:
-     * 1. Clashes with previously registered Camps
+     * 1. Date clashes with already registered Camps
      * 2. Whether a Camp is open to their User group.
      * @param allCamps All Camps within the system.
      * @return the list of Camps that are available to the Student.
@@ -131,7 +131,7 @@ public class Student extends User {
     }
 
     /**
-     * Gets this Student's enrolled Camps.
+     * Gets the list of this Student's enrolled Camps.
      * @return the list of Camps that this Student is enrolled in.
      */
     public List<Camp> getEnrolledCamps() {
@@ -139,7 +139,7 @@ public class Student extends User {
     }
 
     /**
-     * Gets this Student's withdrawn Camps.
+     * Gets the list of this Student's withdrawn Camps.
      * @return the list of Camps that this Student has withdrawn from.
      */
     public List<Camp> getWithdrawnCamps() {
@@ -147,7 +147,7 @@ public class Student extends User {
     }
 
     /**
-     * Gets the Enquiries submitted by this Student.
+     * Gets the list of Enquiries submitted by this Student.
      * @return the list of Enquries submitted by the Student.
      */
     public List<Enquiry> getEnquiries(){
@@ -155,7 +155,7 @@ public class Student extends User {
     }
 
     /**
-     * Gets the status of a Student being a Camp Committee member.
+     * Gets the status of a Student being a Camp Committee member for any Camp.
      * true indicates that this Student is a Camp Committee member.
      * false indicates that this Student is not a Camp Committee member.
      * @return whether this Student is a Camp Committee member.
@@ -182,7 +182,7 @@ public class Student extends User {
 
     /**
      * Sets the Camp this Student is a Camp Committee of.
-     * @param camp the Camp this Student is a Camp Committee of
+     * @param camp the Camp this Student is a Camp Committee of.
      */
     public void setCampCommittee(Camp camp) {
         this.campCommittee = camp;
@@ -205,7 +205,8 @@ public class Student extends User {
     }
 
     /**
-     * Adds a Camp into the list of withdrawn Camps of this Student.
+     * Withdraws a Student from the given Camp.
+     * The given Camp is added into the list of withdrawn Camps of this Student.
      * A Student can only withdraw from the Camp if they are not a Camp Committee member of the Camp.
      * @param camp the Camp that this Student has withdrawn from.
      * @return whether the Camp was successfully withdrawn from.
@@ -237,7 +238,7 @@ public class Student extends User {
     }  
     
     /**
-     * Gets a list of all Camps this Student is eligble for.
+     * Gets a list of all Camps this Student is eligble to join.
      * @param allCamps the list of all Camps within the system.
      * @return The list of Camps that the Student is eligible to join.
      */
@@ -253,7 +254,7 @@ public class Student extends User {
     }
     
     /**
-     * Deletes the enquiries for the Camp.
+     * Deletes the given enquiry for the Camp.
      * The enquiry is removed from both the Camp's Enquiry list and this Student's list of submitted Enquiries.
      * @param enquiry the Enquiry that this Student wishes to delete.
      */

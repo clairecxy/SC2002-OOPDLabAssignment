@@ -6,7 +6,7 @@ import java.text.ParseException;
 import java.util.InputMismatchException;
 
 /**
- * Represents an editor to edit or delete a Camp in the system for use by Staff.
+ * Represents an editor for use by Staff to edit or delete a Camp they have created.
  * @author Claire Chu Xinyi
  * @version 1.0
  * @since 20/11/2023
@@ -20,6 +20,7 @@ public class CampEditor {
 
     /**
      * Displays attributes of the Camp that can be edited.
+     * Users can choose to delete Camps.
      * Attributes of Camps that can be edited are:
      * 1. Camp Name
      * 2. Start dates
@@ -31,7 +32,6 @@ public class CampEditor {
      * 8. The number of Camp Committee slots
      * 9. The Camp's description
      * 10. The Camp's visibility
-     * Users can choose to delete Camps.
      * @param editCampIndex the index of the selected Camp in the list of Camps created by the Staff.
      * @param createdCamps the list of Camps created by the Staff.
      * @param allCamps the list of all Camps in the system.

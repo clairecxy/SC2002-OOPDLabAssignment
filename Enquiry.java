@@ -90,8 +90,8 @@ public class Enquiry {
 
     /** 
      * Returns the reply result of the Enquiry by the Student.
-     * true indicates Enquiry's acceptance.
-     * false indicates Enquiry's rejection.
+     * true indicates Enquiry has been replied to.
+     * false indicates Enquiry has not been replied to.
      * @return the Enquiry's reply status.
      */
     public boolean replyStatus(){

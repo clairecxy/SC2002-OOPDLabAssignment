@@ -15,7 +15,7 @@ public class CampCommitteeUI {
      * 1. Viewing details of the Camp.
      * 2. Submiting Suggestions for the Camp.
      * 3. Editing or deleting Suggestions.
-     * 4. Viewing and replying to enquiries.
+     * 4. Viewing and replying to Enquiries.
      * 5. Generating reports of the Camp.
      * 6. Viewing the Camp Committee member's own points.
      * @param authCampCommittee The Camp Committee member this menu belongs to.

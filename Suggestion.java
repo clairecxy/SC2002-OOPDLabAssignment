@@ -1,5 +1,5 @@
 /**
- * Represents a Suggestion submitted by a Camp Committee Member for a Camp.
+ * Represents a Suggestion submitted by a Camp Committee member for a Camp.
  * @author Tan Hui Ling
  * @version 1.0
  * @since 20/11/2023
@@ -57,7 +57,7 @@ public class Suggestion {
     
     /** 
      * Gets the Camp the Suggestion is for.
-     * @return the Suggestion's camp.
+     * @return the Suggestion's Camp.
      */
     public Camp getCamp() {
         return camp;
@@ -82,16 +82,15 @@ public class Suggestion {
     }
 
     /** 
-     * Changes teh processed status of the Suggestion.
-     * Processed status is changed from false to true.
-     * Suggestion is processed if by the Staff it has been accepted or rejected.
+     * Changes the processed status of the Suggestion from false to true.
+     * Suggestion is considered processed if it has been accepted or rejected by the Staff.
      */
     public void suggProcessed(){
         this.suggestionProcessed = true;
     }
 
     /** 
-     * Indicates if the Suggestion has been proccessed by the Staff.
+     * Returns whether the Suggestion has been proccessed by the Staff.
      * Acceptance or rejection by the Staff reflects that it has been processed.
      * @return the Suggestion's procession status.
      */
